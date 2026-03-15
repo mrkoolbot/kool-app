@@ -1,3 +1,4 @@
+import { KoolLogo } from "@/components/kool-logo";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
@@ -48,7 +49,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <Link href="/" className="text-xl font-black tracking-tight text-kool-black">
-          kool<span className="text-kool-red text-[0.5em] align-middle">♥</span>
+          <KoolLogo />
         </Link>
       </header>
 

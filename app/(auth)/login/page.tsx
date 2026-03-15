@@ -1,4 +1,6 @@
 "use client";
+import { KoolLogo } from "@/components/kool-logo";
+
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -29,7 +31,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
         <Link href="/" className="block text-center text-2xl font-black tracking-tight text-kool-black mb-10">
-          kool<span className="text-kool-red text-[0.5em] align-middle">♥</span>
+          <KoolLogo />
         </Link>
         <h1 className="text-2xl font-black mb-2">welcome back.</h1>
         <p className="text-gray-500 text-sm mb-8">log in to continue planning.</p>

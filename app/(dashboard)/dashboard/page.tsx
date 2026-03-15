@@ -1,3 +1,4 @@
+import { KoolLogo } from "@/components/kool-logo";
 import Link from "next/link";
 import { Plus, Calendar, Users, CheckSquare, ArrowRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
@@ -21,7 +22,7 @@ export default async function DashboardPage() {
       {/* Header */}
       <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-xl font-black tracking-tight text-kool-black">
-          kool<span className="text-kool-red text-[0.5em] align-middle">♥</span>
+          <KoolLogo />
         </Link>
         <div className="flex items-center gap-4">
           {profile?.plan === "free" && (

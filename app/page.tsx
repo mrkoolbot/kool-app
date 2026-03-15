@@ -1,3 +1,4 @@
+import { KoolLogo } from "@/components/kool-logo";
 import Link from "next/link";
 import { Calendar, CheckSquare, Users, DollarSign, Clock, Star, ArrowRight } from "lucide-react";
 
@@ -46,7 +47,7 @@ export default function LandingPage() {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-black tracking-tight text-kool-black">
-          kool<span className="text-kool-red text-[0.5em] align-middle">♥</span>
+          <KoolLogo />
         </Link>
         <div className="hidden md:flex items-center gap-8 text-sm text-gray-600">
           <Link href="/pricing" className="hover:text-kool-red transition-colors">pricing</Link>
@@ -257,7 +258,7 @@ export default function LandingPage() {
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
             <Link href="/" className="text-xl font-black tracking-tight text-kool-black">
-              kool<span className="text-kool-red text-[0.5em] align-middle">♥</span>
+              <KoolLogo />
             </Link>
             <p className="text-gray-400 text-xs mt-1">event planning by paula mescolin · the koolture group</p>
           </div>
