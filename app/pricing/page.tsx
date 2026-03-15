@@ -94,7 +94,7 @@ export default function PricingPage() {
           <p className="text-kool-red text-xs font-bold tracking-[0.3em] uppercase mb-4">for high-stakes events</p>
           <h2 className="text-3xl font-black mb-4">some events need more than a tool.</h2>
           <p className="text-white/60 mb-8 max-w-xl mx-auto">
-            for corporate summits, executive galas, quinceañeras, and once-in-a-lifetime celebrations —
+            for corporate events, galas, and once-in-a-lifetime celebrations —
             paula mescolin and the koolture group handle everything. strategy, production, day-of execution.
           </p>
           <Link href="https://www.thekoolturegroup.com/contact" target="_blank"
