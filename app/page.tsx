@@ -51,7 +51,7 @@ export default function LandingPage() {
         </Link>
         <div className="hidden md:flex items-center gap-8 text-sm text-gray-600">
           <Link href="/pricing" className="hover:text-kool-red transition-colors">pricing</Link>
-          <Link href="https://www.thekoolturegroup.com" target="_blank" className="hover:text-kool-red transition-colors">the koolture group</Link>
+          <Link href="https://thekoolturegroup.com" target="_blank" className="hover:text-kool-red transition-colors">the koolture group</Link>
         </div>
         <div className="flex items-center gap-3">
           <Link href="/login" className="text-sm text-gray-600 hover:text-kool-black transition-colors">log in</Link>
@@ -236,14 +236,14 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="https://www.thekoolturegroup.com/contact"
+              href="https://thekoolturegroup.com/contact"
               target="_blank"
               className="w-full sm:w-auto bg-kool-red text-white px-10 py-5 rounded-sm font-bold text-lg hover:bg-kool-crimson transition-colors inline-flex items-center justify-center gap-2"
             >
               hire the koolture group <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
-              href="https://www.thekoolturegroup.com"
+              href="https://thekoolturegroup.com"
               target="_blank"
               className="w-full sm:w-auto border border-white/20 text-white px-10 py-5 rounded-sm font-semibold text-lg hover:border-white transition-colors inline-flex items-center justify-center"
             >
@@ -266,7 +266,7 @@ export default function LandingPage() {
             <Link href="/pricing" className="hover:text-kool-black transition-colors">pricing</Link>
             <Link href="/login" className="hover:text-kool-black transition-colors">log in</Link>
             <Link href="/signup" className="hover:text-kool-black transition-colors">sign up</Link>
-            <Link href="https://www.thekoolturegroup.com" target="_blank" className="hover:text-kool-black transition-colors">the koolture group</Link>
+            <Link href="https://thekoolturegroup.com" target="_blank" className="hover:text-kool-black transition-colors">the koolture group</Link>
           </div>
         </div>
       </footer>

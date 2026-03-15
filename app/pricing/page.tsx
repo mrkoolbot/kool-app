@@ -97,7 +97,7 @@ export default function PricingPage() {
             for corporate events, galas, and once-in-a-lifetime celebrations —
             paula mescolin and the koolture group handle everything. strategy, production, day-of execution.
           </p>
-          <Link href="https://www.thekoolturegroup.com/contact" target="_blank"
+          <Link href="https://thekoolturegroup.com/contact" target="_blank"
             className="inline-flex items-center gap-2 bg-kool-red text-white px-8 py-4 rounded-sm font-bold hover:bg-kool-crimson transition-colors">
             hire the koolture group <ArrowRight className="w-4 h-4" />
           </Link>

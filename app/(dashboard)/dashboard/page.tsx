@@ -129,7 +129,7 @@ export default async function DashboardPage() {
             <p className="text-white/60 text-sm">paula mescolin and the TKG team handle everything — from strategy to day-of production.</p>
           </div>
           <Link
-            href="https://www.thekoolturegroup.com/contact"
+            href="https://thekoolturegroup.com/contact"
             target="_blank"
             className="shrink-0 bg-kool-red text-white px-6 py-3 rounded-sm font-bold hover:bg-kool-crimson transition-colors inline-flex items-center gap-2"
           >

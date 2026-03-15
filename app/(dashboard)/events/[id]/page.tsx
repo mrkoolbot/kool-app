@@ -164,7 +164,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             <p className="font-bold">want TKG to take this event to the next level?</p>
             <p className="text-white/50 text-sm mt-0.5">full event production, vendor management, day-of coordination.</p>
           </div>
-          <Link href="https://www.thekoolturegroup.com/contact" target="_blank"
+          <Link href="https://thekoolturegroup.com/contact" target="_blank"
             className="shrink-0 bg-kool-red text-white px-5 py-2.5 rounded-sm font-bold text-sm hover:bg-kool-crimson transition-colors inline-flex items-center gap-2">
             book a call <ArrowRight className="w-3.5 h-3.5" />
           </Link>
