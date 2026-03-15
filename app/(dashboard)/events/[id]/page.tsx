@@ -48,7 +48,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <Link href="/" className="text-xl font-black tracking-tight text-kool-black">
-          kool<span className="text-kool-red">♥</span>
+          kool<span className="text-kool-red text-[0.5em] align-middle">♥</span>
         </Link>
       </header>
 

@@ -33,7 +33,7 @@ export default function PricingPage() {
   return (
     <main className="min-h-screen bg-white">
       <nav className="border-b border-gray-100 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-xl font-black tracking-tight">kool<span className="text-kool-red">♥</span></Link>
+        <Link href="/" className="text-xl font-black tracking-tight">kool<span className="text-kool-red text-[0.5em] align-middle">♥</span></Link>
         <Link href="/login" className="text-sm text-gray-500 hover:text-kool-black">log in</Link>
       </nav>
 
