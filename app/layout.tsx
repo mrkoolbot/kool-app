@@ -1,19 +1,39 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const galanoGrotesque = localFont({
+  src: [
+    {
+      path: "../public/fonts/GalanoGrotesque-Medium.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/GalanoGrotesque-MediumItalic.otf",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/GalanoGrotesque-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-galano",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
-    default: "KOOL — event planning by paula mescolin",
-    template: "%s | KOOL",
+    default: "kool — event planning by paula mescolin",
+    template: "%s | kool",
   },
   description:
     "the smartest way to plan your event. built by paula mescolin — brand strategist, six sigma certified event producer, and founder of the koolture group.",
   openGraph: {
     type: "website",
-    siteName: "KOOL",
+    siteName: "kool",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
   },
 };
@@ -25,7 +45,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${galanoGrotesque.variable} font-galano`}>{children}</body>
     </html>
   );
 }

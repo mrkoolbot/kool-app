@@ -34,7 +34,7 @@ export default function SignupPage() {
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
         <Link href="/" className="block text-center text-2xl font-black tracking-tight text-kool-black mb-10">
-          kool<span className="text-kool-red">.</span>
+          kool<span className="text-kool-red">♥</span>
         </Link>
         <h1 className="text-2xl font-black mb-2">create your account.</h1>
         <p className="text-gray-500 text-sm mb-8">free forever for up to 25 guests.</p>
