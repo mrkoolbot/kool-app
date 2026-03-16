@@ -45,13 +45,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        {/* Ready Player Me — model-viewer web component for 3D avatars */}
-        <script
-          type="module"
-          src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"
-        />
-      </head>
+
       <body className={`${galanoGrotesque.variable} font-galano`}>{children}</body>
     </html>
   );
