@@ -100,29 +100,43 @@ export function PaulaWelcomeCard({ name }: { name?: string }) {
   const [msgIndex, setMsgIndex] = useState(0);
 
   return (
-    <div className="bg-white border border-gray-100 rounded-sm p-5 flex items-start gap-4">
-      <div
-        className="relative w-14 h-14 rounded-full overflow-hidden ring-2 ring-kool-red ring-offset-2 shrink-0"
-        style={{ animation: "float 4s ease-in-out infinite" }}
-      >
-        <Image src="/paula-avatar-hq.jpg" alt="Paula Mescolin" fill className="object-cover object-top" />
-        <style jsx global>{`
-          @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
+    <div style={{
+      background: "#fff", border: "1px solid #f3f4f6", borderRadius: 4,
+      padding: "20px", display: "flex", alignItems: "center", gap: 16,
+    }}>
+      {/* Avatar */}
+      <div style={{ position: "relative", flexShrink: 0 }}>
+        <div style={{
+          width: 64, height: 64, borderRadius: "50%", overflow: "hidden",
+          border: "2px solid #eb1e00", outline: "3px solid rgba(235,30,0,0.15)",
+          animation: "paulaFloat 4s ease-in-out infinite",
+        }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/paula-avatar-hq.jpg"
+            alt="Paula Mescolin"
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+          />
+        </div>
+        <style>{`
+          @keyframes paulaFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
           }
         `}</style>
       </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-xs font-bold text-kool-red tracking-wide mb-1">paula mescolin · founder, the koolture group</p>
+      {/* Message */}
+      <div style={{ flex: 1 }}>
+        <p style={{ fontSize: 11, fontWeight: 700, color: "#eb1e00", letterSpacing: "0.1em", marginBottom: 6 }}>
+          paula mescolin · founder, the koolture group
+        </p>
         <p
-          className="text-sm text-gray-700 leading-relaxed cursor-pointer hover:text-kool-black transition-colors"
+          style={{ fontSize: 13, color: "#374151", lineHeight: 1.6, cursor: "pointer" }}
           onClick={() => setMsgIndex((i) => (i + 1) % MESSAGES.length)}
-          title="tap for more"
         >
           {name ? `hey ${name}! ` : ""}{MESSAGES[msgIndex]}
         </p>
-        <p className="text-xs text-gray-300 mt-1">tap to read more ↻</p>
+        <p style={{ fontSize: 11, color: "#d1d5db", marginTop: 4 }}>tap to read more ↻</p>
       </div>
     </div>
   );
