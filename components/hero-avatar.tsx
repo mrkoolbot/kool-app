@@ -21,7 +21,7 @@ export function HeroAvatar() {
         <img
           src="/paula-avatar-3d.jpg"
           alt="Paula Mescolin"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 20%" }}
         />
       </div>
       <div style={{

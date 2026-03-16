@@ -71,7 +71,7 @@ export default function LandingPage() {
         {/* Paula avatar — hero */}
         <HeroAvatar />
 
-        <p className="text-kool-red text-xs font-bold tracking-[0.3em] uppercase mb-6">
+        <p className="text-kool-red text-xs font-bold tracking-[0.3em] mb-6">
           event planning by paula mescolin
         </p>
         <h1 className="text-5xl md:text-7xl font-black text-kool-black leading-[0.95] mb-8 tracking-tight">
@@ -115,7 +115,7 @@ export default function LandingPage() {
 
       {/* How it works */}
       <section className="py-24 px-6 max-w-5xl mx-auto">
-        <p className="text-kool-red text-xs font-bold tracking-[0.3em] uppercase text-center mb-4">how it works</p>
+        <p className="text-kool-red text-xs font-bold tracking-[0.3em] text-center mb-4">how it works</p>
         <h2 className="text-4xl md:text-5xl font-black text-center mb-16 tracking-tight">
           from idea to unforgettable<br />in three steps.
         </h2>
@@ -149,7 +149,7 @@ export default function LandingPage() {
       {/* Features */}
       <section className="py-24 px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
-          <p className="text-kool-red text-xs font-bold tracking-[0.3em] uppercase text-center mb-4">features</p>
+          <p className="text-kool-red text-xs font-bold tracking-[0.3em] text-center mb-4">features</p>
           <h2 className="text-4xl md:text-5xl font-black text-center mb-16 tracking-tight">
             everything your event needs.<br />nothing it doesn&apos;t.
           </h2>
@@ -167,7 +167,7 @@ export default function LandingPage() {
 
       {/* Free vs Premium preview */}
       <section className="py-24 px-6 max-w-4xl mx-auto">
-        <p className="text-kool-red text-xs font-bold tracking-[0.3em] uppercase text-center mb-4">pricing</p>
+        <p className="text-kool-red text-xs font-bold tracking-[0.3em] text-center mb-4">pricing</p>
         <h2 className="text-4xl md:text-5xl font-black text-center mb-4 tracking-tight">start free. go premium when ready.</h2>
         <p className="text-gray-500 text-center mb-16">free forever for intimate events · premium unlocks everything</p>
         <div className="grid md:grid-cols-2 gap-6">
@@ -226,7 +226,7 @@ export default function LandingPage() {
       {/* TKG FOMO Section */}
       <section className="py-24 px-6 bg-kool-black text-white">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-kool-red text-xs font-bold tracking-[0.3em] uppercase mb-6">for the events that matter most</p>
+          <p className="text-kool-red text-xs font-bold tracking-[0.3em] mb-6">for the events that matter most</p>
           <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tight">
             your event deserves more<br />than a planning tool.
           </h2>
