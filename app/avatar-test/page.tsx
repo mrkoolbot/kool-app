@@ -33,7 +33,7 @@ export default function AvatarTest() {
             animation: "floatUp 4s ease-in-out infinite",
           }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/paula-avatar-cartoon-nobg.png" alt="cartoon" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 15%" }} />
+            <img src="/paula-avatar-headshot.jpg" alt="cartoon" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 15%" }} />
           </div>
           <div style={{ background: "#fff", border: "1px solid #eee", borderRadius: "12px 12px 12px 4px", padding: "10px 14px", maxWidth: 200, textAlign: "left", boxShadow: "0 4px 12px rgba(0,0,0,0.06)" }}>
             <p style={{ fontSize: 12, color: "#231f20", margin: 0 }}>"i built kool because i needed it."</p>

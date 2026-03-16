@@ -235,7 +235,7 @@ export default function LandingPage() {
             <div className="relative">
               <div className="w-28 h-28 rounded-full overflow-hidden ring-4 ring-kool-red ring-offset-4 ring-offset-kool-black animate-float">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/paula-avatar-3d.jpg" alt="Paula Mescolin" className="w-full h-full object-cover object-top" />
+                <img src="/paula-avatar-headshot.jpg" alt="Paula Mescolin" className="w-full h-full object-cover object-top" />
               </div>
               <div className="absolute inset-0 rounded-full ring-4 ring-kool-red opacity-30 animate-pulse-out" />
             </div>

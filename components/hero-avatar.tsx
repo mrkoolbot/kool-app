@@ -19,9 +19,9 @@ export function HeroAvatar() {
       }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/paula-avatar-3d.jpg"
+          src="/paula-avatar-headshot.jpg"
           alt="Paula Mescolin"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 20%" }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 10%" }}
         />
       </div>
       <div style={{
