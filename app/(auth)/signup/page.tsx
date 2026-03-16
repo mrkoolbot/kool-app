@@ -12,6 +12,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
   const router = useRouter();
   const supabase = createClient();
 
@@ -19,17 +20,44 @@ export default function SignupPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { full_name: fullName } },
+      options: {
+        data: { full_name: fullName },
+        emailRedirectTo: "https://kool-app.vercel.app/auth/callback",
+      },
     });
     if (error) {
       setError(error.message);
       setLoading(false);
-    } else {
+    } else if (data.session) {
+      // Email confirmation disabled — go straight to dashboard
       router.push("/dashboard");
+    } else {
+      // Email confirmation required
+      setEmailSent(true);
+      setLoading(false);
     }
+  }
+
+  if (emailSent) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center px-6">
+        <div className="w-full max-w-sm text-center">
+          <Link href="/" className="block text-center text-2xl font-black tracking-tight text-kool-black mb-10">
+            <KoolLogo />
+          </Link>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>📬</div>
+          <h1 className="text-2xl font-black mb-3">check your email.</h1>
+          <p className="text-gray-500 text-sm mb-6">
+            we sent a confirmation link to <strong>{email}</strong>.<br />
+            click it to activate your account and get started.
+          </p>
+          <p className="text-xs text-gray-400">didn't get it? check your spam folder.</p>
+        </div>
+      </div>
+    );
   }
 
   return (
