@@ -1,4 +1,5 @@
 import { KoolLogo } from "@/components/kool-logo";
+import { PaulaAvatar } from "@/components/paula-avatar";
 import Link from "next/link";
 import { Calendar, CheckSquare, Users, DollarSign, Clock, Star, ArrowRight } from "lucide-react";
 
@@ -225,6 +226,9 @@ export default function LandingPage() {
           <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tight">
             your event deserves more<br />than a planning tool.
           </h2>
+          <div className="flex justify-center mb-8">
+            <PaulaAvatar size="xl" showMessage={true} message="i built kool because i needed it. 20 years of events taught me what works." />
+          </div>
           <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
             KOOL was built by paula mescolin — brand strategist, six sigma-certified event producer,
             and founder of the koolture group. 20 years of enterprise brand strategy.
