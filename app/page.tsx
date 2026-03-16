@@ -226,9 +226,23 @@ export default function LandingPage() {
           <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tight">
             your event deserves more<br />than a planning tool.
           </h2>
-          <div className="flex justify-center mb-8">
-            <PaulaAvatar size="xl" showMessage={true} message="i built kool because i needed it. 20 years of events taught me what works." />
+          {/* Paula animated avatar */}
+          <div className="flex flex-col items-center gap-4 mb-10">
+            <div className="relative">
+              <div className="w-28 h-28 rounded-full overflow-hidden ring-4 ring-kool-red ring-offset-4 ring-offset-kool-black animate-float">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/paula-avatar-hq.jpg" alt="Paula Mescolin" className="w-full h-full object-cover object-top" />
+              </div>
+              <div className="absolute inset-0 rounded-full ring-4 ring-kool-red opacity-30 animate-pulse-out" />
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl rounded-tl-sm px-5 py-3 max-w-xs text-center">
+              <p className="text-white text-sm font-medium leading-relaxed">
+                "i built kool because i needed it. 20 years of events taught me what works."
+              </p>
+              <p className="text-kool-red text-xs font-bold mt-2">— paula mescolin, founder</p>
+            </div>
           </div>
+
           <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
             KOOL was built by paula mescolin — brand strategist, six sigma-certified event producer,
             and founder of the koolture group. 20 years of enterprise brand strategy.

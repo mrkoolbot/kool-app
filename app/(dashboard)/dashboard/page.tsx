@@ -1,5 +1,5 @@
 import { KoolLogo } from "@/components/kool-logo";
-import { RPMWelcomeCard } from "@/components/rpm-avatar";
+import { PaulaWelcomeCard } from "@/components/paula-avatar";
 import Link from "next/link";
 import { Plus, Calendar, Users, CheckSquare, ArrowRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
@@ -43,7 +43,7 @@ export default async function DashboardPage() {
       <main className="max-w-5xl mx-auto px-6 py-10">
         {/* Paula welcome card */}
         <div className="mb-8">
-          <RPMWelcomeCard name={firstName} />
+          <PaulaWelcomeCard name={firstName} />
         </div>
 
         {/* Welcome */}
