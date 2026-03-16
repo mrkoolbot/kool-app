@@ -61,7 +61,7 @@ export function PaulaAvatar({
         onMouseLeave={() => setHovered(false)}
       >
         <Image
-          src="/paula-avatar-hq.jpg"
+          src="/paula-avatar-3d.jpg"
           alt="Paula Mescolin — founder, the koolture group"
           fill
           className="object-cover object-top"
@@ -113,7 +113,7 @@ export function PaulaWelcomeCard({ name }: { name?: string }) {
         }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/paula-avatar-hq.jpg"
+            src="/paula-avatar-3d.jpg"
             alt="Paula Mescolin"
             style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
           />
