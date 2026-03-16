@@ -19,64 +19,70 @@ export function HeroAvatar() {
         }
         .hero-avatar-float { animation: floatUp 4s ease-in-out infinite; }
         @keyframes pulseRing {
-          0% { transform: scale(1); opacity: 0.5; }
-          100% { transform: scale(1.35); opacity: 0; }
+          0% { transform: scale(1); opacity: 0.4; }
+          100% { transform: scale(1.4); opacity: 0; }
         }
-        .hero-pulse-ring { animation: pulseRing 2s ease-out infinite; }
+        .hero-pulse-ring { animation: pulseRing 2.5s ease-out infinite; }
       `}</style>
 
-      {/* Talking video avatar */}
-      <div className="hero-avatar-float" style={{ position: "relative", cursor: "pointer" }} onClick={handlePlay}>
-        {/* Pulse ring */}
-        {!playing && (
-          <div className="hero-pulse-ring" style={{
-            position: "absolute", inset: -6, borderRadius: "50%",
-            border: "2px solid #eb1e00", pointerEvents: "none",
-          }} />
-        )}
-        {/* Circle video */}
+      {/* Floating headshot circle */}
+      <div className="hero-avatar-float" style={{ position: "relative", marginBottom: 16 }}>
+        <div className="hero-pulse-ring" style={{
+          position: "absolute", inset: -8, borderRadius: "50%",
+          border: "2px solid #eb1e00", pointerEvents: "none",
+        }} />
         <div style={{
-          width: 110, height: 110, borderRadius: "50%", overflow: "hidden",
+          width: 100, height: 100, borderRadius: "50%", overflow: "hidden",
           border: "3px solid #eb1e00", boxShadow: "0 0 0 5px rgba(235,30,0,0.12)",
-          position: "relative", background: "#111",
         }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/paula-avatar-headshot.jpg"
+            alt="Paula Mescolin"
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 10%" }}
+          />
+        </div>
+      </div>
+
+      {/* Video card — proper dimensions */}
+      <div style={{
+        background: "#fff", border: "1px solid #f0f0f0", borderRadius: 12,
+        boxShadow: "0 8px 30px rgba(0,0,0,0.1)", overflow: "hidden",
+        width: 260, cursor: "pointer",
+      }} onClick={handlePlay}>
+        <div style={{ position: "relative", width: "100%", aspectRatio: "1/1", background: "#111" }}>
           <video
             ref={videoRef}
             src="/paula-welcome.mp4"
             playsInline
             onEnded={() => setPlaying(false)}
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 5%" }}
+            style={{ width: "100%", height: "100%", objectFit: "contain" }}
           />
-          {/* Play overlay */}
           {!playing && (
             <div style={{
-              position: "absolute", inset: 0, display: "flex", alignItems: "center",
-              justifyContent: "center", background: "rgba(0,0,0,0.35)",
+              position: "absolute", inset: 0, display: "flex", flexDirection: "column",
+              alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.4)",
             }}>
               <div style={{
-                width: 0, height: 0,
-                borderTop: "12px solid transparent",
-                borderBottom: "12px solid transparent",
-                borderLeft: "20px solid white",
-                marginLeft: 5,
-              }} />
+                width: 52, height: 52, borderRadius: "50%", background: "#eb1e00",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                boxShadow: "0 4px 20px rgba(235,30,0,0.4)",
+              }}>
+                <div style={{
+                  width: 0, height: 0,
+                  borderTop: "11px solid transparent",
+                  borderBottom: "11px solid transparent",
+                  borderLeft: "18px solid white",
+                  marginLeft: 4,
+                }} />
+              </div>
+              <p style={{ color: "white", fontSize: 12, marginTop: 10, fontWeight: 600 }}>hear from paula</p>
             </div>
           )}
         </div>
-      </div>
-
-      {/* Speech bubble */}
-      <div style={{
-        marginTop: 14, background: "#fff", border: "1px solid #f0f0f0",
-        borderRadius: "16px 16px 16px 4px", padding: "10px 16px",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.08)", maxWidth: 260, textAlign: "left",
-      }}>
-        <p style={{ fontSize: 12, color: "#231f20", margin: 0, lineHeight: 1.5 }}>
-          {playing ? "▶ playing..." : "▶ tap to hear from paula"}
-        </p>
-        <p style={{ fontSize: 11, color: "#eb1e00", fontWeight: 700, marginTop: 4 }}>
-          — paula mescolin, founder TKG
-        </p>
+        <div style={{ padding: "10px 14px" }}>
+          <p style={{ fontSize: 11, fontWeight: 700, color: "#eb1e00", margin: 0 }}>paula mescolin · founder, TKG</p>
+        </div>
       </div>
     </div>
   );
