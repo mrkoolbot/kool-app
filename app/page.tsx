@@ -1,5 +1,5 @@
 import { KoolLogo } from "@/components/kool-logo";
-import { HeroAvatar } from "@/components/hero-avatar";
+
 import Link from "next/link";
 import { Calendar, CheckSquare, Users, DollarSign, Clock, Star, ArrowRight } from "lucide-react";
 
@@ -67,9 +67,6 @@ export default function LandingPage() {
 
       {/* Hero */}
       <section className="pt-32 pb-24 px-6 max-w-6xl mx-auto text-center">
-
-        {/* Paula avatar — hero */}
-        <HeroAvatar />
 
         <p className="text-kool-red text-xs font-bold tracking-[0.3em] mb-6">
           event planning by paula mescolin
