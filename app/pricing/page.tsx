@@ -1,5 +1,6 @@
 "use client"
 import { KoolLogo } from "@/components/kool-logo";
+import { LandingNav } from "@/components/landing/nav";
 import Link from "next/link";
 import { Check, ArrowRight } from "lucide-react";
 
@@ -52,12 +53,10 @@ const UNLIMITED_FEATURES = [
 export default function PricingPage() {
   return (
     <main className="min-h-screen bg-white">
-      <nav className="border-b border-gray-100 px-6 py-4 flex items-center justify-between">
-        <Link href="/"><KoolLogo inverted={true} size="md" /></Link>
-        <Link href="/login" className="text-sm text-gray-500 hover:text-kool-black">log in</Link>
-      </nav>
+      <LandingNav />
 
-      <div className="max-w-5xl mx-auto px-6 py-20">
+
+      <div className="max-w-5xl mx-auto px-6 pt-32 pb-20">
         <div className="text-center mb-16">
           <p className="text-kool-red text-xs font-bold tracking-[0.3em] lowercase mb-4">pricing</p>
           <h1 className="text-5xl font-black tracking-tight mb-4">plan with intention.<br />execute with kool.</h1>
