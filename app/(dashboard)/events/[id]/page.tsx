@@ -3,7 +3,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
 import { formatDate, daysUntil, formatCurrency } from "@/lib/utils";
-import { Calendar, MapPin, Users, DollarSign, CheckSquare, Clock, Truck, ArrowRight, ArrowLeft } from "lucide-react";
+import { Calendar, MapPin, Users, DollarSign, CheckSquare, Clock, Truck, ArrowRight, ArrowLeft, Radio } from "lucide-react";
 
 export default async function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -33,6 +33,11 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
   const actual = (budget || []).reduce((sum: number, b) => sum + (b.actual_cost || 0), 0);
 
   const confirmedVendors = (vendors || []).filter((v) => v.status === "confirmed" || v.status === "booked").length;
+
+  const eventDaysUntil = event.event_date ? daysUntil(event.event_date) : null;
+  const isToday = eventDaysUntil === 0;
+  const isTomorrow = eventDaysUntil === 1;
+  const showWarRoom = isToday || isTomorrow;
 
   const tabs = [
     { label: "checklist", href: `/events/${id}/checklist`, icon: <CheckSquare className="w-4 h-4" /> },
@@ -105,6 +110,33 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             </div>
           )}
         </div>
+
+        {/* War Room CTA */}
+        {showWarRoom && (
+          <Link
+            href={`/events/${id}/war-room`}
+            className="flex items-center justify-between bg-kool-black border-2 border-kool-red rounded-sm p-5 mb-6 hover:bg-kool-red/10 transition-colors group"
+          >
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-kool-red opacity-75" />
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-kool-red" />
+                </span>
+                <span className="text-kool-red font-black text-sm tracking-widest">LIVE</span>
+              </div>
+              <div>
+                <div className="text-white font-black text-lg leading-tight">
+                  {isTomorrow ? "open war room" : "enter war room"}
+                </div>
+                <div className="text-white/50 text-xs mt-0.5">
+                  {isTomorrow ? "prep mode — event is tomorrow" : "day-of coordination is active"}
+                </div>
+              </div>
+            </div>
+            <ArrowRight className="w-5 h-5 text-kool-red group-hover:translate-x-1 transition-transform" />
+          </Link>
+        )}
 
         {/* Stats grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">

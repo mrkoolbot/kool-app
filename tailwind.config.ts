@@ -13,6 +13,7 @@ const config: Config = {
         "kool-red": "#eb1e00",
         "kool-crimson": "#780000",
         "kool-black": "#231f20",
+        "obsidian": "#0A0A0A",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
