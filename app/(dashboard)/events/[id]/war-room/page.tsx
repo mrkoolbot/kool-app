@@ -87,11 +87,11 @@ export default function WarRoomPage({ params }: { params: Promise<{ id: string }
     setActivePanel("incidents");
   }
 
-  const panels: Array<{ id: Panel; label: string; emoji: string }> = [
-    { id: "timeline", label: "Timeline", emoji: "⏱" },
-    { id: "staff", label: "Staff", emoji: "👥" },
-    { id: "vendors", label: "Vendors", emoji: "🚛" },
-    { id: "incidents", label: "Incidents", emoji: "🚨" },
+  const panels: Array<{ id: Panel; label: string }> = [
+    { id: "timeline", label: "timeline" },
+    { id: "staff", label: "staff" },
+    { id: "vendors", label: "vendors" },
+    { id: "incidents", label: "incidents" },
   ];
 
   if (loading) {
@@ -178,7 +178,7 @@ export default function WarRoomPage({ params }: { params: Promise<{ id: string }
                 : "text-white/40 hover:text-white/70"
             }`}
           >
-            <div className="text-lg leading-none">{panel.emoji}</div>
+            <div className="text-lg leading-none"></div>
             <div className="text-xs font-semibold mt-0.5">{panel.label}</div>
           </button>
         ))}

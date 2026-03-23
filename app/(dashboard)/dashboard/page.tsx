@@ -69,7 +69,7 @@ export default async function DashboardPage() {
         {/* Events grid */}
         {(events || []).length === 0 ? (
           <div className="bg-white border border-gray-100 rounded-sm p-16 text-center">
-            <div className="text-5xl mb-4">🎉</div>
+            
             <h2 className="text-xl font-bold mb-2">no events yet.</h2>
             <p className="text-gray-500 mb-8">create your first event to start planning.</p>
             <Link
@@ -109,7 +109,7 @@ export default async function DashboardPage() {
                 )}
                 {event.event_date && daysUntil(event.event_date) >= 0 && (
                   <div className="text-kool-red text-xs font-bold mt-3">
-                    {daysUntil(event.event_date) === 0 ? "today! 🎉" : `${daysUntil(event.event_date)} days away`}
+                    {daysUntil(event.event_date) === 0 ? "today" : `${daysUntil(event.event_date)} days away`}
                   </div>
                 )}
               </Link>

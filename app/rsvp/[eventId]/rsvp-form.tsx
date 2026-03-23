@@ -34,7 +34,7 @@ export default function RSVPForm({ eventId }: { eventId: string }) {
   if (submitted) {
     return (
       <div className="text-center py-8">
-        <div className="text-5xl mb-4">{form.rsvp_status === "attending" ? "🎉" : form.rsvp_status === "maybe" ? "🤔" : "💌"}</div>
+        <div className="text-5xl mb-4">{"✓"}</div>
         <h3 className="text-xl font-black mb-2">
           {form.rsvp_status === "attending" ? "you're in!" : form.rsvp_status === "maybe" ? "got it." : "we'll miss you."}
         </h3>
@@ -77,7 +77,7 @@ export default function RSVPForm({ eventId }: { eventId: string }) {
         <label className="block text-xs font-semibold mb-3 text-gray-600">will you attend? *</label>
         <div className="grid grid-cols-3 gap-2">
           {[
-            { value: "attending", label: "yes, i'll be there! 🎉" },
+            { value: "attending", label: "yes, i'll be there" },
             { value: "maybe", label: "maybe 🤔" },
             { value: "declined", label: "can't make it 😢" },
           ].map((opt) => (

@@ -139,7 +139,7 @@ export default function TimelinePage({ params }: { params: Promise<{ id: string 
                           )}
                           {item.description && <div className="text-xs text-gray-500 mt-1">{item.description}</div>}
                           <div className="flex gap-3 mt-2">
-                            {item.location && <span className="text-xs text-gray-400">📍 {item.location}</span>}
+                            {item.location && <span className="text-xs text-gray-400">{item.location}</span>}
                             {item.assigned_to && <span className="text-xs text-gray-400">👤 {item.assigned_to}</span>}
                           </div>
                         </div>

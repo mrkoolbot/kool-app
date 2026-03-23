@@ -160,7 +160,7 @@ export function TimelinePanel({ eventId }: TimelinePanelProps) {
                 </div>
                 {(item.location || item.assigned_to) && (
                   <div className="flex gap-3 mt-0.5">
-                    {item.location && <span className="text-xs text-white/30">📍 {item.location}</span>}
+                    {item.location && <span className="text-xs text-white/30">{item.location}</span>}
                     {item.assigned_to && <span className="text-xs text-white/30">👤 {item.assigned_to}</span>}
                   </div>
                 )}
