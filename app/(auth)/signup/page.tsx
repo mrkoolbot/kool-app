@@ -45,10 +45,9 @@ export default function SignupPage() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center px-6">
         <div className="w-full max-w-sm text-center">
-          <Link href="/" className="block text-center text-2xl font-black tracking-tight text-kool-black mb-10">
-            <KoolLogo />
+          <Link href="/" className="flex justify-center mb-10">
+            <img src="/kool-logo-inverted.svg" alt="kool events" style={{ height: "48px", width: "auto" }} />
           </Link>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>📬</div>
           <h1 className="text-2xl font-black mb-3">check your email.</h1>
           <p className="text-gray-500 text-sm mb-6">
             we sent a confirmation link to <strong>{email}</strong>.<br />
@@ -63,8 +62,8 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
-        <Link href="/" className="block text-center text-2xl font-black tracking-tight text-kool-black mb-10">
-          <KoolLogo />
+        <Link href="/" className="flex justify-center mb-10">
+          <img src="/kool-logo-inverted.svg" alt="kool events" style={{ height: "48px", width: "auto" }} />
         </Link>
         <h1 className="text-2xl font-black mb-2">create your account.</h1>
         <p className="text-gray-500 text-sm mb-8">free forever for up to 25 guests.</p>
