@@ -48,7 +48,7 @@ export default function LandingPage() {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-black tracking-tight text-kool-black">
-          <KoolLogo />
+          <KoolLogo inverted={true} size="md" />
         </Link>
         <div className="hidden md:flex items-center gap-8 text-sm text-gray-600">
           <Link href="/pricing" className="hover:text-kool-red transition-colors">pricing</Link>
@@ -67,6 +67,18 @@ export default function LandingPage() {
 
       {/* Hero */}
       <section className="pt-32 pb-24 px-6 max-w-6xl mx-auto text-center">
+
+        {/* Paula floating headshot */}
+        <div className="flex justify-center mb-8">
+          <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-kool-red shadow-lg">
+            <img src="/paula-avatar-headshot.jpg" alt="Paula Mescolin" className="w-full h-full object-cover object-top" />
+          </div>
+        </div>
+
+        {/* Logo — large */}
+        <div className="flex justify-center mb-6">
+          <KoolLogo inverted={true} size="lg" />
+        </div>
 
         <p className="text-kool-red text-xs font-bold tracking-[0.3em] mb-6">
           event planning by paula mescolin

@@ -1,14 +1,18 @@
 import Image from "next/image"
 
-export function KoolLogo({ className = "" }: { className?: string }) {
+export function KoolLogo({ className = "", inverted = false, size = "md" }: { className?: string, inverted?: boolean, size?: "sm" | "md" | "lg" }) {
+  const heights: Record<string, number> = { sm: 32, md: 48, lg: 72 }
+  const h = heights[size] || 48
+  const w = h * 2 // logo is 400x200 = 2:1 ratio
+
   return (
     <span className={`inline-flex items-center ${className}`}>
       <Image
-        src="/kool-logo-v2.svg"
+        src={inverted ? "/kool-logo-inverted.svg" : "/kool-logo-v2.svg"}
         alt="kool events"
-        width={120}
-        height={60}
-        style={{ height: "1em", width: "auto" }}
+        width={w}
+        height={h}
+        style={{ height: h, width: "auto" }}
         priority
       />
     </span>
