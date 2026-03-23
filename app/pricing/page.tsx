@@ -40,7 +40,7 @@ export default function PricingPage() {
 
       <div className="max-w-4xl mx-auto px-6 py-20">
         <div className="text-center mb-16">
-          <p className="text-kool-red text-xs font-bold tracking-[0.3em] uppercase mb-4">pricing</p>
+          <p className="text-kool-red text-xs font-bold tracking-[0.3em] lowercase mb-4">pricing</p>
           <h1 className="text-5xl font-black tracking-tight mb-4">start free.<br />go premium when ready.</h1>
           <p className="text-gray-500 text-lg">free forever for intimate events · no credit card required</p>
         </div>
@@ -91,7 +91,7 @@ export default function PricingPage() {
 
         {/* TKG section */}
         <div className="mt-16 bg-kool-black rounded-sm p-10 text-white text-center">
-          <p className="text-kool-red text-xs font-bold tracking-[0.3em] uppercase mb-4">for high-stakes events</p>
+          <p className="text-kool-red text-xs font-bold tracking-[0.3em] lowercase mb-4">for high-stakes events</p>
           <h2 className="text-3xl font-black mb-4">some events need more than a tool.</h2>
           <p className="text-white/60 mb-8 max-w-xl mx-auto">
             for corporate events, galas, and once-in-a-lifetime celebrations —

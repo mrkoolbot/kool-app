@@ -32,7 +32,7 @@ function useCountdown(eventDate?: string, eventTime?: string) {
       const now = new Date();
       const diff = target.getTime() - now.getTime();
       if (diff <= 0) {
-        setCountdown("LIVE NOW");
+        setCountdown("live now");
         return;
       }
       const h = Math.floor(diff / 3600000);
@@ -148,12 +148,12 @@ export default function WarRoomPage({ params }: { params: Promise<{ id: string }
           <div className="text-right">
             {countdown && (
               <div className={`font-black text-lg leading-none ${
-                countdown === "LIVE NOW" ? "text-[#D90000]" : "text-white"
+                countdown === "live now" ? "text-[#D90000]" : "text-white"
               }`}>
                 {countdown}
               </div>
             )}
-            {event.event_time && countdown !== "LIVE NOW" && (
+            {event.event_time && countdown !== "live now" && (
               <div className="text-white/30 text-xs mt-0.5">
                 {new Date(`2000-01-01T${event.event_time}`).toLocaleTimeString("en-US", {
                   hour: "numeric",

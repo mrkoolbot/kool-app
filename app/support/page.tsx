@@ -64,7 +64,7 @@ export default function SupportPage() {
       {/* Hero */}
       <div className="bg-kool-black text-white py-20 px-6">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-kool-red text-xs font-bold tracking-[0.3em] uppercase mb-4">
+          <p className="text-kool-red text-xs font-bold tracking-[0.3em] lowercase mb-4">
             support
           </p>
           <h1 className="text-5xl font-black tracking-tight mb-4">

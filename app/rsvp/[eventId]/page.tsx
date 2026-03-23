@@ -18,7 +18,7 @@ export default async function RSVPPage({ params }: { params: Promise<{ eventId: 
       <div className="w-full max-w-md">
         {/* Event card */}
         <div className="bg-kool-black text-white rounded-sm p-8 mb-6 text-center">
-          <p className="text-kool-red text-xs font-bold tracking-[0.3em] uppercase mb-3">
+          <p className="text-kool-red text-xs font-bold tracking-[0.3em] lowercase mb-3">
             {event.event_type.replace(/_/g, " ")}
           </p>
           <h1 className="text-3xl font-black tracking-tight mb-4">{event.name}</h1>

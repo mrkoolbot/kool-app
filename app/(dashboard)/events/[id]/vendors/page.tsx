@@ -145,7 +145,7 @@ export default function VendorsPage({ params }: { params: Promise<{ id: string }
                   onClick={() => setExpanded(expanded === vendor.id ? null : vendor.id)}>
                   <div className="flex-1">
                     <div className="flex items-center gap-3">
-                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{vendor.category}</span>
+                      <span className="text-xs font-semibold text-gray-400 lowercase tracking-wide">{vendor.category}</span>
                       <span className={`text-xs font-bold px-2 py-0.5 rounded-sm ${STATUS_COLORS[vendor.status]}`}>{vendor.status}</span>
                     </div>
                     <div className="font-bold mt-0.5">{vendor.vendor_name}</div>

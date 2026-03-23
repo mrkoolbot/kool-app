@@ -20,7 +20,7 @@ export default function PrivacyPage() {
       </nav>
 
       <div className="max-w-2xl mx-auto px-6 py-20">
-        <p className="text-kool-red text-xs font-bold tracking-[0.3em] uppercase mb-4">
+        <p className="text-kool-red text-xs font-bold tracking-[0.3em] lowercase mb-4">
           legal
         </p>
         <h1 className="text-4xl font-black tracking-tight mb-2">privacy policy</h1>

@@ -63,7 +63,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
         <div className="bg-white border border-gray-100 rounded-sm p-8 mb-6">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <span className="text-xs font-bold text-kool-red tracking-[0.2em] uppercase">
+              <span className="text-xs font-bold text-kool-red tracking-[0.2em] lowercase">
                 {event.event_type.replace(/_/g, " ")}
               </span>
               <h1 className="text-3xl font-black tracking-tight mt-1">{event.name}</h1>
@@ -192,7 +192,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
         {/* TKG CTA */}
         <div className="bg-kool-black rounded-sm p-6 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <p className="text-kool-red text-xs font-bold tracking-[0.2em] uppercase mb-1">the koolture group</p>
+            <p className="text-kool-red text-xs font-bold tracking-[0.2em] lowercase mb-1">the koolture group</p>
             <p className="font-bold">want TKG to take this event to the next level?</p>
             <p className="text-white/50 text-sm mt-0.5">full event production, vendor management, day-of coordination.</p>
           </div>

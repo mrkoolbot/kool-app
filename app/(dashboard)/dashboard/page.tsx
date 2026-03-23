@@ -98,7 +98,7 @@ export default async function DashboardPage() {
                   <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-kool-red transition-colors" />
                 </div>
                 <h3 className="font-bold text-lg mb-1 group-hover:text-kool-red transition-colors">{event.name}</h3>
-                <p className="text-gray-400 text-xs font-medium uppercase tracking-wide mb-4">
+                <p className="text-gray-400 text-xs font-medium lowercase tracking-wide mb-4">
                   {event.event_type.replace(/_/g, " ")}
                 </p>
                 {event.event_date && (
@@ -130,7 +130,7 @@ export default async function DashboardPage() {
         {/* TKG CTA */}
         <div className="mt-12 bg-kool-black rounded-sm p-8 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <p className="text-kool-red text-xs font-bold tracking-[0.2em] uppercase mb-2">the koolture group</p>
+            <p className="text-kool-red text-xs font-bold tracking-[0.2em] lowercase mb-2">the koolture group</p>
             <h3 className="text-xl font-black mb-2">want a professional to run your event?</h3>
             <p className="text-white/60 text-sm">paula mescolin and the TKG team handle everything — from strategy to day-of production.</p>
           </div>
