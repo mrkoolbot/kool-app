@@ -84,25 +84,19 @@ export default function LandingPage() {
 
         {/* Paula floating headshot — after the header */}
         <div className="flex flex-col items-center mb-10">
-          <div
-            className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-kool-red shadow-xl"
-            style={{
-              animation: "float 3s ease-in-out infinite",
-            }}
-          >
-            <img src="/paula-avatar-headshot.jpg" alt="Paula Mescolin" className="w-full h-full object-cover object-top" />
+          <div className="relative">
+            <div className="w-28 h-28 rounded-full overflow-hidden ring-4 ring-kool-red ring-offset-4 ring-offset-white animate-float">
+              <img src="/paula-avatar-headshot.jpg" alt="Paula Mescolin" className="w-full h-full object-cover object-top" />
+            </div>
+            <div className="absolute inset-0 rounded-full ring-4 ring-kool-red opacity-30 animate-pulse" />
           </div>
-          <blockquote className="mt-4 text-sm text-gray-500 italic max-w-xs text-center leading-relaxed">
-            "your event deserves more than a spreadsheet."
-          </blockquote>
-          <p className="text-xs text-kool-red font-bold mt-2 tracking-wide">— paula mescolin, founder</p>
+          <div className="mt-4 border border-kool-red/20 rounded-2xl rounded-tl-sm px-5 py-3 max-w-xs text-center bg-gray-50">
+            <p className="text-gray-700 text-sm font-medium leading-relaxed">
+              "i built kool because i needed it. 20 years of events taught me what works."
+            </p>
+            <p className="text-kool-red text-xs font-bold mt-2">— paula mescolin, founder</p>
+          </div>
         </div>
-        <style>{`
-          @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-          }
-        `}</style>
         <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
           the first event planning platform designed by a six sigma-certified brand strategist
           and 8-year event production founder. every checklist, timeline, and template
