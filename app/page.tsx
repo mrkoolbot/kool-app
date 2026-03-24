@@ -286,9 +286,8 @@ export default function LandingPage() {
           </div>
 
           <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
-            KOOL was built by paula mescolin — brand strategist, six sigma-certified event producer,
-            and founder of the koolture group. 20 years of enterprise brand strategy.
-            8 years running a creative event production firm in rio de janeiro.
+            kool was built by paula mescolin — brand strategist and founder of the koolture group.
+            20 years of enterprise brand strategy and event planning for top tier clients.
           </p>
           <p className="text-white/60 text-lg mb-12">
             for high-stakes events — corporate summits, executive galas, milestone celebrations
