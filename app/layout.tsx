@@ -26,7 +26,7 @@ const galanoGrotesque = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "kool — event planning by paula mescolin",
+    default: "kool — by the koolture group",
     template: "%s | kool",
   },
   description:

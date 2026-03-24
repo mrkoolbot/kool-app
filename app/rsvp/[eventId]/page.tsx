@@ -44,7 +44,7 @@ export default async function RSVPPage({ params }: { params: Promise<{ eventId: 
 
         <p className="text-center text-xs text-gray-400 mt-6">
           powered by <a href="/" className="text-kool-red font-semibold hover:underline">kool.</a>
-          {" "}&nbsp; event planning by paula mescolin
+          {" "}&nbsp; by the koolture group
         </p>
       </div>
     </div>
