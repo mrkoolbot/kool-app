@@ -68,13 +68,6 @@ export default function LandingPage() {
       {/* Hero */}
       <section className="pt-32 pb-24 px-6 max-w-6xl mx-auto text-center">
 
-        {/* Paula floating headshot */}
-        <div className="flex justify-center mb-8">
-          <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-kool-red shadow-lg">
-            <img src="/paula-avatar-headshot.jpg" alt="Paula Mescolin" className="w-full h-full object-cover object-top" />
-          </div>
-        </div>
-
         {/* Logo — large */}
         <div className="flex justify-center mb-6">
           <KoolLogo inverted={true} size="lg" />
@@ -88,6 +81,14 @@ export default function LandingPage() {
           <span className="text-kool-red">live unforgettable</span><br />
           moments.
         </h1>
+
+        {/* Paula floating headshot — after the header */}
+        <div className="flex flex-col items-center mb-10">
+          <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-kool-red shadow-lg">
+            <img src="/paula-avatar-headshot.jpg" alt="Paula Mescolin" className="w-full h-full object-cover object-top" />
+          </div>
+          <p className="text-xs text-kool-red font-bold mt-3 tracking-wide">— paula mescolin, founder</p>
+        </div>
         <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
           the first event planning platform designed by a six sigma-certified brand strategist
           and 8-year event production founder. every checklist, timeline, and template
