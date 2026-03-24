@@ -84,11 +84,25 @@ export default function LandingPage() {
 
         {/* Paula floating headshot — after the header */}
         <div className="flex flex-col items-center mb-10">
-          <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-kool-red shadow-lg">
+          <div
+            className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-kool-red shadow-xl"
+            style={{
+              animation: "float 3s ease-in-out infinite",
+            }}
+          >
             <img src="/paula-avatar-headshot.jpg" alt="Paula Mescolin" className="w-full h-full object-cover object-top" />
           </div>
-          <p className="text-xs text-kool-red font-bold mt-3 tracking-wide">— paula mescolin, founder</p>
+          <blockquote className="mt-4 text-sm text-gray-500 italic max-w-xs text-center leading-relaxed">
+            "your event deserves more than a spreadsheet."
+          </blockquote>
+          <p className="text-xs text-kool-red font-bold mt-2 tracking-wide">— paula mescolin, founder</p>
         </div>
+        <style>{`
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+          }
+        `}</style>
         <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
           the first event planning platform designed by a six sigma-certified brand strategist
           and 8-year event production founder. every checklist, timeline, and template
