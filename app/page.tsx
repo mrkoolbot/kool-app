@@ -203,60 +203,66 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Free vs Premium preview */}
-      <section className="py-24 px-6 max-w-4xl mx-auto">
+      {/* 3-tier pricing preview */}
+      <section className="py-24 px-6 max-w-5xl mx-auto">
         <p className="text-kool-red text-xs font-bold tracking-[0.3em] text-center mb-4">pricing</p>
-        <h2 className="text-4xl md:text-5xl font-black text-center mb-4 tracking-tight">start free. go premium when ready.</h2>
-        <p className="text-gray-500 text-center mb-16">free forever for intimate events · premium unlocks everything</p>
-        <div className="grid md:grid-cols-2 gap-6">
+        <h2 className="text-4xl md:text-5xl font-black text-center mb-4 tracking-tight">plan with intention. execute with kool.</h2>
+        <p className="text-gray-500 text-center mb-16">free forever to start · no credit card required</p>
+        <div className="grid md:grid-cols-3 gap-6">
           {/* Free */}
           <div className="border border-gray-200 rounded-sm p-8">
             <div className="text-sm font-bold text-gray-400 mb-2">free</div>
-            <div className="text-5xl font-black mb-1">$0</div>
-            <p className="text-gray-500 text-sm mb-8">forever free for intimate events</p>
-            <ul className="space-y-3 text-sm text-gray-600 mb-8">
-              {["1 active event", "up to 25 guests", "smart checklist", "planning timeline", "budget tracker", "3 invite templates", "vendor list"].map(f => (
-                <li key={f} className="flex items-center gap-2">
-                  <span className="w-4 h-4 rounded-full bg-gray-100 flex items-center justify-center text-xs">✓</span>
+            <div className="text-4xl font-black mb-1">$0</div>
+            <p className="text-gray-500 text-sm mb-8">forever. no credit card.</p>
+            <ul className="space-y-2 text-sm text-gray-600 mb-8">
+              {["1 active event", "up to 25 guests", "smart checklist", "planning timeline", "budget tracker", "vendor list", "event etiquette manual"].map(f => (
+                <li key={f} className={`flex items-center gap-2 ${f === "event etiquette manual" ? "text-kool-red font-semibold" : ""}`}>
+                  <span className="w-3 h-3 rounded-full bg-gray-200 flex-shrink-0" />
                   {f}
                 </li>
               ))}
             </ul>
-            <Link href="/signup" className="block text-center border border-kool-black text-kool-black py-3 rounded-sm font-semibold hover:bg-kool-black hover:text-white transition-colors">
+            <Link href="/signup" className="block text-center border border-kool-black text-kool-black py-3 font-semibold hover:bg-kool-black hover:text-white transition-colors text-sm">
               get started free
             </Link>
           </div>
           {/* Premium */}
           <div className="border-2 border-kool-red rounded-sm p-8 relative">
-            <div className="absolute -top-3 left-8 bg-kool-red text-white text-xs font-bold px-3 py-1 rounded-sm">most popular</div>
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-kool-red text-white text-xs font-bold px-3 py-1">most popular</div>
             <div className="text-sm font-bold text-kool-red mb-2">premium</div>
-            <div className="text-5xl font-black mb-1">$15<span className="text-2xl font-normal text-gray-400">/mo</span></div>
-            <p className="text-gray-500 text-sm mb-8">or $99/year · save 45%</p>
-            <ul className="space-y-3 text-sm text-gray-600 mb-8">
-              {[
-                "unlimited events",
-                "unlimited guests",
-                "full ai-powered checklists",
-                "vendor management suite",
-                "budget manager + payments",
-                "run of show generator",
-                "full invite template library",
-                "collaborative playlist",
-                "calendar sync + reminders",
-                "priority tkG consultation",
-              ].map(f => (
-                <li key={f} className="flex items-center gap-2">
-                  <span className="w-4 h-4 rounded-full bg-kool-red flex items-center justify-center text-xs text-white">✓</span>
+            <div className="text-4xl font-black mb-1">$25<span className="text-xl font-normal text-gray-400">/mo</span></div>
+            <p className="text-gray-500 text-sm mb-8">3 events · 100 guests</p>
+            <ul className="space-y-2 text-sm text-gray-600 mb-8">
+              {["3 active events", "up to 100 guests", "full ai-powered checklists", "vendor management suite", "budget manager + payments", "run of show generator", "calendar sync + reminders", "event etiquette manual"].map(f => (
+                <li key={f} className={`flex items-center gap-2 ${f === "event etiquette manual" ? "text-kool-red font-semibold" : ""}`}>
+                  <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />
                   {f}
                 </li>
               ))}
             </ul>
-            <Link href="/signup?plan=premium" className="block text-center bg-kool-red text-white py-3 rounded-sm font-bold hover:bg-kool-crimson transition-colors">
-              start premium free trial
+            <Link href="/signup?plan=premium" className="block text-center bg-kool-red text-white py-3 font-bold hover:bg-kool-crimson transition-colors text-sm">
+              start premium
+            </Link>
+          </div>
+          {/* Unlimited */}
+          <div className="border border-gray-200 rounded-sm p-8 bg-[#0A0A0A] text-white">
+            <div className="text-sm font-bold text-gray-400 mb-2">unlimited</div>
+            <div className="text-4xl font-black mb-1">$39<span className="text-xl font-normal text-gray-400">/mo</span></div>
+            <p className="text-gray-400 text-sm mb-8">unlimited events + guests</p>
+            <ul className="space-y-2 text-sm text-gray-300 mb-8">
+              {["unlimited events", "unlimited guests", "event war room", "guest intelligence", "smart blueprints", "post-event brain", "dedicated support", "event etiquette manual"].map(f => (
+                <li key={f} className={`flex items-center gap-2 ${f === "event etiquette manual" ? "text-kool-red font-semibold" : ""}`}>
+                  <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <Link href="/signup?plan=unlimited" className="block text-center border border-white text-white py-3 font-bold hover:bg-white hover:text-kool-black transition-colors text-sm">
+              go unlimited
             </Link>
           </div>
         </div>
-        <p className="text-center text-gray-400 text-sm mt-6">
+        <p className="text-center text-gray-400 text-sm mt-8">
           <Link href="/pricing" className="underline hover:text-kool-black transition-colors">see full feature comparison →</Link>
         </p>
       </section>
