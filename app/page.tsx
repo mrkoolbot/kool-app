@@ -74,7 +74,7 @@ export default function LandingPage() {
         </div>
 
         <p className="text-kool-red text-xs font-bold tracking-[0.3em] mb-6">
-          event planning by paula mescolin
+          by the koolture group
         </p>
         <h1 className="text-5xl md:text-7xl font-black text-kool-black leading-[0.95] mb-8 tracking-tight">
           plan kool events.<br />
