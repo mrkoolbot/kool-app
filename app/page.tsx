@@ -38,9 +38,9 @@ export default function LandingPage() {
   ];
 
   const eventTypes = [
-    "weddings", "milestone birthdays", "quinceañeras", "baby showers",
-    "corporate events", "graduation parties", "retirement celebrations",
-    "engagement parties", "holiday parties", "dinner parties", "brand launches", "galas",
+    "corporate events", "galas", "retreats", "milestone birthdays",
+    "anniversaries", "special events", "team bonding events", "weddings",
+    "graduation", "award ceremonies",
   ];
 
   return (
@@ -127,9 +127,23 @@ export default function LandingPage() {
 
       {/* Event types marquee */}
       <section className="py-6 bg-kool-black overflow-hidden">
-        <div className="flex gap-8 whitespace-nowrap text-white/40 text-sm font-medium tracking-wide">
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 20s linear infinite;
+          }
+          .marquee-track:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
+        <div className="marquee-track gap-8 text-white/60 text-sm font-medium tracking-widest lowercase">
           {[...eventTypes, ...eventTypes].map((type, i) => (
-            <span key={i} className="inline-flex items-center gap-8">
+            <span key={i} className="inline-flex items-center gap-8 whitespace-nowrap px-4">
               {type}
               <span className="text-kool-red">·</span>
             </span>
