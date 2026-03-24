@@ -7,7 +7,7 @@
         font-family: BimboPro-Ballpoint, 'Bimbo Pro';
         font-size: 41.21px;
         letter-spacing: .2em;
-        stroke: #0a0a0a;
+        stroke: #fff;
         stroke-width: .75px;
       }
 
@@ -20,13 +20,12 @@
       }
 
       .st1, .st2, .st3 {
-        stroke: #ffffff;
+        stroke: #000;
         stroke-width: .25px;
       }
 
-      .st1, .st6 {
-        fill: #ffffff;
-      }
+      .st1 { fill: none; }
+      .st6 { fill: none; }
 
       .st7, .st3 {
         fill: #d90000;
@@ -37,6 +36,7 @@
         font-size: 110px;
         font-weight: 700;
         isolation: isolate;
+        fill: #0a0a0a !important;
       }
 
       .st5 {
