@@ -1,7 +1,7 @@
 "use client"
 
 export function KoolLogo({ className = "", inverted = false, size = "md" }: { className?: string, inverted?: boolean, size?: "sm" | "md" | "lg" }) {
-  const heights: Record<string, string> = { sm: "32px", md: "48px", lg: "72px" }
+  const heights: Record<string, string> = { sm: "32px", md: "48px", lg: "144px" }
   const h = heights[size] || "48px"
 
   return (
