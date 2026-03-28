@@ -7,11 +7,19 @@ export default async function RSVPPage({ params }: { params: Promise<{ eventId: 
   const { eventId } = await params;
   const supabase = await createClient();
 
-  const { data: event } = await supabase.from("events").select("*").eq("id", eventId).eq("is_public", true).single();
+  const { data: event } = await supabase
+    .from("events")
+    .select("*")
+    .eq("id", eventId)
+    .eq("is_public", true)
+    .single();
   if (!event) notFound();
 
-  const { count } = await supabase.from("guests").select("*", { count: "exact", head: true })
-    .eq("event_id", eventId).eq("rsvp_status", "attending");
+  const { count } = await supabase
+    .from("guests")
+    .select("*", { count: "exact", head: true })
+    .eq("event_id", eventId)
+    .eq("rsvp_status", "attending");
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-6 py-12">
@@ -29,22 +37,30 @@ export default async function RSVPPage({ params }: { params: Promise<{ eventId: 
             <p className="text-white/50 text-sm mb-2">{event.event_time}</p>
           )}
           {event.location && (
-            <p className="text-white/50 text-sm">{event.venue_name ? `${event.venue_name} · ` : ""}{event.location}</p>
+            <p className="text-white/50 text-sm">
+              {event.venue_name ? `${event.venue_name} · ` : ""}
+              {event.location}
+            </p>
           )}
           {count !== null && count !== undefined && count > 0 && (
-            <p className="text-kool-red text-xs font-bold mt-4">{count} {count === 1 ? "person" : "people"} attending</p>
+            <p className="text-kool-red text-xs font-bold mt-4">
+              {count} {count === 1 ? "person" : "people"} attending
+            </p>
           )}
         </div>
 
         {/* RSVP Form */}
         <div className="bg-white border border-gray-100 rounded-sm p-8">
           <h2 className="text-xl font-black mb-6">will you be joining us?</h2>
-          <RSVPForm eventId={eventId} />
+          <RSVPForm eventId={eventId} rsvpQuestions={event.rsvp_questions ?? null} />
         </div>
 
         <p className="text-center text-xs text-gray-400 mt-6">
-          powered by <a href="/" className="text-kool-red font-semibold hover:underline">kool.</a>
-          {" "}&nbsp; by the koolture group
+          powered by{" "}
+          <a href="/" className="text-kool-red font-semibold hover:underline">
+            kool.
+          </a>{" "}
+          &nbsp; by the koolture group
         </p>
       </div>
     </div>

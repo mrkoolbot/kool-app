@@ -27,19 +27,41 @@ export function daysUntil(date: string) {
 }
 
 export const EVENT_TYPES = [
-  { value: "wedding", label: "wedding" },
-  { value: "milestone_birthday", label: "milestone birthday" },
-  { value: "quinceanera", label: "quinceañera" },
-  { value: "sweet_16", label: "sweet 16" },
-  { value: "baby_shower", label: "baby shower" },
-  { value: "corporate_event", label: "corporate event" },
-  { value: "graduation", label: "graduation party" },
-  { value: "retirement", label: "retirement celebration" },
-  { value: "engagement_party", label: "engagement party" },
-  { value: "holiday_party", label: "holiday party" },
+  // social meals
+  { value: "breakfast", label: "breakfast" },
+  { value: "brunch", label: "brunch" },
+  { value: "luncheon", label: "luncheon" },
+  { value: "tea_party", label: "tea party" },
+  { value: "dinner", label: "dinner" },
   { value: "dinner_party", label: "dinner party" },
-  { value: "brand_launch", label: "brand launch" },
-  { value: "gala", label: "charity gala" },
+  // celebrations
+  { value: "cocktail_party", label: "cocktail party" },
+  { value: "wedding", label: "wedding" },
+  { value: "engagement_party", label: "engagement party" },
+  { value: "anniversary", label: "anniversary" },
+  { value: "milestone_birthday", label: "milestone birthday" },
+  { value: "sweet_16", label: "sweet 16" },
+  { value: "quinceanera", label: "quinceañera" },
+  { value: "baby_shower", label: "baby shower" },
+  { value: "graduation", label: "graduation" },
+  { value: "retirement", label: "retirement" },
+  { value: "gala", label: "gala" },
+  { value: "holiday_party", label: "holiday party" },
+  // professional
+  { value: "networking_event", label: "networking event" },
+  { value: "conference", label: "conference" },
+  { value: "summit", label: "summit" },
+  { value: "tradeshow", label: "tradeshow" },
+  { value: "corporate_event", label: "corporate event" },
+  { value: "team_bonding", label: "team bonding" },
+  { value: "award_ceremony", label: "award ceremony" },
+  // brand
+  { value: "brand_launch", label: "launch" },
+  { value: "open_house", label: "open house" },
+  { value: "ribbon_cutting", label: "ribbon-cutting" },
+  { value: "retreat", label: "retreat" },
+  // other
+  { value: "special_event", label: "special event" },
   { value: "custom", label: "custom event" },
 ];
 

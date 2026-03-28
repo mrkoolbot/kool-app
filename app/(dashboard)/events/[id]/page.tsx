@@ -3,7 +3,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
 import { formatDate, daysUntil, formatCurrency } from "@/lib/utils";
-import { Calendar, MapPin, Users, DollarSign, CheckSquare, Clock, Truck, ArrowRight, ArrowLeft, Radio } from "lucide-react";
+import { Calendar, MapPin, Users, DollarSign, CheckSquare, Clock, Truck, ArrowRight, ArrowLeft, Globe, UtensilsCrossed, Settings2 } from "lucide-react";
 
 export default async function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -45,6 +45,9 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
     { label: "vendors", href: `/events/${id}/vendors`, icon: <Truck className="w-4 h-4" /> },
     { label: "budget", href: `/events/${id}/budget`, icon: <DollarSign className="w-4 h-4" /> },
     { label: "timeline", href: `/events/${id}/timeline`, icon: <Clock className="w-4 h-4" /> },
+    { label: "catering", href: `/events/${id}/catering`, icon: <UtensilsCrossed className="w-4 h-4" /> },
+    { label: "landing page", href: `/events/${id}/landing-page`, icon: <Globe className="w-4 h-4" /> },
+    { label: "rsvp settings", href: `/events/${id}/rsvp-settings`, icon: <Settings2 className="w-4 h-4" /> },
   ];
 
   return (

@@ -24,6 +24,14 @@ export interface Event {
   guest_count_estimate?: number;
   status: "planning" | "confirmed" | "completed";
   is_public: boolean;
+  // Landing page fields
+  slug?: string;
+  landing_description?: string;
+  landing_image_url?: string;
+  dress_code?: string;
+  agenda?: Array<{ time: string; title: string; description?: string }>;
+  // Catering
+  catering_config?: Record<string, unknown>;
   created_at: string;
   updated_at: string;
 }
@@ -41,6 +49,20 @@ export interface Guest {
   notes?: string;
   invited_at: string;
   responded_at?: string;
+  invite_sent?: boolean;
+  invite_sent_at?: string;
+  rsvp_answers?: Record<string, unknown>;
+  plus_one_name?: string;
+  plus_one_attending?: boolean;
+}
+
+export interface RsvpQuestion {
+  id: string;
+  label: string;
+  type: "textarea" | "yes-no" | "yes-no-with-name" | "text" | "dropdown";
+  enabled: boolean;
+  required: boolean;
+  options?: string[];
 }
 
 export interface ChecklistItem {
