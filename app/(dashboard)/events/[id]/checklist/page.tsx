@@ -25,6 +25,14 @@ const CATEGORY_LABELS: Record<string, string> = {
   guest_list: "Guest List",
   rsvp: "RSVP",
   welcome_registration: "Welcome & Registration",
+  // Show / Concert / Gala categories
+  legal_compliance: "Legal & Compliance",
+  talent_entertainment: "Talent & Entertainment",
+  brand_ambassadors: "Brand Ambassadors & Hostesses",
+  production_technical: "Production & Technical",
+  crowd_safety: "Crowd Management & Safety",
+  media_press: "Media & Press",
+  logistics_ops: "Logistics & Operations",
 };
 
 const PRIORITY_COLORS: Record<string, string> = {
@@ -34,6 +42,7 @@ const PRIORITY_COLORS: Record<string, string> = {
 };
 
 const CATEGORY_ORDER = [
+  "legal_compliance",
   "security",
   "venue",
   "guest_list",
@@ -43,13 +52,19 @@ const CATEGORY_ORDER = [
   "catering",
   "audio_visual",
   "presentations",
+  "talent_entertainment",
   "entertainment",
+  "brand_ambassadors",
+  "production_technical",
   "photography",
   "transportation",
   "scenery",
   "decor",
   "attire",
   "welcome_registration",
+  "crowd_safety",
+  "media_press",
+  "logistics_ops",
   "day_of",
   "personal_touches",
 ];
