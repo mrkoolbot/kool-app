@@ -60,6 +60,10 @@ export const EVENT_TYPES = [
   { value: "open_house", label: "open house" },
   { value: "ribbon_cutting", label: "ribbon-cutting" },
   { value: "retreat", label: "retreat" },
+  { value: "show", label: "show" },
+  { value: "concert", label: "concert" },
+  { value: "festival", label: "festival" },
+  { value: "performance", label: "performance" },
   // other
   { value: "special_event", label: "special event" },
   { value: "custom", label: "custom event" },
