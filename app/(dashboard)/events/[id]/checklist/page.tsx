@@ -33,6 +33,10 @@ const CATEGORY_LABELS: Record<string, string> = {
   crowd_safety: "Crowd Management & Safety",
   media_press: "Media & Press",
   logistics_ops: "Logistics & Operations",
+  // Music, Rentals, Rehearsal
+  music_playlist: "music & playlist",
+  rentals: "rentals",
+  rehearsal: "rehearsal & run-through",
 };
 
 const PRIORITY_COLORS: Record<string, string> = {
@@ -65,6 +69,9 @@ const CATEGORY_ORDER = [
   "crowd_safety",
   "media_press",
   "logistics_ops",
+  "music_playlist",
+  "rentals",
+  "rehearsal",
   "day_of",
   "personal_touches",
 ];
