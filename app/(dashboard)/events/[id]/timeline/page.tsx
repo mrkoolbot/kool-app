@@ -6,6 +6,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { ArrowLeft, Plus, Clock } from "lucide-react";
 import type { TimelineItem } from "@/types";
+import { getTemplateForEventType } from "@/lib/timeline-templates";
 
 export default function TimelinePage({ params }: { params: Promise<{ id: string }> }) {
   const [eventId, setEventId] = useState("");
@@ -17,7 +18,54 @@ export default function TimelinePage({ params }: { params: Promise<{ id: string 
     time_slot: "", duration_minutes: "", title: "", description: "", location: "", assigned_to: "",
   });
 
-  useEffect(() => { params.then(({ id }) => { setEventId(id); loadItems(id); }); }, []);
+  const [event, setEvent] = useState<any>(null);
+  const [generating, setGenerating] = useState(false);
+
+  useEffect(() => { params.then(({ id }) => { setEventId(id); loadItems(id); loadEvent(id); }); }, []);
+
+  async function loadEvent(id: string) {
+    const { data } = await supabase.from("events").select("*").eq("id", id).single();
+    setEvent(data);
+  }
+
+  async function generateTimeline() {
+    if (!event) return;
+    setGenerating(true);
+    const templateResult = getTemplateForEventType(event.event_type);
+    const template = templateResult || [];
+    const eventDate = new Date(event.event_date);
+    const itemsToInsert = template.map((item: any, i: number) => {
+      let timeSlot = "";
+      if (item.offsetType === "months" && item.offsetValue) {
+        const d = new Date(eventDate);
+        d.setMonth(d.getMonth() - item.offsetValue);
+        timeSlot = d.toISOString().split("T")[0];
+      } else if (item.offsetType === "weeks" && item.offsetValue) {
+        const d = new Date(eventDate);
+        d.setDate(d.getDate() - (item.offsetValue * 7));
+        timeSlot = d.toISOString().split("T")[0];
+      } else if (item.offsetType === "days" && item.offsetValue) {
+        const d = new Date(eventDate);
+        d.setDate(d.getDate() - item.offsetValue);
+        timeSlot = d.toISOString().split("T")[0];
+      } else if (item.offsetType === "day-of" && item.dayOfHour !== undefined) {
+        const h = String(item.dayOfHour).padStart(2, "0");
+        const m = String(item.dayOfMinute || 0).padStart(2, "0");
+        timeSlot = `${h}:${m}`;
+      }
+      return {
+        event_id: eventId,
+        title: item.title,
+        description: item.protocolNote ? `${item.description} — ${item.protocolNote}` : item.description,
+        time_slot: timeSlot || null,
+        duration_minutes: item.durationMinutes || null,
+        sort_order: i,
+      };
+    });
+    await supabase.from("timeline_items").insert(itemsToInsert);
+    await loadItems(eventId);
+    setGenerating(false);
+  }
 
   async function loadItems(id: string) {
     const { data } = await supabase.from("timeline_items").select("*").eq("event_id", id).order("time_slot");
@@ -76,6 +124,28 @@ export default function TimelinePage({ params }: { params: Promise<{ id: string 
             <Plus className="w-4 h-4" /> add moment
           </button>
         </div>
+
+        {items.length === 0 && !showForm && (
+          <div className="text-center py-16 border-2 border-dashed border-gray-200 rounded-sm">
+            <Clock className="w-10 h-10 text-gray-300 mx-auto mb-4" />
+            <h3 className="font-bold text-gray-700 mb-2">no timeline yet</h3>
+            <p className="text-gray-400 text-sm mb-6 max-w-xs mx-auto">
+              generate a smart timeline based on your event type and date — built from professional planning protocols.
+            </p>
+            {event?.event_type && (
+              <button
+                onClick={generateTimeline}
+                disabled={generating}
+                className="bg-kool-red text-white text-sm px-6 py-3 rounded-sm hover:bg-kool-crimson disabled:opacity-50 mb-3 block mx-auto"
+              >
+                {generating ? "generating..." : `generate ${event.event_type.replace(/_/g, " ")} timeline`}
+              </button>
+            )}
+            <button onClick={() => setShowForm(true)} className="text-sm text-gray-400 hover:text-kool-black underline">
+              or add items manually
+            </button>
+          </div>
+        )}
 
         {showForm && (
           <div className="bg-white border border-kool-red rounded-sm p-5 mb-6">
