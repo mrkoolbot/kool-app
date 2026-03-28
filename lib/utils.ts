@@ -65,6 +65,11 @@ export const EVENT_TYPES = [
   { value: "festival", label: "festival" },
   { value: "performance", label: "performance" },
   // other
+  { value: "rehearsal_dinner", label: "rehearsal dinner" },
+  { value: "rehearsal", label: "rehearsal / run-through" },
+  { value: "memorial", label: "memorial / celebration of life" },
+  { value: "charity", label: "charity event" },
+  { value: "fundraiser", label: "fundraiser" },
   { value: "special_event", label: "special event" },
   { value: "custom", label: "custom event" },
 ];
