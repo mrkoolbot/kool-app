@@ -37,6 +37,11 @@ const CATEGORY_LABELS: Record<string, string> = {
   music_playlist: "music & playlist",
   rentals: "rentals",
   rehearsal: "rehearsal & run-through",
+  // Backstage, Setup, Breakdown, Political
+  backstage: "backstage & green room",
+  setup_loadin: "setup & load-in",
+  breakdown: "breakdown & load-out",
+  political: "political event protocols",
 };
 
 const PRIORITY_COLORS: Record<string, string> = {
