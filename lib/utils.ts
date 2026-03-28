@@ -77,6 +77,18 @@ export const EVENT_TYPES = [
   { value: "press_conference", label: "press conference" },
   { value: "town_hall", label: "town hall" },
   { value: "debate", label: "debate" },
+  // arts & culture
+  { value: "art_exhibit", label: "art exhibit" },
+  { value: "art_auction", label: "art auction" },
+  { value: "gallery_opening", label: "gallery opening" },
+  { value: "theater_play", label: "theater / play" },
+  { value: "opera", label: "opera" },
+  { value: "dance_performance", label: "dance performance" },
+  // sports
+  { value: "championship", label: "championship" },
+  { value: "tournament", label: "tournament" },
+  { value: "sports_gala", label: "sports gala / awards" },
+  { value: "watch_party", label: "watch party" },
   // other
   { value: "special_event", label: "special event" },
   { value: "custom", label: "custom event" },
