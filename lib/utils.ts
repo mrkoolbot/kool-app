@@ -70,6 +70,14 @@ export const EVENT_TYPES = [
   { value: "memorial", label: "memorial / celebration of life" },
   { value: "charity", label: "charity event" },
   { value: "fundraiser", label: "fundraiser" },
+  // political
+  { value: "political_rally", label: "political rally" },
+  { value: "campaign_event", label: "campaign event" },
+  { value: "fundraiser_political", label: "political fundraiser" },
+  { value: "press_conference", label: "press conference" },
+  { value: "town_hall", label: "town hall" },
+  { value: "debate", label: "debate" },
+  // other
   { value: "special_event", label: "special event" },
   { value: "custom", label: "custom event" },
 ];
