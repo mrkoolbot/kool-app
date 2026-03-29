@@ -98,7 +98,7 @@ export default function NewEventPage() {
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <Link href="/" className="text-xl font-black tracking-tight text-kool-black">
-          <KoolLogo size="sm" />
+          <KoolLogo size="sm" inverted={true} />
         </Link>
       </header>
 

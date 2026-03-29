@@ -245,7 +245,7 @@ export default function CateringPage({ params }: { params: Promise<{ id: string 
         <Link href={`/events/${eventId}`} className="text-gray-400 hover:text-kool-black transition-colors">
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <KoolLogo size="sm" />
+        <KoolLogo size="sm" inverted={true} />
         <span className="text-gray-300">/</span>
         <span className="text-sm font-medium text-gray-500">catering calculator</span>
       </header>
