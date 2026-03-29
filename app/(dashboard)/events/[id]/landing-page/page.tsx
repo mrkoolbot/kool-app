@@ -115,14 +115,12 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
       accent_color: accentColor,
     };
     const { error: saveError } = await supabase.from("events").update(updateData).eq("id", eventId);
-    if (saveError?.message?.includes("accent_color")) {
-      // Column doesn't exist yet — retry without it
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { accent_color: _ac, ...updateDataWithoutAccent } = updateData;
-      await supabase.from("events").update(updateDataWithoutAccent).eq("id", eventId);
+    if (saveError) {
+      console.error("SAVE ERROR:", saveError.message, saveError.code);
+      alert("save error: " + saveError.message);
     }
     setSaving(false);
-    setSaved(true);
+    setSaved(!saveError);
     setSavedSlug(slug || generateSlug(eventName));
     setTimeout(() => setSaved(false), 2000);
   }
