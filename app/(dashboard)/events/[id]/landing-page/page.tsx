@@ -42,12 +42,18 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
+    // Show local preview immediately
+    const localUrl = URL.createObjectURL(file);
+    setImageUrl(localUrl);
     const ext = file.name.split(".").pop();
     const path = `event-heroes/${eventId}-${Date.now()}.${ext}`;
-    const { error } = await supabase.storage.from("event-assets").upload(path, file, { upsert: true });
+    const { error, data } = await supabase.storage.from("event-assets").upload(path, file, { upsert: true });
     if (!error) {
       const { data: urlData } = supabase.storage.from("event-assets").getPublicUrl(path);
       setImageUrl(urlData.publicUrl);
+    } else {
+      console.error("upload error:", error.message);
+      // Keep local preview even if upload fails
     }
     setUploading(false);
   }
