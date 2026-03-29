@@ -69,10 +69,8 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
         <div className="mb-12 text-center">
           <Link
             href={`/rsvp/${event.id}`}
-            className="inline-block text-white font-bold text-base px-10 py-4 rounded-sm transition-colors"
+            className="inline-block text-white font-bold text-base px-10 py-4 rounded-sm transition-colors hover:opacity-80"
             style={{ backgroundColor: "#D90000" }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#B30000")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#D90000")}
           >
             rsvp now →
           </Link>
