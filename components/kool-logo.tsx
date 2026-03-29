@@ -18,31 +18,28 @@ export function KoolLogo({ className = "", inverted = false, size = "md" }: { cl
         role="img"
         style={{ display: "block" }}
       >
-        {/* No background rect — transparent */}
-        {/* "kool" — Galano Grotesque Bold 110px */}
+        {/* Exact code from official logo file — no background rect */}
         <text
-          x="82" y="125.9"
-          fontFamily="'Galano Grotesque', GalanoGrotesque-Bold, 'Arial Black', sans-serif"
-          fontWeight="700"
+          fontFamily="GalanoGrotesque-Bold, 'Galano Grotesque'"
           fontSize="110"
+          fontWeight="700"
           fill={fill}
-          strokeWidth="0.25"
-          stroke={inverted ? "#0a0a0a" : "none"}
-        >kool</text>
-        {/* Exact heart path from official SVG */}
+          transform="translate(82 125.9)"
+        ><tspan x="0" y="0">kool</tspan></text>
+        {/* Exact heart path from official file */}
         <path
-          d="M200,100s8.2-11,14.86-11c3.07,0,5.64,2.5,5.64,5.5,0,2.3-1.43,4.3-3.49,5.5,2.05,1.2,3.49,3.2,3.49,5.5,0,3-2.56,5.5-5.64,5.5-6.66,0-14.86-11-14.86-11Z"
           fill="#d90000"
+          d="M200,100s8.2-11,14.86-11c3.07,0,5.64,2.5,5.64,5.5,0,2.3-1.43,4.3-3.49,5.5,2.05,1.2,3.49,3.2,3.49,5.5,0,3-2.56,5.5-5.64,5.5-6.66,0-14.86-11-14.86-11Z"
         />
-        {/* "events" — Galano Grotesque Medium, wide spacing */}
+        {/* "events" — exact from official file */}
         <text
-          x="88.38" y="151.94"
-          fontFamily="'Galano Grotesque', GalanoGrotesque-Medium, Arial, sans-serif"
-          fontWeight="500"
+          fontFamily="GalanoGrotesque-Medium, 'Galano Grotesque'"
           fontSize="21"
-          letterSpacing="29"
+          fontWeight="500"
+          letterSpacing="29.4"
           fill={fill}
-        >events</text>
+          transform="translate(88.38 151.94) scale(.99 1)"
+        ><tspan x="0" y="0">events</tspan></text>
       </svg>
     </span>
   )
