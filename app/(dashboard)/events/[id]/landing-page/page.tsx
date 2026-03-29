@@ -127,7 +127,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
         <Link href={`/events/${eventId}`} className="text-gray-400 hover:text-kool-black transition-colors">
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <KoolLogo />
+        <KoolLogo size="sm" />
         <span className="text-gray-300">/</span>
         <span className="text-sm font-medium text-gray-500">landing page</span>
       </header>
@@ -341,15 +341,19 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
           >
             {saving ? "saving..." : saved ? "saved!" : "save changes"}
           </button>
-          {isPublic && (
-            <Link
-              href={`/event/${slug}`}
-              target="_blank"
-              className="flex items-center gap-2 border border-gray-200 text-sm px-6 py-3 rounded-sm hover:border-kool-black transition-colors"
-            >
-              <Eye className="w-4 h-4" /> view live page
-            </Link>
-          )}
+          <Link
+            href={isPublic ? `/event/${slug}` : "#"}
+            target={isPublic ? "_blank" : undefined}
+            onClick={isPublic ? undefined : (e) => e.preventDefault()}
+            className={`flex items-center gap-2 text-sm px-6 py-3 rounded-sm transition-colors ${
+              isPublic
+                ? "bg-kool-red text-white hover:bg-kool-crimson"
+                : "border border-gray-200 text-gray-300 cursor-not-allowed"
+            }`}
+            title={isPublic ? "view live page" : "toggle public page first"}
+          >
+            <Eye className="w-4 h-4" /> go live
+          </Link>
         </div>
       </main>
     </div>
