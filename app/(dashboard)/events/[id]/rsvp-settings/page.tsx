@@ -3,7 +3,7 @@ import { KoolLogo } from "@/components/kool-logo";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { ArrowLeft, Plus, Trash2, ChevronUp, ChevronDown, Eye, Save } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, ChevronUp, ChevronDown, Eye, Save, GitBranch } from "lucide-react";
 
 interface RsvpQuestion {
   id: string;
@@ -13,6 +13,7 @@ interface RsvpQuestion {
   required: boolean;
   options?: string[];
   isDefault?: boolean;
+  showIf?: { questionId: string; answer: string };
 }
 
 const DEFAULT_QUESTIONS: RsvpQuestion[] = [
@@ -43,10 +44,19 @@ const DEFAULT_QUESTIONS: RsvpQuestion[] = [
   {
     id: "plus_one",
     label: "will you be bringing a guest?",
-    type: "yes-no-with-name",
+    type: "yes-no",
     enabled: true,
     required: false,
     isDefault: true,
+  },
+  {
+    id: "plus_one_name",
+    label: "what is your guest's name?",
+    type: "text",
+    enabled: true,
+    required: false,
+    isDefault: true,
+    showIf: { questionId: "plus_one", answer: "yes" },
   },
 ];
 
@@ -66,6 +76,7 @@ export default function RsvpSettingsPage({ params }: { params: Promise<{ id: str
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [editingShowIf, setEditingShowIf] = useState<string | null>(null);
   const [newQuestion, setNewQuestion] = useState<{ label: string; type: RsvpQuestion["type"]; options: string }>({
     label: "",
     type: "text",
@@ -89,10 +100,9 @@ export default function RsvpSettingsPage({ params }: { params: Promise<{ id: str
     if (event) {
       setEventName(event.name || "");
       if (event.rsvp_questions && Array.isArray(event.rsvp_questions) && event.rsvp_questions.length > 0) {
-        // Merge: preserve default markers for default IDs
         const loaded = event.rsvp_questions.map((q: RsvpQuestion) => ({
           ...q,
-          isDefault: ["dietary", "parking", "ada", "plus_one"].includes(q.id),
+          isDefault: ["dietary", "parking", "ada", "plus_one", "plus_one_name"].includes(q.id),
         }));
         setQuestions(loaded);
       }
@@ -119,6 +129,11 @@ export default function RsvpSettingsPage({ params }: { params: Promise<{ id: str
 
   function updateLabel(id: string, label: string) {
     setQuestions((prev) => prev.map((q) => (q.id === id ? { ...q, label } : q)));
+  }
+
+  function updateShowIf(id: string, showIf: RsvpQuestion["showIf"]) {
+    setQuestions((prev) => prev.map((q) => (q.id === id ? { ...q, showIf } : q)));
+    setEditingShowIf(null);
   }
 
   function moveUp(idx: number) {
@@ -168,6 +183,10 @@ export default function RsvpSettingsPage({ params }: { params: Promise<{ id: str
 
   const totalEnabled = questions.filter((q) => q.enabled).length;
   const customCount = questions.filter((q) => !q.isDefault).length;
+  // Questions that can be used as showIf sources (yes/no types)
+  const conditionalSources = questions.filter((q) =>
+    q.enabled && (q.type === "yes-no" || q.type === "yes-no-with-name")
+  );
 
   if (loading) {
     return (
@@ -219,15 +238,8 @@ export default function RsvpSettingsPage({ params }: { params: Promise<{ id: str
         {/* Preview */}
         {showPreview && (
           <div className="bg-white border border-kool-red rounded-sm p-6 mb-8">
-            <h3 className="text-xs font-bold text-kool-red tracking-widest mb-4">form preview</h3>
-            <div className="space-y-4">
-              {questions.filter((q) => q.enabled).map((q) => (
-                <PreviewQuestion key={q.id} question={q} />
-              ))}
-              {questions.filter((q) => q.enabled).length === 0 && (
-                <p className="text-gray-400 text-sm">no questions enabled.</p>
-              )}
-            </div>
+            <h3 className="text-xs font-bold text-kool-red tracking-widest mb-4">form preview (with conditional logic)</h3>
+            <PreviewFormInteractive questions={questions.filter((q) => q.enabled)} />
           </div>
         )}
 
@@ -235,10 +247,10 @@ export default function RsvpSettingsPage({ params }: { params: Promise<{ id: str
         <div className="bg-white border border-gray-100 rounded-sm mb-6">
           <div className="px-6 py-4 border-b border-gray-100">
             <h2 className="font-bold text-sm">default questions</h2>
-            <p className="text-xs text-gray-400 mt-0.5">built-in questions — toggle on/off or edit the label</p>
+            <p className="text-xs text-gray-400 mt-0.5">built-in questions — toggle on/off, edit the label, or add conditional logic</p>
           </div>
           <div className="divide-y divide-gray-50">
-            {questions.filter((q) => q.isDefault).map((q, idx) => {
+            {questions.filter((q) => q.isDefault).map((q) => {
               const globalIdx = questions.findIndex((gq) => gq.id === q.id);
               return (
                 <QuestionRow
@@ -246,9 +258,13 @@ export default function RsvpSettingsPage({ params }: { params: Promise<{ id: str
                   question={q}
                   idx={globalIdx}
                   total={questions.length}
+                  conditionalSources={conditionalSources}
+                  editingShowIf={editingShowIf}
                   onToggle={() => toggleQuestion(q.id)}
                   onToggleRequired={() => toggleRequired(q.id)}
                   onUpdateLabel={(label) => updateLabel(q.id, label)}
+                  onUpdateShowIf={(showIf) => updateShowIf(q.id, showIf)}
+                  onEditShowIf={() => setEditingShowIf(editingShowIf === q.id ? null : q.id)}
                   onMoveUp={() => moveUp(globalIdx)}
                   onMoveDown={() => moveDown(globalIdx)}
                   onRemove={undefined}
@@ -283,9 +299,13 @@ export default function RsvpSettingsPage({ params }: { params: Promise<{ id: str
                     question={q}
                     idx={globalIdx}
                     total={questions.length}
+                    conditionalSources={conditionalSources}
+                    editingShowIf={editingShowIf}
                     onToggle={() => toggleQuestion(q.id)}
                     onToggleRequired={() => toggleRequired(q.id)}
                     onUpdateLabel={(label) => updateLabel(q.id, label)}
+                    onUpdateShowIf={(showIf) => updateShowIf(q.id, showIf)}
+                    onEditShowIf={() => setEditingShowIf(editingShowIf === q.id ? null : q.id)}
                     onMoveUp={() => moveUp(globalIdx)}
                     onMoveDown={() => moveDown(globalIdx)}
                     onRemove={() => removeQuestion(q.id)}
@@ -295,7 +315,6 @@ export default function RsvpSettingsPage({ params }: { params: Promise<{ id: str
             </div>
           )}
 
-          {/* Add question form */}
           {customCount < 10 && (
             <div className="px-6 py-5 border-t border-gray-100 bg-gray-50/50">
               <p className="text-xs font-semibold text-gray-500 mb-3">add custom question</p>
@@ -356,9 +375,13 @@ function QuestionRow({
   question,
   idx,
   total,
+  conditionalSources,
+  editingShowIf,
   onToggle,
   onToggleRequired,
   onUpdateLabel,
+  onUpdateShowIf,
+  onEditShowIf,
   onMoveUp,
   onMoveDown,
   onRemove,
@@ -366,15 +389,22 @@ function QuestionRow({
   question: RsvpQuestion;
   idx: number;
   total: number;
+  conditionalSources: RsvpQuestion[];
+  editingShowIf: string | null;
   onToggle: () => void;
   onToggleRequired: () => void;
   onUpdateLabel: (label: string) => void;
+  onUpdateShowIf: (showIf: RsvpQuestion["showIf"]) => void;
+  onEditShowIf: () => void;
   onMoveUp: () => void;
   onMoveDown: () => void;
   onRemove?: () => void;
 }) {
   const [editingLabel, setEditingLabel] = useState(false);
   const [labelVal, setLabelVal] = useState(question.label);
+  const [showIfQId, setShowIfQId] = useState(question.showIf?.questionId || "");
+  const [showIfAnswer, setShowIfAnswer] = useState(question.showIf?.answer || "yes");
+  const isEditingThisShowIf = editingShowIf === question.id;
 
   return (
     <div className={`px-6 py-4 ${!question.enabled ? "opacity-50" : ""}`}>
@@ -414,7 +444,7 @@ function QuestionRow({
               {question.label}
             </p>
           )}
-          <div className="flex items-center gap-3 mt-1.5">
+          <div className="flex items-center gap-3 mt-1.5 flex-wrap">
             <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-sm">
               {TYPE_LABELS[question.type] || question.type}
             </span>
@@ -429,7 +459,81 @@ function QuestionRow({
             >
               {question.required ? "required" : "optional"}
             </button>
+            {/* ShowIf badge */}
+            {question.showIf && (
+              <span className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-sm flex items-center gap-1">
+                <GitBranch className="w-3 h-3" />
+                shows if &ldquo;{question.showIf.questionId.replace(/_/g, " ")}&rdquo; = {question.showIf.answer}
+              </span>
+            )}
+            <button
+              type="button"
+              onClick={onEditShowIf}
+              className="text-xs text-gray-400 hover:text-blue-600 transition-colors flex items-center gap-1"
+            >
+              <GitBranch className="w-3 h-3" />
+              {question.showIf ? "edit condition" : "add condition"}
+            </button>
           </div>
+
+          {/* ShowIf editor */}
+          {isEditingThisShowIf && (
+            <div className="mt-3 p-3 bg-blue-50 rounded-sm border border-blue-100">
+              <p className="text-xs font-semibold text-blue-700 mb-2">conditional display</p>
+              <div className="flex gap-2 flex-wrap items-end">
+                <div>
+                  <label className="block text-xs text-blue-600 mb-1">show this question when</label>
+                  <select
+                    value={showIfQId}
+                    onChange={(e) => setShowIfQId(e.target.value)}
+                    className="border border-blue-200 rounded-sm px-2 py-1.5 text-xs bg-white focus:outline-none"
+                  >
+                    <option value="">— always show —</option>
+                    {conditionalSources
+                      .filter((s) => s.id !== question.id)
+                      .map((s) => (
+                        <option key={s.id} value={s.id}>{s.label.substring(0, 50)}</option>
+                      ))}
+                  </select>
+                </div>
+                {showIfQId && (
+                  <div>
+                    <label className="block text-xs text-blue-600 mb-1">answer is</label>
+                    <select
+                      value={showIfAnswer}
+                      onChange={(e) => setShowIfAnswer(e.target.value)}
+                      className="border border-blue-200 rounded-sm px-2 py-1.5 text-xs bg-white focus:outline-none"
+                    >
+                      <option value="yes">yes</option>
+                      <option value="no">no</option>
+                    </select>
+                  </div>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!showIfQId) {
+                      onUpdateShowIf(undefined);
+                    } else {
+                      onUpdateShowIf({ questionId: showIfQId, answer: showIfAnswer });
+                    }
+                  }}
+                  className="bg-blue-600 text-white px-3 py-1.5 rounded-sm text-xs font-semibold hover:bg-blue-700 transition-colors"
+                >
+                  apply
+                </button>
+                {question.showIf && (
+                  <button
+                    type="button"
+                    onClick={() => { setShowIfQId(""); onUpdateShowIf(undefined); }}
+                    className="text-xs text-red-500 hover:text-red-700 transition-colors"
+                  >
+                    remove
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Actions */}
@@ -468,35 +572,61 @@ function QuestionRow({
   );
 }
 
-function PreviewQuestion({ question }: { question: RsvpQuestion }) {
+function PreviewFormInteractive({ questions }: { questions: RsvpQuestion[] }) {
+  const [answers, setAnswers] = useState<Record<string, string | boolean>>({});
+
+  function isVisible(q: RsvpQuestion) {
+    if (!q.showIf) return true;
+    const dep = answers[q.showIf.questionId];
+    if (q.showIf.answer === "yes") return dep === true || dep === "yes";
+    if (q.showIf.answer === "no") return dep === false || dep === "no";
+    return String(dep) === q.showIf.answer;
+  }
+
   const labelClass = "block text-xs font-semibold mb-1.5 text-gray-600";
-  const inputClass = "w-full border border-gray-200 rounded-sm px-3 py-2 text-sm bg-gray-50 text-gray-400";
+  const inputClass = "w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-kool-red";
 
   return (
-    <div>
-      <label className={labelClass}>
-        {question.label}
-        {!question.required && <span className="font-normal text-gray-400 ml-1">(optional)</span>}
-        {question.required && <span className="text-kool-red ml-1">*</span>}
-      </label>
-      {question.type === "textarea" && (
-        <textarea rows={2} disabled placeholder="guest's answer..." className={`${inputClass} resize-none`} />
-      )}
-      {question.type === "text" && (
-        <input disabled placeholder="guest's answer..." className={inputClass} />
-      )}
-      {(question.type === "yes-no" || question.type === "yes-no-with-name") && (
-        <div className="flex gap-2">
-          <div className="px-4 py-2 border border-gray-200 rounded-sm text-xs text-gray-400">yes</div>
-          <div className="px-4 py-2 border border-gray-200 rounded-sm text-xs text-gray-400">no</div>
-        </div>
-      )}
-      {question.type === "dropdown" && (
-        <select disabled className={`${inputClass} bg-gray-50`}>
-          <option>select an option</option>
-          {question.options?.map((o) => <option key={o}>{o}</option>)}
-        </select>
-      )}
+    <div className="space-y-4">
+      {questions.map((q) => {
+        if (!isVisible(q)) return null;
+        return (
+          <div key={q.id} className={q.showIf ? "pl-4 border-l-2 border-blue-200" : ""}>
+            <label className={labelClass}>
+              {q.label}
+              {!q.required && <span className="font-normal text-gray-400 ml-1">(optional)</span>}
+              {q.required && <span className="text-kool-red ml-1">*</span>}
+            </label>
+            {q.type === "textarea" && (
+              <textarea rows={2} className={`${inputClass} resize-none`} onChange={(e) => setAnswers(p => ({ ...p, [q.id]: e.target.value }))} />
+            )}
+            {q.type === "text" && (
+              <input className={inputClass} onChange={(e) => setAnswers(p => ({ ...p, [q.id]: e.target.value }))} />
+            )}
+            {(q.type === "yes-no" || q.type === "yes-no-with-name") && (
+              <div className="flex gap-2">
+                <button type="button"
+                  onClick={() => setAnswers(p => ({ ...p, [q.id]: true }))}
+                  className={`px-4 py-2 rounded-sm text-xs font-semibold border transition-colors ${answers[q.id] === true ? "bg-kool-red text-white border-kool-red" : "border-gray-200 text-gray-600"}`}>
+                  yes
+                </button>
+                <button type="button"
+                  onClick={() => setAnswers(p => ({ ...p, [q.id]: false }))}
+                  className={`px-4 py-2 rounded-sm text-xs font-semibold border transition-colors ${answers[q.id] === false ? "bg-kool-red text-white border-kool-red" : "border-gray-200 text-gray-600"}`}>
+                  no
+                </button>
+              </div>
+            )}
+            {q.type === "dropdown" && (
+              <select className={`${inputClass} bg-white`} onChange={(e) => setAnswers(p => ({ ...p, [q.id]: e.target.value }))}>
+                <option value="">select an option</option>
+                {q.options?.map((o) => <option key={o}>{o}</option>)}
+              </select>
+            )}
+          </div>
+        );
+      })}
+      {questions.length === 0 && <p className="text-gray-400 text-sm">no questions enabled.</p>}
     </div>
   );
 }

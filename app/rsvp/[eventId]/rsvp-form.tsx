@@ -9,13 +9,15 @@ interface RsvpQuestion {
   enabled: boolean;
   required: boolean;
   options?: string[];
+  showIf?: { questionId: string; answer: string };
 }
 
 const DEFAULT_QUESTIONS: RsvpQuestion[] = [
   { id: "dietary", label: "do you have any food allergies or dietary restrictions?", type: "textarea", enabled: true, required: false },
   { id: "parking", label: "will you need parking?", type: "yes-no", enabled: true, required: false },
   { id: "ada", label: "do you need any ADA arrangements or special accommodations?", type: "textarea", enabled: true, required: false },
-  { id: "plus_one", label: "will you be bringing a guest?", type: "yes-no-with-name", enabled: true, required: false },
+  { id: "plus_one", label: "will you be bringing a guest?", type: "yes-no", enabled: true, required: false },
+  { id: "plus_one_name", label: "what is your guest's name?", type: "text", enabled: true, required: false, showIf: { questionId: "plus_one", answer: "yes" } },
 ];
 
 export default function RSVPForm({
@@ -37,7 +39,6 @@ export default function RSVPForm({
   });
 
   const [answers, setAnswers] = useState<Record<string, string | boolean>>({});
-  const [plusOneName, setPlusOneName] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -47,13 +48,34 @@ export default function RSVPForm({
     setAnswers((prev) => ({ ...prev, [id]: value }));
   }
 
+  function isQuestionVisible(q: RsvpQuestion): boolean {
+    if (!q.showIf) return true;
+    const dep = answers[q.showIf.questionId];
+    if (q.showIf.answer === "yes") return dep === true || dep === "yes";
+    if (q.showIf.answer === "no") return dep === false || dep === "no";
+    return String(dep) === q.showIf.answer;
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError("");
 
+    // Only include answers for visible questions
+    const visibleAnswers: Record<string, string | boolean> = {};
+    enabledQuestions.forEach((q) => {
+      if (isQuestionVisible(q) && answers[q.id] !== undefined) {
+        visibleAnswers[q.id] = answers[q.id];
+      }
+    });
+
+    // Determine plus one status from various question types
     const plusOneQ = enabledQuestions.find((q) => q.type === "yes-no-with-name");
-    const plusOneAttending = plusOneQ ? answers[plusOneQ.id] === true : false;
+    const plusOneYNQ = enabledQuestions.find((q) => q.id === "plus_one");
+    const plusOneAttending =
+      (plusOneQ && visibleAnswers[plusOneQ.id] === true) ||
+      (plusOneYNQ && (visibleAnswers[plusOneYNQ.id] === true || visibleAnswers[plusOneYNQ.id] === "yes"));
+    const plusOneName = visibleAnswers["plus_one_name"] as string | undefined;
 
     const insertData: Record<string, unknown> = {
       event_id: eventId,
@@ -61,18 +83,17 @@ export default function RSVPForm({
       last_name: form.last_name || null,
       email: form.email || null,
       rsvp_status: form.rsvp_status,
-      plus_one: plusOneAttending,
+      plus_one: plusOneAttending || false,
       plus_one_name: plusOneAttending ? plusOneName || null : null,
-      plus_one_attending: plusOneAttending,
-      rsvp_answers: answers,
+      plus_one_attending: plusOneAttending || false,
+      rsvp_answers: visibleAnswers,
       notes: form.notes || null,
       responded_at: new Date().toISOString(),
     };
 
     // Also map dietary to legacy column for backwards compat
-    const dietaryQ = enabledQuestions.find((q) => q.id === "dietary");
-    if (dietaryQ && answers[dietaryQ.id]) {
-      insertData.dietary_restrictions = answers[dietaryQ.id] as string;
+    if (visibleAnswers["dietary"]) {
+      insertData.dietary_restrictions = visibleAnswers["dietary"] as string;
     }
 
     const { error: insertError } = await supabase.from("guests").insert(insertData);
@@ -169,20 +190,22 @@ export default function RSVPForm({
         </div>
       </div>
 
-      {/* Dynamic questions — show for attending/maybe */}
+      {/* Dynamic questions with conditional logic — show for attending/maybe */}
       {form.rsvp_status !== "declined" && enabledQuestions.length > 0 && (
         <div className="space-y-4 pt-1">
           <div className="border-t border-gray-100 pt-4" />
-          {enabledQuestions.map((q) => (
-            <QuestionField
-              key={q.id}
-              question={q}
-              value={answers[q.id]}
-              plusOneName={q.type === "yes-no-with-name" ? plusOneName : ""}
-              onChange={(val) => setAnswer(q.id, val)}
-              onPlusOneNameChange={(name) => setPlusOneName(name)}
-            />
-          ))}
+          {enabledQuestions.map((q) => {
+            if (!isQuestionVisible(q)) return null;
+            return (
+              <div key={q.id} className={q.showIf ? "pl-3 border-l-2 border-gray-100" : ""}>
+                <QuestionField
+                  question={q}
+                  value={answers[q.id]}
+                  onChange={(val) => setAnswer(q.id, val)}
+                />
+              </div>
+            );
+          })}
         </div>
       )}
 
@@ -213,15 +236,11 @@ export default function RSVPForm({
 function QuestionField({
   question,
   value,
-  plusOneName,
   onChange,
-  onPlusOneNameChange,
 }: {
   question: RsvpQuestion;
   value: string | boolean | undefined;
-  plusOneName: string;
   onChange: (val: string | boolean) => void;
-  onPlusOneNameChange: (name: string) => void;
 }) {
   const labelClass = "block text-xs font-semibold mb-1.5 text-gray-600";
   const inputClass = "w-full border border-gray-200 rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-kool-red";
@@ -296,15 +315,17 @@ function QuestionField({
           </div>
         </div>
         {isYes && (
-          <div>
+          <div className="pl-3 border-l-2 border-gray-100">
             <label className={labelClass}>
               +1 name <span className="font-normal text-gray-400">(optional)</span>
             </label>
             <input
-              value={plusOneName}
-              onChange={(e) => onPlusOneNameChange(e.target.value)}
               placeholder="guest's name"
               className={inputClass}
+              onChange={(e) => {
+                // Store name in a derived key
+                onChange(true);
+              }}
             />
           </div>
         )}
