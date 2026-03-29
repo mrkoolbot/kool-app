@@ -164,11 +164,12 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
       </div>
 
       {/* Footer */}
-      <footer className="text-center py-8" style={{ borderTop: "1px solid #111111" }}>
-        <a href="/" className="text-sm font-black" style={{ color: "#333333" }}>
-          kool<span style={{ color: "#D90000" }}>♥</span>
+      <footer className="text-center py-10" style={{ borderTop: "1px solid #111111" }}>
+        <a href="https://koolevents.app" className="inline-block opacity-40 hover:opacity-70 transition-opacity">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/kool-logo-official.svg" alt="kool events" style={{ height: "48px", width: "auto" }} />
         </a>
-        <p className="text-xs mt-1" style={{ color: "#333333" }}>event management by the koolture group</p>
+        <p className="text-xs mt-3" style={{ color: "#333333" }}>plan smarter. celebrate bigger.</p>
       </footer>
     </div>
   );

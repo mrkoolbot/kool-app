@@ -28,6 +28,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
   const [agenda, setAgenda] = useState<AgendaItem[]>([]);
   const [accentColor, setAccentColor] = useState("#D90000");
   const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
 
   const supabase = createClient();
 
@@ -42,18 +43,19 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
+    setUploadError("");
     // Show local preview immediately
     const localUrl = URL.createObjectURL(file);
     setImageUrl(localUrl);
     const ext = file.name.split(".").pop();
     const path = `event-heroes/${eventId}-${Date.now()}.${ext}`;
-    const { error, data } = await supabase.storage.from("event-assets").upload(path, file, { upsert: true });
+    const { error } = await supabase.storage.from("event-assets").upload(path, file, { upsert: true });
     if (!error) {
       const { data: urlData } = supabase.storage.from("event-assets").getPublicUrl(path);
       setImageUrl(urlData.publicUrl);
     } else {
-      console.error("upload error:", error.message);
-      // Keep local preview even if upload fails
+      setUploadError("upload failed — " + error.message);
+      setImageUrl(""); // clear broken preview
     }
     setUploading(false);
   }
@@ -225,6 +227,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
               <Upload className="w-6 h-6 text-gray-300 mb-2" />
               <span className="text-sm text-gray-400">{uploading ? "uploading..." : "click to upload photo"}</span>
               <span className="text-xs text-gray-300 mt-1">jpg, png, webp — max 10mb</span>
+              {uploadError && <span className="text-xs text-red-500 mt-2">{uploadError}</span>}
               <input
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
