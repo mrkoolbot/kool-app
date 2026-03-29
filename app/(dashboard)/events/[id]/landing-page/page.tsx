@@ -45,14 +45,18 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
     if (!file) return;
     setUploading(true);
     setUploadError("");
+    // Show preview immediately from local file
+    const localPreview = URL.createObjectURL(file);
+    setImageUrl(localPreview);
     const ext = file.name.split(".").pop();
     const path = `event-heroes/${eventId}-${Date.now()}.${ext}`;
     const { error } = await supabase.storage.from("event-assets").upload(path, file, { upsert: true });
     if (!error) {
       const { data: urlData } = supabase.storage.from("event-assets").getPublicUrl(path);
-      setImageUrl(urlData.publicUrl);
+      setImageUrl(urlData.publicUrl); // replace local blob with permanent URL
     } else {
-      setUploadError("upload failed: " + error.message + " — check Supabase storage policies");
+      setUploadError("upload failed: " + error.message);
+      // keep local preview so user can see what they picked
     }
     setUploading(false);
   }
