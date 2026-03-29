@@ -59,7 +59,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <Link href="/" className="text-xl font-black tracking-tight text-kool-black">
-          <KoolLogo />
+          <KoolLogo size="sm" />
         </Link>
       </header>
 

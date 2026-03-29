@@ -23,7 +23,7 @@ export default async function DashboardPage() {
       {/* Header */}
       <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-xl font-black tracking-tight text-kool-black">
-          <KoolLogo />
+          <KoolLogo size="sm" />
         </Link>
         <div className="flex items-center gap-4">
           {profile?.plan === "free" && (
