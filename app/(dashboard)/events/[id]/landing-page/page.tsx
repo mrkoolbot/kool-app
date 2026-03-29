@@ -4,7 +4,7 @@ import { KoolLogo } from "@/components/kool-logo";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { ArrowLeft, Plus, Trash2, Copy, Check, Globe, Lock, Eye } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Copy, Check, Globe, Lock, Eye, Upload, X } from "lucide-react";
 
 interface AgendaItem {
   time: string;
@@ -27,6 +27,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
   const [isPublic, setIsPublic] = useState(false);
   const [agenda, setAgenda] = useState<AgendaItem[]>([]);
   const [accentColor, setAccentColor] = useState("#D90000");
+  const [uploading, setUploading] = useState(false);
 
   const supabase = createClient();
 
@@ -36,6 +37,20 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
       loadData(id);
     });
   }, []);
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    const ext = file.name.split(".").pop();
+    const path = `event-heroes/${eventId}-${Date.now()}.${ext}`;
+    const { error } = await supabase.storage.from("event-assets").upload(path, file, { upsert: true });
+    if (!error) {
+      const { data: urlData } = supabase.storage.from("event-assets").getPublicUrl(path);
+      setImageUrl(urlData.publicUrl);
+    }
+    setUploading(false);
+  }
 
   async function loadData(id: string) {
     const { data } = await supabase.from("events").select(
@@ -188,20 +203,31 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
         {/* Hero image */}
         <div className="bg-white border border-gray-100 rounded-sm p-6 mb-6">
           <h3 className="font-bold text-sm mb-4">hero image</h3>
-          <input
-            type="url"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-kool-red"
-            placeholder="https://... (paste a direct image URL)"
-          />
-          {imageUrl && (
-            <div className="mt-3 rounded-sm overflow-hidden" style={{ height: "140px" }}>
+          {imageUrl ? (
+            <div className="relative rounded-sm overflow-hidden" style={{ height: "160px" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={imageUrl} alt="hero preview" className="w-full h-full object-cover" />
+              <button
+                onClick={() => setImageUrl("")}
+                className="absolute top-2 right-2 bg-black/60 text-white rounded-full p-1 hover:bg-black"
+              >
+                <X className="w-3 h-3" />
+              </button>
             </div>
+          ) : (
+            <label className="flex flex-col items-center justify-center w-full border-2 border-dashed border-gray-200 rounded-sm py-8 cursor-pointer hover:border-kool-red transition-colors">
+              <Upload className="w-6 h-6 text-gray-300 mb-2" />
+              <span className="text-sm text-gray-400">{uploading ? "uploading..." : "click to upload photo"}</span>
+              <span className="text-xs text-gray-300 mt-1">jpg, png, webp — max 10mb</span>
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                className="hidden"
+                onChange={handleImageUpload}
+                disabled={uploading}
+              />
+            </label>
           )}
-          <p className="text-xs text-gray-400 mt-2">paste a direct image URL. supports jpg, png, webp.</p>
         </div>
 
         {/* Description */}
