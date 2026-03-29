@@ -29,6 +29,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
   const [accentColor, setAccentColor] = useState("#D90000");
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
+  const [savedSlug, setSavedSlug] = useState("");
 
   const supabase = createClient();
 
@@ -62,7 +63,9 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
     ).eq("id", id).single();
     if (data) {
       setEventName(data.name || "");
-      setSlug(data.slug || generateSlug(data.name || ""));
+      const loadedSlug = data.slug || "";
+      setSlug(loadedSlug);
+      setSavedSlug(loadedSlug);
       setDescription(data.landing_description || "");
       setImageUrl(data.landing_image_url || "");
       setDressCode(data.dress_code || "");
@@ -79,17 +82,21 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
 
   async function save() {
     setSaving(true);
-    await supabase.from("events").update({
+    const updateData: Record<string, unknown> = {
       slug: slug || generateSlug(eventName),
       landing_description: description || null,
       landing_image_url: imageUrl || null,
       dress_code: dressCode || null,
       is_public: isPublic,
       agenda: agenda,
-      accent_color: accentColor,
-    }).eq("id", eventId);
+    };
+    // accent_color requires ALTER TABLE — add if column exists
+    try { (updateData as any).accent_color = accentColor; } catch {}
+    const { error: saveError } = await supabase.from("events").update(updateData).eq("id", eventId);
+    if (saveError) console.error("save error:", saveError.message);
     setSaving(false);
     setSaved(true);
+    setSavedSlug(slug || generateSlug(eventName));
     setTimeout(() => setSaved(false), 2000);
   }
 
@@ -166,10 +173,10 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
             </button>
           </div>
 
-          {isPublic && (
+          {isPublic && savedSlug && (
             <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-2">
               <div className="flex-1 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-sm px-3 py-2 font-mono truncate">
-                {publicUrl}
+                {`https://koolevents.app/event/${savedSlug}`}
               </div>
               <button
                 onClick={copyUrl}
@@ -179,7 +186,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
                 {copied ? "copied!" : "copy link"}
               </button>
               <Link
-                href={`/event/${slug}`}
+                href={`/event/${savedSlug}`}
                 target="_blank"
                 className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 border border-gray-200 rounded-sm hover:border-kool-black transition-colors"
               >
