@@ -89,29 +89,35 @@ function calculate(inputs: CateringInputs): CateringEstimate {
     desserts: Math.ceil(g * fm.desserts),
   } : null;
 
-  // Bar calculations — formula: guests × hours × drinks/hour + 1 buffer/person
-  const drinksPerHour = 1.5;
-  const totalDrinks = (g * drinksPerHour * duration) + g; // +1 buffer per person
+  // Bar calculations — industry standard rules of thumb:
+  // Total: 1–2 drinks/person/hour (using 1.5 midpoint)
+  // Wine: 1 bottle (750ml) per 2 guests per 2hrs = 1 bottle/2 guests/hr → 5 glasses/bottle
+  // Beer: 1 bottle/can per person per hour
+  // Liquor: 1 liter serves ~20-22 cocktails (1.5oz pour) → using 20
+  // Mixers: 2–3 parts mixer per 1 part liquor
+  // Ice: 1.5–2 lbs per person
+  const totalDrinks = Math.ceil(g * 1.5 * duration);
 
   let bar: BarEstimate | null = null;
   if (barType !== "none") {
-    const spiritFraction = barType === "full" ? 0.33 : 0;
-    const wineFraction = barType === "full" ? 0.34 : 0.5;
-    const beerFraction = barType === "full" ? 0.33 : 0.5;
+    // Wine: 50% of drinks (full bar) or 50% (beer-wine), 5 glasses/bottle
+    const wineGlasses = barType === "full" ? Math.ceil(totalDrinks * 0.5) : Math.ceil(totalDrinks * 0.5);
+    // Beer: 25% full bar, 50% beer-wine — 1 unit each
+    const beerUnits = barType === "full" ? Math.ceil(totalDrinks * 0.25) : Math.ceil(totalDrinks * 0.5);
+    // Liquor: 25% of drinks, 1 liter = 20 cocktails
+    const spiritLiters = barType === "full" ? Math.ceil((totalDrinks * 0.25) / 20) : 0;
 
     bar = {
-      spiritBottles: barType === "full" ? Math.ceil((totalDrinks * spiritFraction) / 17) : 0,
-      wineBottles: Math.ceil((totalDrinks * wineFraction) / 5),
-      beerUnits: Math.ceil(totalDrinks * beerFraction),
-      // champagne: 1 bottle per 8 guests for a toast
-      champagneBottles: Math.ceil(g / 8),
-      clubSodaLiters: barType === "full" ? Math.ceil((g * duration * 0.5) / 4) : 0,
-      tonicLiters: barType === "full" ? Math.ceil((g * duration * 0.3) / 4) : 0,
-      juiceLiters: Math.ceil((g * 0.5) / 4),
-      // ice: 1.5–2 lbs per person (using 1.75 average)
-      iceLbs: Math.ceil(g * 1.75),
-      limes: barType === "full" ? Math.ceil(g * 0.3) : 0,
-      lemons: barType === "full" ? Math.ceil(g * 0.2) : 0,
+      spiritBottles: spiritLiters, // in liters (1000ml bottles)
+      wineBottles: Math.ceil(wineGlasses / 5),
+      beerUnits,
+      champagneBottles: Math.ceil(g / 8), // 1 bottle per 8 guests for toast
+      clubSodaLiters: barType === "full" ? Math.ceil(spiritLiters * 2.5) : 0, // 2-3 parts mixer
+      tonicLiters: barType === "full" ? Math.ceil(spiritLiters * 1.5) : 0,
+      juiceLiters: Math.ceil(g * 0.25),
+      iceLbs: Math.ceil(g * 1.75), // midpoint of 1.5–2 lbs
+      limes: barType === "full" ? Math.ceil(g * 0.25) : 0,
+      lemons: barType === "full" ? Math.ceil(g * 0.15) : 0,
       olives: barType === "full" ? Math.ceil(g * 0.1) : 0,
     };
   }
@@ -432,7 +438,7 @@ export default function CateringPage({ params }: { params: Promise<{ id: string 
                 <Row label="beer" value={estimate.bar.beerUnits} unit="cans / bottles" />
                 {inputs.barType === "full" && (
                   <>
-                    <Row label="spirits (750ml bottles)" value={estimate.bar.spiritBottles} unit="bottles" />
+                    <Row label="spirits (1 liter bottles)" value={estimate.bar.spiritBottles} unit="liters" />
                     <Row label="mixers — club soda" value={estimate.bar.clubSodaLiters} unit="liters" />
                     <Row label="mixers — tonic water" value={estimate.bar.tonicLiters} unit="liters" />
                     <Row label="garnish — limes" value={estimate.bar.limes} unit="pieces" />
@@ -442,7 +448,7 @@ export default function CateringPage({ params }: { params: Promise<{ id: string 
                 <Row label="champagne (1 bottle / 8 guests)" value={estimate.bar.champagneBottles} unit="bottles" />
                 <Row label="ice (1.5–2 lbs / person)" value={estimate.bar.iceLbs} unit="lbs" />
                 <p className="text-xs text-gray-400 mt-3">
-                  formula: guests × {inputs.duration}hrs × 1.5 drinks/hr + 1 buffer/person = {Math.round((inputs.guestCount * 1.5 * inputs.duration) + inputs.guestCount)} total drinks
+                  formula: {inputs.guestCount} guests × {inputs.duration}hrs × 1.5 drinks/hr = {Math.round(inputs.guestCount * 1.5 * inputs.duration)} drinks — wine 50% · beer {inputs.barType === "full" ? "25%" : "50%"}{inputs.barType === "full" ? " · liquor 25%" : ""}
                 </p>
               </Section>
             )}
