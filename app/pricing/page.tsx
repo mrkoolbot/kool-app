@@ -31,7 +31,7 @@ const PREMIUM_FEATURES = [
   "calendar sync (google + apple)",
   "email reminders to guests",
   "mood board creator",
-  "priority tkG consultation booking",
+  "priority TKG consultation booking",
   ETIQUETTE_FREEBIE,
 ];
 
