@@ -210,9 +210,6 @@ export default function CateringPage({ params }: { params: Promise<{ id: string 
       const perPerson = inputs.eventType === "wedding" ? 85 : inputs.eventType === "dinner" ? 65 : 40;
       items.push({ name: "food & catering", cost: g * perPerson });
     }
-    if (estimate.bar) {
-      items.push({ name: "bar & beverages", cost: g * inputs.duration * 12 });
-    }
     items.push({ name: "non-alcoholic beverages", cost: g * 4 });
     items.push({ name: "servingware & linens", cost: estimate.servingware.tables * 35 });
     return items;
@@ -424,32 +421,6 @@ export default function CateringPage({ params }: { params: Promise<{ id: string 
               </div>
             )}
 
-            {/* Bar */}
-            {estimate.bar && (
-              <Section title="bar & beverages">
-                {inputs.barType === "full" && (
-                  <>
-                    <Row label="spirits (750ml bottles)" value={estimate.bar.spiritBottles} unit="bottles" />
-                    <Row label="mixers — club soda" value={estimate.bar.clubSodaLiters} unit="liters" />
-                    <Row label="mixers — tonic water" value={estimate.bar.tonicLiters} unit="liters" />
-                    <Row label="garnish — limes" value={estimate.bar.limes} unit="pieces" />
-                    <Row label="garnish — lemons" value={estimate.bar.lemons} unit="pieces" />
-                    <Row label="garnish — olives (jar)" value={estimate.bar.olives} unit="jars" />
-                  </>
-                )}
-                <Row label="wine (750ml bottles)" value={estimate.bar.wineBottles} unit="bottles" />
-                <Row label="beer (units)" value={estimate.bar.beerUnits} unit="cans / bottles" />
-                {estimate.bar.champagneBottles > 0 && (
-                  <Row label="champagne for toasts" value={estimate.bar.champagneBottles} unit="bottles" />
-                )}
-                <Row label="mixers — juice" value={estimate.bar.juiceLiters} unit="liters" />
-                <Row label="ice" value={estimate.bar.iceLbs} unit="lbs" />
-                <p className="text-xs text-gray-400 mt-3">
-                  based on 1.5 drinks/person/hour over {inputs.duration === 5 ? "5+" : inputs.duration} hours.
-                  spirits: 17 drinks/bottle. wine: 5 glasses/bottle.
-                </p>
-              </Section>
-            )}
 
             {/* Non-alcoholic */}
             <Section title="non-alcoholic">
