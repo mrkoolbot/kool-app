@@ -8,7 +8,7 @@ export function KoolLogo({ className = "", inverted = false, size = "md" }: { cl
     <span className={`inline-flex items-center ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={inverted ? "/kool-logo-inverted.svg" : "/kool-logo-v2.svg"}
+        src={inverted ? "/kool-logo-inverted.svg" : "/kool-logo-transparent.svg"}
         alt="kool events"
         style={{ height: h, width: "auto" }}
       />
