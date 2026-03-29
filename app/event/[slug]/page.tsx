@@ -23,6 +23,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
   if (!event) notFound();
 
   const agenda: AgendaItem[] = Array.isArray(event.agenda) ? event.agenda : [];
+  const accent = event.accent_color || "#D90000";
 
   function formatEventDate(dateStr: string) {
     if (!dateStr) return "";
@@ -53,12 +54,12 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
             />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.8) 70%, #0A0A0A 100%)" }} />
             <div className="absolute bottom-0 left-0 right-0 px-6 pb-10 md:px-12 md:pb-14">
-              <HeroContent event={event} formatEventDate={formatEventDate} formatEventTime={formatEventTime} />
+              <HeroContent event={event} formatEventDate={formatEventDate} formatEventTime={formatEventTime} accent={accent} />
             </div>
           </div>
         ) : (
           <div className="px-6 pt-16 pb-10 md:px-12 md:pt-20 md:pb-14" style={{ borderBottom: "1px solid #1a1a1a" }}>
-            <HeroContent event={event} formatEventDate={formatEventDate} formatEventTime={formatEventTime} />
+            <HeroContent event={event} formatEventDate={formatEventDate} formatEventTime={formatEventTime} accent={accent} />
           </div>
         )}
       </div>
@@ -70,7 +71,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
           <Link
             href={`/rsvp/${event.id}`}
             className="inline-block text-white font-bold text-base px-10 py-4 rounded-sm transition-colors hover:opacity-80"
-            style={{ backgroundColor: "#D90000" }}
+            style={{ backgroundColor: accent }}
           >
             rsvp now →
           </Link>
@@ -80,7 +81,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
         {/* Description */}
         {event.landing_description && (
           <section className="mb-10">
-            <h2 className="text-xs font-bold tracking-[0.2em] mb-4" style={{ color: "#D90000" }}>about this event</h2>
+            <h2 className="text-xs font-bold tracking-[0.2em] mb-4" style={{ color: accent }}>about this event</h2>
             <p className="text-base leading-relaxed" style={{ color: "#cccccc" }}>
               {event.landing_description}
             </p>
@@ -92,7 +93,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
           <div className="space-y-4">
             {event.event_date && (
               <div className="flex items-start gap-3">
-                <Calendar className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "#D90000" }} />
+                <Calendar className="w-4 h-4 mt-0.5 shrink-0" style={{ color: accent }} />
                 <div>
                   <div className="text-sm font-semibold text-white">{formatEventDate(event.event_date)}</div>
                   {event.event_time && (
@@ -103,7 +104,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
             )}
             {event.location && (
               <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "#D90000" }} />
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0" style={{ color: accent }} />
                 <div>
                   {event.venue_name && <div className="text-sm font-semibold text-white">{event.venue_name}</div>}
                   <div className="text-sm" style={{ color: event.venue_name ? "#888888" : "#ffffff" }}>{event.location}</div>
@@ -112,7 +113,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
             )}
             {event.dress_code && (
               <div className="flex items-start gap-3">
-                <Shirt className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "#D90000" }} />
+                <Shirt className="w-4 h-4 mt-0.5 shrink-0" style={{ color: accent }} />
                 <div>
                   <div className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "#666666" }}>dress code</div>
                   <div className="text-sm text-white">{event.dress_code}</div>
@@ -125,7 +126,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
         {/* Agenda */}
         {agenda.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-xs font-bold tracking-[0.2em] mb-6" style={{ color: "#D90000" }}>agenda</h2>
+            <h2 className="text-xs font-bold tracking-[0.2em] mb-6" style={{ color: accent }}>agenda</h2>
             <div className="space-y-4">
               {agenda.map((item, i) => (
                 <div key={i} className="flex gap-4">
@@ -135,7 +136,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
                   <div className="flex gap-3 flex-1">
                     <div className="flex flex-col items-center">
                       <div className="w-px flex-1" style={{ backgroundColor: "#222222" }} />
-                      <div className="w-2 h-2 rounded-full shrink-0 my-1" style={{ backgroundColor: "#D90000" }} />
+                      <div className="w-2 h-2 rounded-full shrink-0 my-1" style={{ backgroundColor: accent }} />
                       {i < agenda.length - 1 && <div className="w-px flex-1" style={{ backgroundColor: "#222222" }} />}
                     </div>
                     <div className="pb-4 flex-1">
@@ -156,7 +157,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
           <Link
             href={`/rsvp/${event.id}`}
             className="inline-block text-white font-bold text-base px-10 py-4 rounded-sm transition-colors"
-            style={{ backgroundColor: "#D90000" }}
+            style={{ backgroundColor: accent }}
           >
             rsvp now →
           </Link>
@@ -187,14 +188,15 @@ interface HeroEvent {
   venue_name?: string;
 }
 
-function HeroContent({ event, formatEventDate, formatEventTime }: {
+function HeroContent({ event, formatEventDate, formatEventTime, accent }: {
   event: HeroEvent;
   formatEventDate: (d: string) => string;
   formatEventTime: (t: string) => string;
+  accent: string;
 }) {
   return (
     <>
-      <div className="text-xs font-bold tracking-[0.2em] mb-3 lowercase" style={{ color: "#D90000" }}>
+      <div className="text-xs font-bold tracking-[0.2em] mb-3 lowercase" style={{ color: accent }}>
         {(event.event_type || "").replace(/_/g, " ")}
       </div>
       <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white leading-tight mb-4">
@@ -203,14 +205,14 @@ function HeroContent({ event, formatEventDate, formatEventTime }: {
       <div className="flex flex-wrap gap-4 text-sm" style={{ color: "#aaaaaa" }}>
         {event.event_date ? (
           <span className="flex items-center gap-1.5">
-            <Calendar className="w-3.5 h-3.5" style={{ color: "#D90000" }} />
+            <Calendar className="w-3.5 h-3.5" style={{ color: accent }} />
             {formatEventDate(event.event_date)}
             {event.event_time ? ` · ${formatEventTime(event.event_time)}` : null}
           </span>
         ) : null}
         {event.location ? (
           <span className="flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5" style={{ color: "#D90000" }} />
+            <MapPin className="w-3.5 h-3.5" style={{ color: accent }} />
             {event.venue_name ? event.venue_name : event.location}
           </span>
         ) : null}

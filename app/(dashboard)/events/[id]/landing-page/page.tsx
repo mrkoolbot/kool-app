@@ -58,7 +58,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
 
   async function loadData(id: string) {
     const { data } = await supabase.from("events").select(
-      "name, slug, landing_description, landing_image_url, dress_code, is_public, agenda"
+      "name, slug, landing_description, landing_image_url, dress_code, is_public, agenda, accent_color"
     ).eq("id", id).single();
     if (data) {
       setEventName(data.name || "");
@@ -67,6 +67,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
       setImageUrl(data.landing_image_url || "");
       setDressCode(data.dress_code || "");
       setIsPublic(data.is_public || false);
+      setAccentColor(data.accent_color || "#D90000");
       setAgenda(Array.isArray(data.agenda) ? data.agenda : []);
     }
     setLoading(false);
@@ -85,6 +86,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
       dress_code: dressCode || null,
       is_public: isPublic,
       agenda: agenda,
+      accent_color: accentColor,
     }).eq("id", eventId);
     setSaving(false);
     setSaved(true);
