@@ -1,7 +1,7 @@
 "use client";
 import { KoolLogo } from "@/components/kool-logo";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { ArrowLeft, Plus, Trash2, Copy, Check, Globe, Lock, Eye, Upload, X } from "lucide-react";
@@ -30,6 +30,8 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
   const [savedSlug, setSavedSlug] = useState("");
+  const [pendingImageUrl, setPendingImageUrl] = useState("");
+  const hasLoaded = useRef(false);
 
   const supabase = createClient();
 
@@ -43,38 +45,54 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    if (!eventId) {
+      setUploadError("please wait, loading...");
+      return;
+    }
     setUploading(true);
     setUploadError("");
     // Show preview immediately from local file
     const localPreview = URL.createObjectURL(file);
     setImageUrl(localPreview);
+    setPendingImageUrl(localPreview);
     const ext = file.name.split(".").pop();
     const path = `event-heroes/${eventId}-${Date.now()}.${ext}`;
     const { error } = await supabase.storage.from("event-assets").upload(path, file, { upsert: true });
     if (!error) {
       const { data: urlData } = supabase.storage.from("event-assets").getPublicUrl(path);
       setImageUrl(urlData.publicUrl); // replace local blob with permanent URL
+      setPendingImageUrl(urlData.publicUrl);
     } else {
       setUploadError("upload failed: " + error.message);
-      // keep local preview so user can see what they picked
+      // keep local preview — pendingImageUrl already set to localPreview above
     }
     setUploading(false);
   }
 
   async function loadData(id: string) {
-    const { data } = await supabase.from("events").select(
-      "name, slug, landing_description, landing_image_url, dress_code, is_public, agenda"
+    if (hasLoaded.current) return;
+    hasLoaded.current = true;
+    // Try with accent_color first; fall back without it if column missing
+    let result = await supabase.from("events").select(
+      "name, slug, landing_description, landing_image_url, dress_code, is_public, agenda, accent_color"
     ).eq("id", id).single();
+    if (result.error?.message?.includes("accent_color")) {
+      result = await supabase.from("events").select(
+        "name, slug, landing_description, landing_image_url, dress_code, is_public, agenda"
+      ).eq("id", id).single();
+    }
+    const data = result.data;
     if (data) {
       setEventName(data.name || "");
       const loadedSlug = data.slug || "";
       setSlug(loadedSlug);
       setSavedSlug(loadedSlug);
       setDescription(data.landing_description || "");
-      setImageUrl(data.landing_image_url || "");
+      // Only set imageUrl from DB if not already set by a pending upload
+      setImageUrl((prev) => prev || data.landing_image_url || "");
       setDressCode(data.dress_code || "");
       setIsPublic(data.is_public || false);
-      // setAccentColor(data.accent_color || "#D90000"); // needs ALTER TABLE first
+      setAccentColor((data as Record<string, string>).accent_color || "#D90000");
       setAgenda(Array.isArray(data.agenda) ? data.agenda : []);
     }
     setLoading(false);
@@ -86,15 +104,23 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
 
   async function save() {
     setSaving(true);
+    const imageToSave = pendingImageUrl || imageUrl || null;
     const updateData: Record<string, unknown> = {
       slug: slug || generateSlug(eventName),
       landing_description: description || null,
-      landing_image_url: imageUrl || null,
+      landing_image_url: imageToSave,
       dress_code: dressCode || null,
       is_public: isPublic,
       agenda: agenda,
+      accent_color: accentColor,
     };
-    await supabase.from("events").update(updateData).eq("id", eventId);
+    const { error: saveError } = await supabase.from("events").update(updateData).eq("id", eventId);
+    if (saveError?.message?.includes("accent_color")) {
+      // Column doesn't exist yet — retry without it
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { accent_color: _ac, ...updateDataWithoutAccent } = updateData;
+      await supabase.from("events").update(updateDataWithoutAccent).eq("id", eventId);
+    }
     setSaving(false);
     setSaved(true);
     setSavedSlug(slug || generateSlug(eventName));
@@ -222,7 +248,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={imageUrl} alt="hero preview" className="w-full h-full object-cover" />
               <button
-                onClick={() => setImageUrl("")}
+                onClick={() => { setImageUrl(""); setPendingImageUrl(""); }}
                 className="absolute top-2 right-2 bg-black/60 text-white rounded-full p-1 hover:bg-black"
               >
                 <X className="w-3 h-3" />

@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Calendar, MapPin, Clock, Shirt } from "lucide-react";
+import { Calendar, MapPin, Shirt } from "lucide-react";
 
 interface AgendaItem {
   time: string;
@@ -51,6 +51,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
               src={event.landing_image_url}
               alt={event.name}
               className="w-full h-full object-cover"
+              crossOrigin="anonymous"
             />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.8) 70%, #0A0A0A 100%)" }} />
             <div className="absolute bottom-0 left-0 right-0 px-6 pb-10 md:px-12 md:pb-14">
@@ -166,12 +167,12 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
 
       {/* Footer */}
       <footer className="text-center py-10" style={{ borderTop: "1px solid #111111" }}>
-        <a href="https://koolevents.app" className="inline-flex flex-col items-center opacity-40 hover:opacity-70 transition-opacity" style={{ gap: "2px" }}>
-          <span className="flex items-baseline" style={{ gap: "2px" }}>
-            <span style={{ fontFamily: "sans-serif", fontWeight: 900, fontSize: "22px", color: "#ffffff", letterSpacing: "-0.02em", lineHeight: 1 }}>kool</span>
-            <span style={{ fontSize: "18px", color: "#D90000", lineHeight: 1, fontWeight: 900 }}>♥</span>
-          </span>
-          <span style={{ fontFamily: "sans-serif", fontWeight: 500, fontSize: "8px", color: "#ffffff", letterSpacing: "0.25em", lineHeight: 1 }}>events</span>
+        <a href="https://koolevents.app" className="inline-block opacity-40 hover:opacity-70 transition-opacity">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="140" height="70" aria-label="kool events">
+            <text fontFamily="GalanoGrotesque-Bold, 'Galano Grotesque', Arial Black, sans-serif" fontSize="110" fontWeight="700" fill="#ffffff" transform="translate(82 125.9)"><tspan x="0" y="0">kool</tspan></text>
+            <path fill="#d90000" d="M200,100s8.2-11,14.86-11c3.07,0,5.64,2.5,5.64,5.5,0,2.3-1.43,4.3-3.49,5.5,2.05,1.2,3.49,3.2,3.49,5.5,0,3-2.56,5.5-5.64,5.5-6.66,0-14.86-11-14.86-11Z"/>
+            <text fontFamily="GalanoGrotesque-Medium, 'Galano Grotesque', Arial, sans-serif" fontSize="21" fontWeight="500" letterSpacing="29" fill="#ffffff" transform="translate(88.38 151.94) scale(.99 1)"><tspan x="0" y="0">events</tspan></text>
+          </svg>
         </a>
         <p className="text-xs mt-3" style={{ color: "#333333" }}>plan smarter. celebrate bigger.</p>
       </footer>
