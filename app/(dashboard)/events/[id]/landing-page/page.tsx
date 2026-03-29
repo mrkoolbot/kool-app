@@ -59,7 +59,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
 
   async function loadData(id: string) {
     const { data } = await supabase.from("events").select(
-      "name, slug, landing_description, landing_image_url, dress_code, is_public, agenda, accent_color"
+      "name, slug, landing_description, landing_image_url, dress_code, is_public, agenda"
     ).eq("id", id).single();
     if (data) {
       setEventName(data.name || "");
@@ -70,7 +70,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
       setImageUrl(data.landing_image_url || "");
       setDressCode(data.dress_code || "");
       setIsPublic(data.is_public || false);
-      setAccentColor(data.accent_color || "#D90000");
+      // setAccentColor(data.accent_color || "#D90000"); // needs ALTER TABLE first
       setAgenda(Array.isArray(data.agenda) ? data.agenda : []);
     }
     setLoading(false);
@@ -90,10 +90,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
       is_public: isPublic,
       agenda: agenda,
     };
-    // accent_color requires ALTER TABLE — add if column exists
-    try { (updateData as any).accent_color = accentColor; } catch {}
-    const { error: saveError } = await supabase.from("events").update(updateData).eq("id", eventId);
-    if (saveError) console.error("save error:", saveError.message);
+    await supabase.from("events").update(updateData).eq("id", eventId);
     setSaving(false);
     setSaved(true);
     setSavedSlug(slug || generateSlug(eventName));
