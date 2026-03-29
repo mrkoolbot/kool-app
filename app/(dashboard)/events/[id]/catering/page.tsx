@@ -448,33 +448,7 @@ export default function CateringPage({ params }: { params: Promise<{ id: string 
               </p>
             </Section>
 
-            {/* Budget estimates */}
-            <div className="bg-white border border-kool-red/20 rounded-sm p-6">
-              <h3 className="text-xs font-bold tracking-[0.15em] text-kool-red mb-4 lowercase">estimated costs</h3>
-              {buildBudgetItems().map((item, i) => (
-                <div key={i} className="flex items-center justify-between py-2.5 border-b border-gray-50 last:border-0">
-                  <span className="text-sm text-gray-600">{item.name}</span>
-                  <span className="text-sm font-semibold">${item.cost.toLocaleString()}</span>
-                </div>
-              ))}
-              <div className="flex items-center justify-between pt-3 mt-1">
-                <span className="text-sm font-bold">total estimate</span>
-                <span className="text-lg font-black text-kool-red">
-                  ${buildBudgetItems().reduce((s, i) => s + i.cost, 0).toLocaleString()}
-                </span>
-              </div>
-              <p className="text-xs text-gray-400 mt-3">
-                estimates based on industry averages. actual costs vary by region, vendor, and menu selection.
-              </p>
-              <button
-                onClick={addToBudget}
-                disabled={addingToBudget}
-                className="mt-4 w-full flex items-center justify-center gap-2 bg-kool-red text-white text-sm px-4 py-3 rounded-sm hover:bg-kool-crimson transition-colors disabled:opacity-50"
-              >
-                <Plus className="w-4 h-4" />
-                {addingToBudget ? "adding..." : budgetAdded ? "added to budget!" : "add line items to budget"}
-              </button>
-            </div>
+
           </div>
         </div>
       </main>
