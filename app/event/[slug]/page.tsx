@@ -165,9 +165,12 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
 
       {/* Footer */}
       <footer className="text-center py-10" style={{ borderTop: "1px solid #111111" }}>
-        <a href="https://koolevents.app" className="inline-block opacity-40 hover:opacity-70 transition-opacity">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/kool-logo-official.svg" alt="kool events" style={{ height: "48px", width: "auto" }} />
+        <a href="https://koolevents.app" className="inline-flex flex-col items-center opacity-40 hover:opacity-70 transition-opacity" style={{ gap: "2px" }}>
+          <span className="flex items-baseline" style={{ gap: "2px" }}>
+            <span style={{ fontFamily: "sans-serif", fontWeight: 900, fontSize: "22px", color: "#ffffff", letterSpacing: "-0.02em", lineHeight: 1 }}>kool</span>
+            <span style={{ fontSize: "18px", color: "#D90000", lineHeight: 1, fontWeight: 900 }}>♥</span>
+          </span>
+          <span style={{ fontFamily: "sans-serif", fontWeight: 500, fontSize: "8px", color: "#ffffff", letterSpacing: "0.25em", lineHeight: 1 }}>events</span>
         </a>
         <p className="text-xs mt-3" style={{ color: "#333333" }}>plan smarter. celebrate bigger.</p>
       </footer>

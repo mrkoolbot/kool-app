@@ -44,9 +44,6 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
     if (!file) return;
     setUploading(true);
     setUploadError("");
-    // Show local preview immediately
-    const localUrl = URL.createObjectURL(file);
-    setImageUrl(localUrl);
     const ext = file.name.split(".").pop();
     const path = `event-heroes/${eventId}-${Date.now()}.${ext}`;
     const { error } = await supabase.storage.from("event-assets").upload(path, file, { upsert: true });
@@ -54,8 +51,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
       const { data: urlData } = supabase.storage.from("event-assets").getPublicUrl(path);
       setImageUrl(urlData.publicUrl);
     } else {
-      setUploadError("upload failed — " + error.message);
-      setImageUrl(""); // clear broken preview
+      setUploadError("upload failed: " + error.message + " — check Supabase storage policies");
     }
     setUploading(false);
   }
