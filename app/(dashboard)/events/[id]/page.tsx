@@ -1,4 +1,5 @@
 import { KoolLogo } from "@/components/kool-logo";
+import { DeleteEventButton } from "@/components/delete-event-button";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
@@ -205,6 +206,10 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             className="shrink-0 bg-kool-red text-white px-5 py-2.5 rounded-sm font-bold text-sm hover:bg-kool-crimson transition-colors inline-flex items-center gap-2">
             book a call <ArrowRight className="w-3.5 h-3.5" />
           </Link>
+        </div>
+        {/* Danger zone */}
+        <div className="pt-6 border-t border-gray-100 flex justify-end">
+          <DeleteEventButton eventId={id} />
         </div>
       </main>
     </div>
