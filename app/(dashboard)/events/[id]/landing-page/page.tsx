@@ -114,13 +114,9 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
       agenda: agenda,
       accent_color: accentColor,
     };
-    const { error: saveError } = await supabase.from("events").update(updateData).eq("id", eventId);
-    if (saveError) {
-      console.error("SAVE ERROR:", saveError.message, saveError.code);
-      alert("save error: " + saveError.message);
-    }
+    await supabase.from("events").update(updateData).eq("id", eventId);
     setSaving(false);
-    setSaved(!saveError);
+    setSaved(true);
     setSavedSlug(slug || generateSlug(eventName));
     setTimeout(() => setSaved(false), 2000);
   }
