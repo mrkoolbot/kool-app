@@ -33,7 +33,7 @@ export const DEFAULT_EMAIL_SEQUENCES: EmailSequenceItem[] = [
     {{event_location_display}}
   </div>
   <p style="color:#555;font-size:14px;">More details and your official invitation to follow. Mark your calendar!</p>
-  <p style="color:#999;font-size:12px;margin-top:32px;">powered by <a href="https://kool.events" style="color:#e53e3e;">kool.</a></p>
+  <p style="color:#999;font-size:12px;margin-top:32px;">powered by <a href="https://koolevents.app" style="color:#D90000;text-decoration:none;font-weight:600;">the koolture group (TKG)</a> · all rights reserved</p>
 </div>`,
   },
   {
@@ -55,7 +55,7 @@ export const DEFAULT_EMAIL_SEQUENCES: EmailSequenceItem[] = [
     {{event_location_display}}
   </div>
   <a href="{{rsvp_url}}" style="display:inline-block;background:#e53e3e;color:#fff;padding:12px 28px;border-radius:4px;font-weight:700;text-decoration:none;font-size:14px;">rsvp now</a>
-  <p style="color:#999;font-size:12px;margin-top:32px;">powered by <a href="https://kool.events" style="color:#e53e3e;">kool.</a></p>
+  <p style="color:#999;font-size:12px;margin-top:32px;">powered by <a href="https://koolevents.app" style="color:#D90000;text-decoration:none;font-weight:600;">the koolture group (TKG)</a> · all rights reserved</p>
 </div>`,
   },
   {
@@ -72,7 +72,7 @@ export const DEFAULT_EMAIL_SEQUENCES: EmailSequenceItem[] = [
   <p style="color:#555;font-size:16px;">Hi {{guest_name}},</p>
   <p style="color:#555;font-size:16px;">We haven't heard from you yet! We'd love to know if you can join us for <strong>{{event_name}}</strong> on {{event_date}}.</p>
   <a href="{{rsvp_url}}" style="display:inline-block;background:#e53e3e;color:#fff;padding:12px 28px;border-radius:4px;font-weight:700;text-decoration:none;font-size:14px;">rsvp now</a>
-  <p style="color:#999;font-size:12px;margin-top:32px;">powered by <a href="https://kool.events" style="color:#e53e3e;">kool.</a></p>
+  <p style="color:#999;font-size:12px;margin-top:32px;">powered by <a href="https://koolevents.app" style="color:#D90000;text-decoration:none;font-weight:600;">the koolture group (TKG)</a> · all rights reserved</p>
 </div>`,
   },
   {
@@ -93,7 +93,7 @@ export const DEFAULT_EMAIL_SEQUENCES: EmailSequenceItem[] = [
     <p style="color:#e53e3e;font-size:14px;margin:8px 0 0;">{{event_date}}{{event_time_display}}</p>
     {{event_location_display}}
   </div>
-  <p style="color:#999;font-size:12px;margin-top:32px;">powered by <a href="https://kool.events" style="color:#e53e3e;">kool.</a></p>
+  <p style="color:#999;font-size:12px;margin-top:32px;">powered by <a href="https://koolevents.app" style="color:#D90000;text-decoration:none;font-weight:600;">the koolture group (TKG)</a> · all rights reserved</p>
 </div>`,
   },
   {
@@ -115,7 +115,7 @@ export const DEFAULT_EMAIL_SEQUENCES: EmailSequenceItem[] = [
     {{event_location_display}}
   </div>
   <p style="color:#555;font-size:14px;">If you have any questions, please don't hesitate to reach out. See you soon!</p>
-  <p style="color:#999;font-size:12px;margin-top:32px;">powered by <a href="https://kool.events" style="color:#e53e3e;">kool.</a></p>
+  <p style="color:#999;font-size:12px;margin-top:32px;">powered by <a href="https://koolevents.app" style="color:#D90000;text-decoration:none;font-weight:600;">the koolture group (TKG)</a> · all rights reserved</p>
 </div>`,
   },
   {
@@ -132,7 +132,7 @@ export const DEFAULT_EMAIL_SEQUENCES: EmailSequenceItem[] = [
   <p style="color:#555;font-size:16px;">Hi {{guest_name}},</p>
   <p style="color:#555;font-size:16px;">Thank you so much for celebrating with us at <strong>{{event_name}}</strong>. Your presence made it truly special.</p>
   <p style="color:#555;font-size:14px;">We hope you had a wonderful time and look forward to seeing you again soon.</p>
-  <p style="color:#999;font-size:12px;margin-top:32px;">with love &amp; gratitude<br/>powered by <a href="https://kool.events" style="color:#e53e3e;">kool.</a></p>
+  <p style="color:#999;font-size:12px;margin-top:32px;">with love &amp; gratitude<br/>powered by <a href="https://koolevents.app" style="color:#D90000;text-decoration:none;font-weight:600;">the koolture group (TKG)</a> · all rights reserved</p>
 </div>`,
   },
 ];
