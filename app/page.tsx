@@ -13,7 +13,7 @@ export default function LandingPage() {
     {
       icon: <CheckSquare className="w-6 h-6 text-kool-red" />,
       title: "expert checklists",
-      desc: "hundreds of tasks — organized by category, priority, and timeline. built from 8 years of real events.",
+      desc: "hundreds of tasks — organized by category, priority, and timeline. built from 20 years of real events.",
     },
     {
       icon: <Users className="w-6 h-6 text-kool-red" />,
