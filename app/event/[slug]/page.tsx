@@ -174,7 +174,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
             <text fontFamily="GalanoGrotesque-Medium, 'Galano Grotesque', Arial, sans-serif" fontSize="21" fontWeight="500" letterSpacing="29" fill="#ffffff" transform="translate(88.38 151.94) scale(.99 1)"><tspan x="0" y="0">events</tspan></text>
           </svg>
         </a>
-        <p className="text-xs mt-3" style={{ color: "#333333" }}>plan smarter. celebrate bigger.</p>
+        <p className="text-xs mt-3" style={{ color: "#333333" }}>by the koolture group · all rights reserved · 2026</p>
       </footer>
     </div>
   );
