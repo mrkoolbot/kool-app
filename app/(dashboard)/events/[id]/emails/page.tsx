@@ -23,7 +23,6 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
   const [saved, setSaved] = useState(false);
   const [previewItem, setPreviewItem] = useState<EmailSequenceItem | null>(null);
   const [editItem, setEditItem] = useState<EmailSequenceItem | null>(null);
-  const [hasResendKey, setHasResendKey] = useState<boolean | null>(null);
   const supabase = createClient();
 
   useEffect(() => {
@@ -31,8 +30,6 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
       setEventId(id);
       loadData(id);
     });
-    // Check if Resend key is configured (via a lightweight API ping)
-    fetch("/api/check-resend").then((r) => setHasResendKey(r.ok)).catch(() => setHasResendKey(false));
   }, []);
 
   async function loadData(id: string) {
@@ -117,19 +114,7 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
           </button>
         </div>
 
-        {/* Resend key banner */}
-        {hasResendKey === false && (
-          <div className="bg-amber-50 border border-amber-200 rounded-sm p-4 mb-6 flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-            <div>
-              <p className="text-sm font-semibold text-amber-800">email sending not active</p>
-              <p className="text-xs text-amber-700 mt-1">
-                to activate email sending, add <code className="bg-amber-100 px-1 rounded">RESEND_API_KEY</code> to your environment variables.
-                {" "}<a href="https://resend.com" target="_blank" className="underline">get a free Resend API key →</a>
-              </p>
-            </div>
-          </div>
-        )}
+
 
         {/* Timeline */}
         <div className="space-y-4">
