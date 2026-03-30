@@ -41,7 +41,15 @@ export async function POST(request: Request) {
         day: "numeric",
       })
     : "";
-  const eventTime = event.event_time || "";
+  const rawTime = event.event_time || "";
+  const eventTime = (() => {
+    if (!rawTime) return "";
+    const [h, m] = rawTime.split(":");
+    const hour = parseInt(h);
+    const ampm = hour >= 12 ? "pm" : "am";
+    const hour12 = hour % 12 || 12;
+    return `${hour12}:${m} ${ampm}`;
+  })();
 
   const subject = (seqData?.custom_subject || getDefaultSubject(sequenceId, event.name))
     .replace("{{event_name}}", event.name)
@@ -192,12 +200,12 @@ function buildEmailHtml({
 
 function getDefaultBody(sequenceId: string, eventName: string): string {
   const bodies: Record<string, string> = {
-    save_the_date: `<p style="font-size:15px;color:#333;line-height:1.6;">we wanted to reach out early so you can save the date for <strong>${eventName}</strong>. formal invitation with all the details coming soon.</p>`,
-    invitation: `<p style="font-size:15px;color:#333;line-height:1.6;">you are cordially invited to <strong>${eventName}</strong>. we would be honored to have you join us for this special occasion. please RSVP at your earliest convenience.</p>`,
-    rsvp_reminder: `<p style="font-size:15px;color:#333;line-height:1.6;">just a friendly reminder — we haven't received your RSVP for <strong>${eventName}</strong> yet. we'd love to know if you can make it. please let us know at your earliest convenience.</p>`,
-    week_reminder: `<p style="font-size:15px;color:#333;line-height:1.6;"><strong>${eventName}</strong> is one week away — we are so excited to see you! here's a quick reminder of the details below.</p>`,
-    day_before: `<p style="font-size:15px;color:#333;line-height:1.6;">we can't wait to see you tomorrow at <strong>${eventName}</strong>! please review the event details below to make sure you're all set.</p>`,
-    post_event: `<p style="font-size:15px;color:#333;line-height:1.6;">thank you so much for being part of <strong>${eventName}</strong>. it was a pleasure having you with us. we hope you had a wonderful time and look forward to seeing you again.</p>`,
+    save_the_date: `<p style="font-size:15px;color:#333;line-height:1.6;">mark your calendar — something special is coming.</p><p style="font-size:15px;color:#333;line-height:1.6;"><strong>${eventName}</strong> is happening and you're on the list. formal invitation with full details coming soon — but consider this your first heads up.</p>`,
+    invitation: `<p style="font-size:15px;color:#333;line-height:1.6;">you're officially invited.</p><p style="font-size:15px;color:#333;line-height:1.6;"><strong>${eventName}</strong> is going to be an experience worth showing up for. the details are below — please RSVP so we can make sure we have your spot ready.</p>`,
+    rsvp_reminder: `<p style="font-size:15px;color:#333;line-height:1.6;">we saved you a spot — but we need to hear from you.</p><p style="font-size:15px;color:#333;line-height:1.6;">your RSVP for <strong>${eventName}</strong> is still pending. it takes 10 seconds — let us know you're coming.</p>`,
+    week_reminder: `<p style="font-size:15px;color:#333;line-height:1.6;">one week from today. that's all.</p><p style="font-size:15px;color:#333;line-height:1.6;"><strong>${eventName}</strong> is right around the corner. here's everything you need to know before the big day.</p>`,
+    day_before: `<p style="font-size:15px;color:#333;line-height:1.6;">tomorrow is the day.</p><p style="font-size:15px;color:#333;line-height:1.6;">we're putting the final touches on <strong>${eventName}</strong> and can't wait to see you. everything you need is below — see you there.</p>`,
+    post_event: `<p style="font-size:15px;color:#333;line-height:1.6;">thank you for being there.</p><p style="font-size:15px;color:#333;line-height:1.6;"><strong>${eventName}</strong> wouldn't have been the same without you. we hope you left with great memories — and we can't wait to do it again.</p>`,
   };
   return bodies[sequenceId] || `<p style="font-size:15px;color:#333;line-height:1.6;">here's an update about <strong>${eventName}</strong>.</p>`;
 }
