@@ -323,7 +323,7 @@ export default function LandingPage() {
               target="_blank"
               className="w-full sm:w-auto border border-white/20 text-white px-10 py-5 rounded-sm font-semibold text-lg hover:border-white transition-colors inline-flex items-center justify-center"
             >
-              learn more about tkG
+              learn more about TKG
             </Link>
           </div>
         </div>
@@ -336,7 +336,7 @@ export default function LandingPage() {
             <Link href="/" className="text-xl font-black tracking-tight text-kool-black">
               <KoolLogo inverted={true} size="sm" />
             </Link>
-            <p className="text-gray-400 text-xs mt-1">intellectual property of the koolture group (TKG). intellectual property of the koolture group (TKG). all rights reserved..</p>
+            <p className="text-gray-400 text-xs mt-1">intellectual property of the koolture group (TKG). all rights reserved.</p>
           </div>
           <div className="flex items-center gap-8 text-sm text-gray-500">
             <Link href="/pricing" className="hover:text-kool-black transition-colors">pricing</Link>

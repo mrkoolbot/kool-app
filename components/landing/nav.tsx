@@ -13,7 +13,7 @@ export function LandingNav() {
         <Link href="https://thekoolturegroup.com" target="_blank" className="hover:text-kool-red transition-colors">the koolture group</Link>
       </div>
       <div className="flex items-center gap-3">
-        <Link href="/login" className="text-sm text-gray-600 hover:text-kool-black transition-colors whitespace-nowrap">log in</Link>
+        <Link href="/login" className="hidden sm:block text-sm text-gray-600 hover:text-kool-black transition-colors whitespace-nowrap">log in</Link>
         <Link href="/signup" className="bg-kool-red text-white text-sm font-bold px-4 py-2 hover:bg-red-700 transition-colors whitespace-nowrap">
           get started free
         </Link>

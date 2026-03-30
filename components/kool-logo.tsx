@@ -24,7 +24,7 @@ export function KoolLogo({ className = "", inverted = false, size = "md" }: { cl
             letterSpacing: "-0.02em",
             lineHeight: 1,
             fontFamily: "var(--font-galano, 'Galano Grotesque', Arial Black, sans-serif)",
-            fontWeight: 900,
+            fontWeight: 700,
           }}
         >
           kool
