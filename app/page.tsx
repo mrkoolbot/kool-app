@@ -309,7 +309,7 @@ export default function LandingPage() {
           </p>
           <p className="text-white/60 text-lg mb-12">
             for high-stakes events — corporate summits, executive galas, milestone celebrations
-            that need to be perfect — <span className="text-white font-semibold">paula and the koolture group can run the entire show.</span>
+            that need to be perfect — <span className="text-white font-semibold">the koolture group team (TKG) can run the entire show.</span>
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
