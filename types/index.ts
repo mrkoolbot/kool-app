@@ -54,6 +54,8 @@ export interface Guest {
   rsvp_answers?: Record<string, unknown>;
   plus_one_name?: string;
   plus_one_attending?: boolean;
+  company?: string;
+  position?: string;
 }
 
 export interface RsvpQuestion {

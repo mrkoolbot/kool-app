@@ -127,11 +127,9 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
     const { data } = await supabase.from("guests").insert({ ...form, event_id: eventId }).select().single();
     if (data) {
       setGuests((prev) => [...prev, data]);
-      setForm({ first_name: "", last_name: "", email: "", phone: "", dietary_restrictions: "", plus_one: false });
+      setForm({ first_name: "", last_name: "", email: "", phone: "", dietary_restrictions: "", plus_one: false, company: "", position: "" });
       setShowForm(false);
-      if (form.email) {
-        await sendInvite(data, eventId);
-      }
+// invite not auto-sent — subscriber sends manually from email sequences
     }
   }
 
@@ -275,7 +273,7 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
                 <div>
                   <label className="block text-xs font-semibold mb-1.5 text-gray-600">
                     email
-                    <span className="text-kool-red ml-1">— invite will be sent automatically</span>
+                
                   </label>
                   <input type="email" value={form.email} onChange={(e) => setForm(p => ({ ...p, email: e.target.value }))}
                     className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-kool-red" />
@@ -284,6 +282,20 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
                   <label className="block text-xs font-semibold mb-1.5 text-gray-600">phone</label>
                   <input type="tel" value={form.phone} onChange={(e) => setForm(p => ({ ...p, phone: e.target.value }))}
                     className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-kool-red" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold mb-1.5 text-gray-600">company</label>
+                  <input value={form.company || ""} onChange={(e) => setForm(p => ({ ...p, company: e.target.value }))}
+                    className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-kool-red"
+                    placeholder="company name" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold mb-1.5 text-gray-600">position / title</label>
+                  <input value={form.position || ""} onChange={(e) => setForm(p => ({ ...p, position: e.target.value }))}
+                    className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-kool-red"
+                    placeholder="job title" />
                 </div>
               </div>
               <div>
