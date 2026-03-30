@@ -77,9 +77,9 @@ export default function LandingPage() {
           by the koolture group
         </p>
         <h1 className="text-5xl md:text-7xl font-black text-kool-black leading-[0.95] mb-8 tracking-tight">
-          plan kool events.<br />
-          <span className="text-kool-red">live unforgettable</span><br />
-          moments.
+          the tool that makes<br />
+          <span className="text-kool-red">any event feel</span><br />
+          like a production.
         </h1>
 
         {/* Paula floating headshot — after the header */}
@@ -98,9 +98,8 @@ export default function LandingPage() {
           </div>
         </div>
         <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
-          the first event planning platform designed by a six sigma-certified brand strategist
-          and internationally recognized event planning executive. every checklist, timeline, and template
-          is built from hundreds of real events.
+          designed by a six sigma-certified brand strategist and internationally recognized event planning executive.
+          every checklist, timeline, and template is built from 20 years of real events.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
