@@ -1,46 +1,50 @@
 "use client"
 
 export function KoolLogo({ className = "", inverted = false, size = "md" }: { className?: string, inverted?: boolean, size?: "sm" | "md" | "lg" }) {
-  const scales: Record<string, number> = { sm: 0.35, md: 0.5, lg: 0.85 }
-  const scale = scales[size] || 0.5
-  const w = 400 * scale
-  const h = 200 * scale
-  const fill = inverted ? "#0a0a0a" : "#ffffff"
+  const textColor = inverted ? "#0A0A0A" : "#ffffff";
+
+  const sizes: Record<string, { kool: string; heart: string; events: string; gap: string; letterSpacing: string }> = {
+    sm: { kool: "22px",  heart: "16px", events: "7px",  gap: "1px",  letterSpacing: "0.22em" },
+    md: { kool: "32px",  heart: "24px", events: "10px", gap: "2px",  letterSpacing: "0.22em" },
+    lg: { kool: "56px",  heart: "40px", events: "16px", gap: "3px",  letterSpacing: "0.22em" },
+  };
+  const s = sizes[size] || sizes.md;
 
   return (
-    <span className={`inline-block ${className}`} style={{ lineHeight: 0 }}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 400 200"
-        width={w}
-        height={h}
-        aria-label="kool events"
-        role="img"
-        style={{ display: "block" }}
+    <span
+      className={`inline-flex flex-col items-start leading-none select-none ${className}`}
+      style={{ gap: s.gap }}
+    >
+      <span className="flex items-baseline" style={{ gap: "1px", lineHeight: 1 }}>
+        <span
+          className="font-galano font-black"
+          style={{
+            fontSize: s.kool,
+            color: textColor,
+            letterSpacing: "-0.02em",
+            lineHeight: 1,
+            fontFamily: "var(--font-galano, 'Galano Grotesque', Arial Black, sans-serif)",
+            fontWeight: 900,
+          }}
+        >
+          kool
+        </span>
+        <span style={{ fontSize: s.heart, color: "#D90000", lineHeight: 1, fontWeight: 900 }}>♥</span>
+      </span>
+      <span
+        className="font-galano"
+        style={{
+          fontSize: s.events,
+          color: textColor,
+          letterSpacing: s.letterSpacing,
+          lineHeight: 1,
+          fontFamily: "var(--font-galano, 'Galano Grotesque', Arial, sans-serif)",
+          fontWeight: 500,
+          opacity: 0.85,
+        }}
       >
-        {/* Exact code from official logo file — no background rect */}
-        <text
-          fontFamily="GalanoGrotesque-Bold, 'Galano Grotesque'"
-          fontSize="110"
-          fontWeight="700"
-          fill={fill}
-          transform="translate(82 125.9)"
-        ><tspan x="0" y="0">kool</tspan></text>
-        {/* Exact heart path from official file */}
-        <path
-          fill="#d90000"
-          d="M200,100s8.2-11,14.86-11c3.07,0,5.64,2.5,5.64,5.5,0,2.3-1.43,4.3-3.49,5.5,2.05,1.2,3.49,3.2,3.49,5.5,0,3-2.56,5.5-5.64,5.5-6.66,0-14.86-11-14.86-11Z"
-        />
-        {/* "events" — exact from official file */}
-        <text
-          fontFamily="GalanoGrotesque-Medium, 'Galano Grotesque'"
-          fontSize="21"
-          fontWeight="500"
-          letterSpacing="29.4"
-          fill={fill}
-          transform="translate(88.38 151.94) scale(.99 1)"
-        ><tspan x="0" y="0">events</tspan></text>
-      </svg>
+        events
+      </span>
     </span>
-  )
+  );
 }
