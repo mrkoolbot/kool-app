@@ -132,7 +132,7 @@ export default async function DashboardPage() {
           <div>
             <p className="text-kool-red text-xs font-bold tracking-[0.2em] lowercase mb-2">the koolture group</p>
             <h3 className="text-xl font-black mb-2">want a professional to run your event?</h3>
-            <p className="text-white/60 text-sm">paula mescolin and the TKG team handle everything — from strategy to day-of production.</p>
+            <p className="text-white/60 text-sm">the TKG team handles everything — from strategy to day-of production.</p>
           </div>
           <Link
             href="https://thekoolturegroup.com/contact"
