@@ -45,7 +45,7 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
   const supabase = createClient();
 
   const [form, setForm] = useState({
-    first_name: "", last_name: "", email: "", phone: "", dietary_restrictions: "", plus_one: false,
+    first_name: "", last_name: "", email: "", phone: "", dietary_restrictions: "", plus_one: false, company: "", position: "",
   });
 
   const showToast = useCallback((message: string, type: "success" | "error" = "success") => {
