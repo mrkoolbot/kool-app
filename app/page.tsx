@@ -335,7 +335,7 @@ export default function LandingPage() {
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
             <Link href="/" className="text-xl font-black tracking-tight text-kool-black">
-              <KoolLogo />
+              <KoolLogo inverted={true} size="sm" />
             </Link>
             <p className="text-gray-400 text-xs mt-1">by the koolture group · the koolture group</p>
           </div>
