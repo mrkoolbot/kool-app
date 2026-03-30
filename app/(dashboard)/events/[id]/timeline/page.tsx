@@ -138,7 +138,7 @@ export default function TimelinePage({ params }: { params: Promise<{ id: string 
                 disabled={generating}
                 className="bg-kool-red text-white text-sm px-6 py-3 rounded-sm hover:bg-kool-crimson disabled:opacity-50 mb-3 block mx-auto"
               >
-                {generating ? "generating..." : `generate ${event.event_type.replace(/_/g, " ")} timeline`}
+                {generating ? "generating..." : "generate event timeline"}
               </button>
             )}
             <button onClick={() => setShowForm(true)} className="text-sm text-gray-400 hover:text-kool-black underline">
