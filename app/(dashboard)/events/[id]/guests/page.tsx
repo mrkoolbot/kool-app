@@ -4,7 +4,7 @@ import { KoolLogo } from "@/components/kool-logo";
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { ArrowLeft, Plus, Copy, Check, Users, Mail, RefreshCw, ChevronDown, ChevronRight, Car, Accessibility } from "lucide-react";
+import { ArrowLeft, Download, Plus, Copy, Check, Users, Mail, RefreshCw, ChevronDown, ChevronRight, Car, Accessibility } from "lucide-react";
 import type { Guest } from "@/types";
 
 const RSVP_COLORS: Record<string, string> = {
@@ -157,6 +157,31 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
     setGuests((prev) => prev.filter((g) => g.id !== guestId));
   }
 
+  function exportGuestList() {
+    const headers = ["first name", "last name", "email", "phone", "company", "position", "rsvp status", "dietary restrictions", "plus one", "notes"];
+    const rows = guests.map(g => [
+      g.first_name || "",
+      g.last_name || "",
+      g.email || "",
+      g.phone || "",
+      (g as any).company || "",
+      (g as any).position || "",
+      g.rsvp_status || "pending",
+      g.dietary_restrictions || "",
+      g.plus_one ? "yes" : "no",
+      g.notes || "",
+    ]);
+    const escaped = (s: string) => s.replace(/"/g, '""')
+    const csv = [headers, ...rows].map(row => row.map(cell => `"${escaped(String(cell))}"`).join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `guest-list-${eventId}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   function copyRsvpLink() {
     navigator.clipboard.writeText(`${window.location.origin}/rsvp/${eventId}`);
     setCopied(true);
@@ -213,6 +238,10 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
               className="flex items-center gap-2 border border-gray-200 text-sm px-4 py-2.5 rounded-sm hover:border-kool-black transition-colors">
               {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
               {copied ? "copied!" : "copy rsvp link"}
+            </button>
+            <button onClick={exportGuestList}
+              className="flex items-center gap-2 border border-gray-200 text-gray-600 text-sm px-4 py-2.5 rounded-sm hover:border-kool-black transition-colors">
+              <Download className="w-4 h-4" /> export
             </button>
             <button onClick={() => setShowForm(true)}
               className="flex items-center gap-2 bg-kool-red text-white text-sm px-4 py-2.5 rounded-sm hover:bg-kool-crimson transition-colors">
@@ -343,6 +372,10 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
             <Users className="w-10 h-10 text-gray-200 mx-auto mb-4" />
             <p className="font-bold mb-2">no guests yet.</p>
             <p className="text-gray-400 text-sm mb-6">add guests manually or copy the rsvp link to share.</p>
+            <button onClick={exportGuestList}
+              className="flex items-center gap-2 border border-gray-200 text-gray-600 text-sm px-4 py-2.5 rounded-sm hover:border-kool-black transition-colors">
+              <Download className="w-4 h-4" /> export
+            </button>
             <button onClick={() => setShowForm(true)}
               className="bg-kool-red text-white px-6 py-3 rounded-sm font-semibold text-sm hover:bg-kool-crimson transition-colors">
               add first guest
