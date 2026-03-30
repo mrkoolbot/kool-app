@@ -6,13 +6,21 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { ArrowLeft, Printer, Save, Plus } from "lucide-react";
 
-type EventType = "cocktail" | "dinner" | "brunch" | "buffet" | "wedding" | "corporate";
+type EventType = "cocktail" | "dinner" | "brunch" | "buffet" | "wedding" | "corporate" |
+  "gala" | "fundraiser" | "charity" | "award_ceremony" | "milestone_birthday" | "birthday" |
+  "sweet_16" | "quinceanera" | "graduation" | "retirement" | "rehearsal_dinner" | "engagement" |
+  "anniversary" | "baby_shower" | "gender_reveal" | "holiday_party" | "networking_event" |
+  "conference" | "summit" | "workshop" | "seminar" | "product_launch" | "press_conference" |
+  "town_hall" | "debate" | "political_rally" | "campaign_event" | "fundraiser_political" |
+  "art_exhibit" | "gallery_opening" | "art_auction" | "theater_play" | "opera" | "dance_performance" |
+  "concert" | "festival" | "championship" | "tournament" | "sports_gala" | "watch_party" |
+  "memorial" | "special_event";
 type Duration = 2 | 3 | 4 | 5;
 type BarType = "full" | "beer-wine" | "none";
 
 interface CateringInputs {
   guestCount: number;
-  eventType: EventType;
+  eventType: string;
   duration: Duration;
   mealIncluded: boolean;
   barType: BarType;
@@ -70,14 +78,49 @@ function calculate(inputs: CateringInputs): CateringEstimate {
   };
 
   // Food multipliers by event type
-  const foodMultipliers: Record<EventType, { appetizers: number; main: number; sides: number; bread: number; desserts: number }> = {
-    cocktail:  { appetizers: 8,  main: 0,    sides: 0,   bread: 0,   desserts: 2 },
-    dinner:    { appetizers: 4,  main: 1,    sides: 2,   bread: 1.5, desserts: 1 },
-    brunch:    { appetizers: 3,  main: 1,    sides: 2,   bread: 2,   desserts: 1 },
-    buffet:    { appetizers: 5,  main: 1.5,  sides: 3,   bread: 1,   desserts: 1.5 },
-    wedding:   { appetizers: 6,  main: 1,    sides: 3,   bread: 2,   desserts: 1.5 },
-    corporate: { appetizers: 5,  main: 1,    sides: 2,   bread: 1,   desserts: 1 },
+  // Food profiles grouped by event style
+  // cocktail-style: heavy apps, no main
+  // dinner-style: full plated service
+  // buffet-style: generous portions
+  // gala-style: upscale plated
+  // reception-style: moderate apps + light bites
+  const FM: Record<string, { appetizers: number; main: number; sides: number; bread: number; desserts: number }> = {
+    cocktail_style:   { appetizers: 8,   main: 0,    sides: 0,   bread: 0,   desserts: 2   },
+    dinner_style:     { appetizers: 4,   main: 1,    sides: 2,   bread: 1.5, desserts: 1   },
+    brunch_style:     { appetizers: 3,   main: 1,    sides: 2,   bread: 2,   desserts: 1   },
+    buffet_style:     { appetizers: 5,   main: 1.5,  sides: 3,   bread: 1,   desserts: 1.5 },
+    wedding_style:    { appetizers: 6,   main: 1,    sides: 3,   bread: 2,   desserts: 1.5 },
+    corporate_style:  { appetizers: 5,   main: 1,    sides: 2,   bread: 1,   desserts: 1   },
+    gala_style:       { appetizers: 6,   main: 1,    sides: 3,   bread: 1.5, desserts: 1.5 },
+    reception_style:  { appetizers: 6,   main: 0.5,  sides: 1,   bread: 0.5, desserts: 1   },
+    minimal_style:    { appetizers: 3,   main: 0,    sides: 0,   bread: 0,   desserts: 1   },
   };
+  const profileMap: Record<string, keyof typeof FM> = {
+    cocktail: "cocktail_style", dinner: "dinner_style", brunch: "brunch_style",
+    buffet: "buffet_style", wedding: "wedding_style", corporate: "corporate_style",
+    gala: "gala_style", fundraiser: "gala_style", charity: "gala_style",
+    award_ceremony: "gala_style", milestone_birthday: "dinner_style",
+    birthday: "reception_style", sweet_16: "reception_style", quinceanera: "gala_style",
+    graduation: "reception_style", retirement: "dinner_style",
+    rehearsal_dinner: "dinner_style", engagement: "reception_style",
+    anniversary: "dinner_style", baby_shower: "brunch_style",
+    gender_reveal: "brunch_style", holiday_party: "buffet_style",
+    networking_event: "cocktail_style", conference: "corporate_style",
+    summit: "corporate_style", workshop: "minimal_style", seminar: "minimal_style",
+    product_launch: "cocktail_style", press_conference: "minimal_style",
+    town_hall: "minimal_style", debate: "minimal_style",
+    political_rally: "minimal_style", campaign_event: "minimal_style",
+    fundraiser_political: "reception_style", art_exhibit: "cocktail_style",
+    gallery_opening: "cocktail_style", art_auction: "reception_style",
+    theater_play: "minimal_style", opera: "minimal_style",
+    dance_performance: "minimal_style", concert: "minimal_style",
+    festival: "buffet_style", championship: "minimal_style",
+    tournament: "minimal_style", sports_gala: "reception_style",
+    watch_party: "buffet_style", memorial: "reception_style", special_event: "reception_style",
+  };
+  const foodMultipliers: Record<string, { appetizers: number; main: number; sides: number; bread: number; desserts: number }> = Object.fromEntries(
+    Object.entries(profileMap).map(([k, v]) => [k, FM[v]])
+  ) as Record<string, { appetizers: number; main: number; sides: number; bread: number; desserts: number }>;
 
   const fm = foodMultipliers[eventType];
 
@@ -149,13 +192,29 @@ function calculate(inputs: CateringInputs): CateringEstimate {
   return { food, bar, nonAlcoholic, servingware };
 }
 
-const EVENT_TYPE_LABELS: Record<EventType, string> = {
-  cocktail: "cocktail reception",
-  dinner: "sit-down dinner",
-  brunch: "brunch",
-  buffet: "buffet",
-  wedding: "wedding",
-  corporate: "corporate",
+const EVENT_TYPE_LABELS: Record<string, string> = {
+  cocktail: "cocktail reception", dinner: "sit-down dinner", brunch: "brunch",
+  buffet: "buffet", wedding: "wedding", corporate: "corporate event",
+  gala: "gala", fundraiser: "fundraiser", charity: "charity event",
+  award_ceremony: "award ceremony", milestone_birthday: "milestone birthday",
+  birthday: "birthday", sweet_16: "sweet 16", quinceanera: "quinceañera",
+  graduation: "graduation", retirement: "retirement party",
+  rehearsal_dinner: "rehearsal dinner", engagement: "engagement party",
+  anniversary: "anniversary", baby_shower: "baby shower",
+  gender_reveal: "gender reveal", holiday_party: "holiday party",
+  networking_event: "networking event", conference: "conference",
+  summit: "summit", workshop: "workshop", seminar: "seminar",
+  product_launch: "product launch", press_conference: "press conference",
+  town_hall: "town hall", debate: "debate",
+  political_rally: "political rally", campaign_event: "campaign event",
+  fundraiser_political: "political fundraiser", art_exhibit: "art exhibit",
+  gallery_opening: "gallery opening", art_auction: "art auction",
+  theater_play: "theater / play", opera: "opera",
+  dance_performance: "dance performance", concert: "concert",
+  festival: "festival", championship: "championship",
+  tournament: "tournament", sports_gala: "sports gala",
+  watch_party: "watch party", memorial: "memorial",
+  special_event: "special event",
 };
 
 export default function CateringPage({ params }: { params: Promise<{ id: string }> }) {
@@ -316,7 +375,7 @@ export default function CateringPage({ params }: { params: Promise<{ id: string 
                 <div>
                   <label className="block text-xs font-semibold mb-2 text-gray-600">event type</label>
                   <div className="grid grid-cols-2 gap-2">
-                    {(Object.keys(EVENT_TYPE_LABELS) as EventType[]).map((type) => (
+                    {(Object.keys(EVENT_TYPE_LABELS)).map((type) => (
                       <button
                         key={type}
                         onClick={() => setInputs((p) => ({ ...p, eventType: type }))}
