@@ -99,7 +99,7 @@ export default function LandingPage() {
         </div>
         <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
           the first event planning platform designed by a six sigma-certified brand strategist
-          and 8-year event production founder. every checklist, timeline, and template
+          and internationally recognized event planning executive. every checklist, timeline, and template
           is built from hundreds of real events.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
