@@ -103,8 +103,7 @@ function buildPreviewHtml(sequenceId: string, event: any, eventId: string): stri
   body { margin: 0; padding: 0; background: #f5f5f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
   .email-wrapper { max-width: 600px; margin: 0 auto; background: #ffffff; }
   .email-header { background: #0a0a0a; padding: 24px 32px; }
-  .email-header-logo { color: #ffffff; font-size: 18px; font-weight: 900; letter-spacing: -0.5px; }
-  .email-header-logo span { color: ${accentColor}; }
+
   .email-body { padding: 0; }
   .email-footer { background: #0a0a0a; padding: 16px 32px; text-align: center; }
   .email-footer p { color: #666; font-size: 11px; margin: 0; }
@@ -114,7 +113,7 @@ function buildPreviewHtml(sequenceId: string, event: any, eventId: string): stri
 <body>
 <div class="email-wrapper">
   <div class="email-header">
-    <div class="email-header-logo">kool<span>&#9829;</span></div>
+    <img src="https://koolevents.app/kool-logo-official-v2.svg" alt="kool events" width="140" height="70" style="display:inline-block;border:0;" />
   </div>
   ${heroImageUrl ? `
   <div style="width:100%;max-height:280px;overflow:hidden;">

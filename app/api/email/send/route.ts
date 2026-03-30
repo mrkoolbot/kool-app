@@ -149,9 +149,8 @@ function buildEmailHtml({
 <body style="margin:0;padding:0;background:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
   <div style="max-width:560px;margin:40px auto;background:#ffffff;border-radius:4px;overflow:hidden;">
     <!-- Header -->
-    <div style="background:#0a0a0a;padding:32px 40px;text-align:center;">
-      <span style="font-size:28px;font-weight:900;color:#ffffff;letter-spacing:-0.02em;">kool</span><span style="font-size:22px;color:${accentColor};font-weight:900;">♥</span>
-      <div style="font-size:10px;color:#ffffff;letter-spacing:0.25em;opacity:0.7;margin-top:2px;">events</div>
+    <div style="background:#0a0a0a;padding:28px 40px;text-align:center;">
+      <img src="https://koolevents.app/kool-logo-official-v2.svg" alt="kool events" width="140" height="70" style="display:inline-block;border:0;" />
     </div>
     ${heroImageUrl ? `
     <!-- Hero Image -->
