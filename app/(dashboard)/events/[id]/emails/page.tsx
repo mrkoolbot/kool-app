@@ -14,14 +14,125 @@ import {
   type EmailSequenceItem,
 } from "@/lib/email-sequences";
 
+const sequenceLabels: Record<string, string> = {
+  save_the_date: "save the date",
+  invitation: "formal invitation",
+  rsvp_reminder: "RSVP reminder",
+  week_reminder: "1-week reminder",
+  day_before: "day-before reminder",
+  thank_you: "post-event thank you",
+};
+
+function formatEventDate(dateStr: string): string {
+  if (!dateStr) return "";
+  try {
+    // dateStr is typically "YYYY-MM-DD"
+    const [year, month, day] = dateStr.split("-").map(Number);
+    const d = new Date(year, month - 1, day);
+    return d.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+  } catch {
+    return dateStr;
+  }
+}
+
+function formatEventTime(timeStr: string): string {
+  if (!timeStr) return "";
+  try {
+    // timeStr is typically "HH:MM" or "HH:MM:SS"
+    const [hourStr, minStr] = timeStr.split(":");
+    let hour = parseInt(hourStr, 10);
+    const min = minStr || "00";
+    const ampm = hour >= 12 ? "pm" : "am";
+    if (hour > 12) hour -= 12;
+    if (hour === 0) hour = 12;
+    return min === "00" ? `${hour}:00 ${ampm}` : `${hour}:${min} ${ampm}`;
+  } catch {
+    return timeStr;
+  }
+}
+
+function buildPreviewHtml(sequenceId: string, event: any, eventId: string): string {
+  // Find the sequence template
+  const seq = DEFAULT_EMAIL_SEQUENCES.find((s) => s.id === sequenceId);
+  if (!seq) return "<p>Template not found.</p>";
+
+  const guestName = "your guest";
+  const eventName = event.name || "your event";
+  const eventDate = formatEventDate(event.event_date);
+  const eventTime = event.event_time ? formatEventTime(event.event_time) : "";
+  const timeDisplay = eventTime ? ` at ${eventTime}` : "";
+  const venueName = event.venue_name || "";
+  const location = event.location || "";
+  const dresscode = event.dress_code || "";
+  const rsvpUrl = `https://koolevents.app/rsvp/${eventId}`;
+
+  let locationLine = "";
+  if (venueName && location) {
+    locationLine = `${venueName} · ${location}`;
+  } else if (venueName) {
+    locationLine = venueName;
+  } else if (location) {
+    locationLine = location;
+  }
+
+  const locationDisplay = locationLine
+    ? `<p style="color:#aaa;font-size:13px;margin:4px 0 0;">${locationLine}</p>`
+    : "";
+
+  const dresscodeDisplay = dresscode
+    ? `<p style="color:#aaa;font-size:13px;margin:4px 0 0;">dress code: ${dresscode}</p>`
+    : "";
+
+  let html = seq.bodyHtml;
+  html = html.replace(/\{\{guest_name\}\}/g, guestName);
+  html = html.replace(/\{\{event_name\}\}/g, eventName);
+  html = html.replace(/\{\{event_date\}\}/g, eventDate);
+  html = html.replace(/\{\{event_time_display\}\}/g, timeDisplay);
+  html = html.replace(/\{\{event_location_display\}\}/g, locationDisplay + dresscodeDisplay);
+  html = html.replace(/\{\{rsvp_url\}\}/g, rsvpUrl);
+
+  return `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  body { margin: 0; padding: 0; background: #f5f5f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  .email-wrapper { max-width: 600px; margin: 0 auto; background: #ffffff; }
+  .email-header { background: #0a0a0a; padding: 24px 32px; }
+  .email-header-logo { color: #ffffff; font-size: 18px; font-weight: 900; letter-spacing: -0.5px; }
+  .email-header-logo span { color: #D90000; }
+  .email-body { padding: 0; }
+  .email-footer { background: #0a0a0a; padding: 16px 32px; text-align: center; }
+  .email-footer p { color: #666; font-size: 11px; margin: 0; }
+  .email-footer a { color: #D90000; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrapper">
+  <div class="email-header">
+    <div class="email-header-logo">kool<span>&#9829;</span></div>
+  </div>
+  <div class="email-body">
+    ${html}
+  </div>
+  <div class="email-footer">
+    <p>powered by <a href="https://koolevents.app">the koolture group (TKG)</a> · all rights reserved</p>
+  </div>
+</div>
+</body>
+</html>`;
+}
+
 export default function EmailSequencesPage({ params }: { params: Promise<{ id: string }> }) {
   const [eventId, setEventId] = useState("");
   const [eventName, setEventName] = useState("");
+  const [event, setEvent] = useState<any>(null);
   const [sequences, setSequences] = useState<EmailSequenceItem[]>(DEFAULT_EMAIL_SEQUENCES);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [previewItem, setPreviewItem] = useState<EmailSequenceItem | null>(null);
+  const [previewSeq, setPreviewSeq] = useState<string | null>(null);
   const [editItem, setEditItem] = useState<EmailSequenceItem | null>(null);
   const [sendModal, setSendModal] = useState<EmailSequenceItem | null>(null);
   const [sendHistory, setSendHistory] = useState<Record<string, number>>({});
@@ -35,16 +146,17 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
   }, []);
 
   async function loadData(id: string) {
-    const { data: event } = await supabase
+    const { data: eventData } = await supabase
       .from("events")
-      .select("name, email_sequences")
+      .select("name, email_sequences, event_date, event_time, location, venue_name, dress_code")
       .eq("id", id)
       .single();
-    if (event) {
-      setEventName(event.name || "");
-      if (event.email_sequences && Array.isArray(event.email_sequences) && event.email_sequences.length > 0) {
+    if (eventData) {
+      setEventName(eventData.name || "");
+      setEvent(eventData);
+      if (eventData.email_sequences && Array.isArray(eventData.email_sequences) && eventData.email_sequences.length > 0) {
         const savedMap = new Map<string, EmailSequenceItem>(
-          (event.email_sequences as EmailSequenceItem[]).map((s) => [s.id, s])
+          (eventData.email_sequences as EmailSequenceItem[]).map((s) => [s.id, s])
         );
         const merged = DEFAULT_EMAIL_SEQUENCES.map((def) => savedMap.get(def.id) || def);
         setSequences(merged);
@@ -170,7 +282,7 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
                       </div>
                       <div className="flex gap-2 shrink-0">
                         <button
-                          onClick={() => setPreviewItem(seq)}
+                          onClick={() => setPreviewSeq(seq.id)}
                           className="flex items-center gap-1 text-xs text-gray-400 hover:text-kool-black border border-gray-200 px-2.5 py-1.5 rounded-sm transition-colors"
                         >
                           <Eye className="w-3.5 h-3.5" /> preview
@@ -243,31 +355,34 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
       </main>
 
       {/* Preview Modal */}
-      {previewItem && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setPreviewItem(null)}>
-          <div className="bg-white rounded-sm max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between p-5 border-b border-gray-100">
+      {previewSeq && event && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={() => setPreviewSeq(null)}>
+          <div className="bg-white rounded-sm max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
               <div>
-                <p className="font-bold">{previewItem.name}</p>
-                <p className="text-xs text-gray-500 mt-0.5">subject: {previewItem.subject}</p>
+                <h2 className="font-bold text-sm">email preview</h2>
+                <p className="text-xs text-gray-400 mt-0.5">{sequenceLabels[previewSeq] ?? previewSeq} · as seen by your guests</p>
               </div>
-              <button onClick={() => setPreviewItem(null)} className="text-gray-400 hover:text-kool-black">
+              <button onClick={() => setPreviewSeq(null)} className="text-gray-400 hover:text-kool-black">
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="p-5">
-              <div
-                className="border border-gray-100 rounded-sm overflow-hidden"
-                dangerouslySetInnerHTML={{
-                  __html: previewItem.bodyHtml
-                    .replace(/{{guest_name}}/g, "Jane Smith")
-                    .replace(/{{event_name}}/g, eventName || "Your Event")
-                    .replace(/{{event_date}}/g, "Saturday, July 12, 2025")
-                    .replace(/{{event_time_display}}/g, " at 7:00 PM")
-                    .replace(/{{event_location_display}}/g, '<p style="color:#aaa;font-size:13px;margin:4px 0 0;">Grand Ballroom · Miami, FL</p>')
-                    .replace(/{{rsvp_url}}/g, "#"),
-                }}
+            <div className="overflow-y-auto flex-1 p-4 bg-gray-50">
+              <iframe
+                srcDoc={buildPreviewHtml(previewSeq, event, eventId)}
+                className="w-full rounded-sm border border-gray-200"
+                style={{ minHeight: "600px", background: "white" }}
+                title="email preview"
               />
+            </div>
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-between items-center">
+              <p className="text-xs text-gray-400">this is exactly what your guests will receive</p>
+              <button
+                onClick={() => setPreviewSeq(null)}
+                className="text-sm bg-kool-red text-white px-4 py-2 rounded-sm hover:bg-kool-crimson"
+              >
+                close preview
+              </button>
             </div>
           </div>
         </div>
