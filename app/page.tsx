@@ -337,7 +337,7 @@ export default function LandingPage() {
             <Link href="/" className="text-xl font-black tracking-tight text-kool-black">
               <KoolLogo inverted={true} size="sm" />
             </Link>
-            <p className="text-gray-400 text-xs mt-1">by the koolture group · all rights reserved · 2026</p>
+            <p className="text-gray-400 text-xs mt-1">intellectual property of the koolture group (TKG). intellectual property of the koolture group (TKG). all rights reserved..</p>
           </div>
           <div className="flex items-center gap-8 text-sm text-gray-500">
             <Link href="/pricing" className="hover:text-kool-black transition-colors">pricing</Link>
