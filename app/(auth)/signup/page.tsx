@@ -46,7 +46,7 @@ export default function SignupPage() {
       <div className="min-h-screen bg-white flex items-center justify-center px-6">
         <div className="w-full max-w-sm text-center">
           <Link href="/" className="flex justify-center mb-10">
-            <KoolLogo size="lg" inverted={true} />
+            <KoolLogo size="md" inverted={true} />
           </Link>
           <h1 className="text-2xl font-black mb-3">check your email.</h1>
           <p className="text-gray-500 text-sm mb-6">
@@ -63,7 +63,7 @@ export default function SignupPage() {
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
         <Link href="/" className="flex justify-center mb-10">
-          <KoolLogo size="lg" inverted={true} />
+          <KoolLogo size="md" inverted={true} />
         </Link>
         <h1 className="text-2xl font-black mb-2">create your account.</h1>
         <p className="text-gray-500 text-sm mb-8">free forever for up to 25 guests.</p>

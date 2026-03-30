@@ -31,7 +31,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
         <Link href="/" className="flex justify-center mb-10">
-          <KoolLogo size="lg" inverted={true} />
+          <KoolLogo size="md" inverted={true} />
         </Link>
         <h1 className="text-2xl font-black mb-2">welcome back.</h1>
         <p className="text-gray-500 text-sm mb-8">log in to continue planning.</p>
