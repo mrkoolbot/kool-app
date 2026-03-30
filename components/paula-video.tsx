@@ -65,7 +65,7 @@ export function PaulaVideoAvatar() {
           paula mescolin · founder, the koolture group
         </p>
         <p style={{ fontSize: 13, color: "#374151", lineHeight: 1.6, marginBottom: 4 }}>
-          {playing ? "playing welcome message..." : "tap my photo to hear a message from me. ♥"}
+          {playing ? "playing welcome message..." : ""}
         </p>
         {!playing && (
           <button
