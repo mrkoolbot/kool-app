@@ -139,7 +139,7 @@ export default async function DashboardPage() {
             target="_blank"
             className="shrink-0 bg-kool-red text-white px-6 py-3 rounded-sm font-bold hover:bg-kool-crimson transition-colors inline-flex items-center gap-2"
           >
-            hire tkG <ArrowRight className="w-4 h-4" />
+            hire TKG <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </main>

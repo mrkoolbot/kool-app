@@ -317,7 +317,7 @@ export default function LandingPage() {
               target="_blank"
               className="w-full sm:w-auto bg-kool-red text-white px-10 py-5 rounded-sm font-bold text-lg hover:bg-kool-crimson transition-colors inline-flex items-center justify-center gap-2"
             >
-              hire the koolture group <ArrowRight className="w-5 h-5" />
+              hire TKG <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
               href="https://thekoolturegroup.com"

@@ -204,7 +204,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
           </div>
           <Link href="https://thekoolturegroup.com/contact" target="_blank"
             className="shrink-0 bg-kool-red text-white px-5 py-2.5 rounded-sm font-bold text-sm hover:bg-kool-crimson transition-colors inline-flex items-center gap-2">
-            book a call <ArrowRight className="w-3.5 h-3.5" />
+            hire TKG <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
         {/* Danger zone */}
