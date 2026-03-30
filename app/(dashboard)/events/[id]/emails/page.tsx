@@ -5,7 +5,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import {
   ArrowLeft, Mail, Clock, Users, Eye, Edit2, Save, X,
-  AlertTriangle, Calendar, CheckCircle, Send
+  AlertTriangle, Calendar, CheckCircle, Send, Zap
 } from "lucide-react";
 import {
   DEFAULT_EMAIL_SEQUENCES,
@@ -23,6 +23,8 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
   const [saved, setSaved] = useState(false);
   const [previewItem, setPreviewItem] = useState<EmailSequenceItem | null>(null);
   const [editItem, setEditItem] = useState<EmailSequenceItem | null>(null);
+  const [sendModal, setSendModal] = useState<EmailSequenceItem | null>(null);
+  const [sendHistory, setSendHistory] = useState<Record<string, number>>({});
   const supabase = createClient();
 
   useEffect(() => {
@@ -41,7 +43,6 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
     if (event) {
       setEventName(event.name || "");
       if (event.email_sequences && Array.isArray(event.email_sequences) && event.email_sequences.length > 0) {
-        // Merge saved config with defaults (to pick up any new sequences added to defaults)
         const savedMap = new Map<string, EmailSequenceItem>(
           (event.email_sequences as EmailSequenceItem[]).map((s) => [s.id, s])
         );
@@ -49,6 +50,20 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
         setSequences(merged);
       }
     }
+
+    // Load send history counts
+    const { data: sends } = await supabase
+      .from("email_sends")
+      .select("sequence_id")
+      .eq("event_id", id);
+    if (sends) {
+      const counts: Record<string, number> = {};
+      for (const row of sends) {
+        counts[row.sequence_id] = (counts[row.sequence_id] || 0) + 1;
+      }
+      setSendHistory(counts);
+    }
+
     setLoading(false);
   }
 
@@ -114,8 +129,6 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
           </button>
         </div>
 
-
-
         {/* Timeline */}
         <div className="space-y-4">
           {sequences.map((seq, i) => (
@@ -145,7 +158,14 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <p className="font-bold text-sm">{seq.name}</p>
+                        <div className="flex items-center gap-2">
+                          <p className="font-bold text-sm">{seq.name}</p>
+                          {sendHistory[seq.id] ? (
+                            <span className="text-xs bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded-full font-medium">
+                              sent {sendHistory[seq.id]}×
+                            </span>
+                          ) : null}
+                        </div>
                         <p className="text-xs text-gray-500 mt-0.5">{seq.description}</p>
                       </div>
                       <div className="flex gap-2 shrink-0">
@@ -161,6 +181,14 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
                         >
                           <Edit2 className="w-3.5 h-3.5" /> edit
                         </button>
+                        {seq.enabled && (
+                          <button
+                            onClick={() => setSendModal(seq)}
+                            className="flex items-center gap-1 text-xs bg-kool-red text-white px-2.5 py-1.5 rounded-sm hover:bg-kool-crimson transition-colors font-semibold"
+                          >
+                            <Zap className="w-3.5 h-3.5" /> send now
+                          </button>
+                        )}
                       </div>
                     </div>
 
@@ -253,6 +281,19 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
           onClose={() => setEditItem(null)}
         />
       )}
+
+      {/* Send Now Modal */}
+      {sendModal && (
+        <SendNowModal
+          item={sendModal}
+          eventId={eventId}
+          onClose={() => setSendModal(null)}
+          onSent={(seqId) => {
+            setSendHistory((prev) => ({ ...prev, [seqId]: (prev[seqId] || 0) + 1 }));
+            setSendModal(null);
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -266,6 +307,133 @@ function SequenceIcon({ seqId, enabled }: { seqId: string; enabled: boolean }) {
   if (seqId === "day_before") return <AlertTriangle className={`w-5 h-5 ${color}`} />;
   if (seqId === "thank_you") return <CheckCircle className={`w-5 h-5 ${color}`} />;
   return <Mail className={`w-5 h-5 ${color}`} />;
+}
+
+function SendNowModal({
+  item,
+  eventId,
+  onClose,
+  onSent,
+}: {
+  item: EmailSequenceItem;
+  eventId: string;
+  onClose: () => void;
+  onSent: (seqId: string) => void;
+}) {
+  const [recipientType, setRecipientType] = useState<"all" | "not_responded" | "confirmed">("all");
+  const [sending, setSending] = useState(false);
+  const [result, setResult] = useState<{ sent: number; total: number } | null>(null);
+  const [error, setError] = useState("");
+
+  async function handleSend() {
+    setSending(true);
+    setError("");
+    try {
+      const res = await fetch("/api/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          eventId,
+          sequenceId: item.id,
+          recipientType,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "something went wrong");
+      } else {
+        setResult(data);
+        setTimeout(() => onSent(item.id), 2000);
+      }
+    } catch (e) {
+      setError("network error — please try again");
+    } finally {
+      setSending(false);
+    }
+  }
+
+  const recipientLabels = {
+    all: "all guests",
+    not_responded: "guests who haven't responded",
+    confirmed: "confirmed / attending guests",
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-white rounded-sm max-w-md w-full" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between p-5 border-b border-gray-100">
+          <div>
+            <p className="font-bold">send now</p>
+            <p className="text-xs text-gray-500 mt-0.5">{item.name}</p>
+          </div>
+          <button onClick={onClose} className="text-gray-400 hover:text-kool-black">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {result ? (
+          <div className="p-8 text-center">
+            <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-3">
+              <CheckCircle className="w-6 h-6 text-green-600" />
+            </div>
+            <p className="font-bold text-lg">sent to {result.sent} guests ✅</p>
+            {result.total > result.sent && (
+              <p className="text-xs text-gray-400 mt-1">{result.total - result.sent} guests had no email address</p>
+            )}
+          </div>
+        ) : (
+          <div className="p-5 space-y-4">
+            <div>
+              <label className="block text-xs font-semibold mb-2 text-gray-600">send to</label>
+              <div className="space-y-2">
+                {(["all", "not_responded", "confirmed"] as const).map((type) => (
+                  <label key={type} className="flex items-center gap-3 cursor-pointer group">
+                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${recipientType === type ? "border-kool-red" : "border-gray-300 group-hover:border-gray-400"}`}>
+                      {recipientType === type && <div className="w-2 h-2 rounded-full bg-kool-red" />}
+                    </div>
+                    <input
+                      type="radio"
+                      className="sr-only"
+                      checked={recipientType === type}
+                      onChange={() => setRecipientType(type)}
+                    />
+                    <span className="text-sm text-gray-700">{recipientLabels[type]}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-amber-50 border border-amber-100 rounded-sm px-3 py-2.5">
+              <p className="text-xs text-amber-700">
+                <strong>heads up:</strong> this will send the <strong>{item.name}</strong> email immediately to {recipientLabels[recipientType]} for this event.
+              </p>
+            </div>
+
+            {error && (
+              <p className="text-xs text-red-600 bg-red-50 border border-red-100 rounded-sm px-3 py-2">{error}</p>
+            )}
+
+            <div className="flex gap-3 pt-1">
+              <button
+                onClick={handleSend}
+                disabled={sending}
+                className="flex-1 flex items-center justify-center gap-2 bg-kool-red text-white py-2.5 rounded-sm font-bold text-sm hover:bg-kool-crimson transition-colors disabled:opacity-50"
+              >
+                <Zap className="w-4 h-4" />
+                {sending ? "sending..." : "send now"}
+              </button>
+              <button
+                onClick={onClose}
+                className="border border-gray-200 px-5 py-2.5 rounded-sm text-sm hover:border-gray-400 transition-colors"
+              >
+                cancel
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 function EditEmailModal({
