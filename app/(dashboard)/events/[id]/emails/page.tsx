@@ -65,6 +65,9 @@ function buildPreviewHtml(sequenceId: string, event: any, eventId: string): stri
   const location = event.location || "";
   const dresscode = event.dress_code || "";
   const rsvpUrl = `https://koolevents.app/rsvp/${eventId}`;
+  const accentColor = event.accent_color || "#D90000";
+  const heroImageUrl = event.landing_image_url || null;
+  const landingPageUrl = event.slug ? `https://koolevents.app/event/${event.slug}` : null;
 
   let locationLine = "";
   if (venueName && location) {
@@ -101,11 +104,11 @@ function buildPreviewHtml(sequenceId: string, event: any, eventId: string): stri
   .email-wrapper { max-width: 600px; margin: 0 auto; background: #ffffff; }
   .email-header { background: #0a0a0a; padding: 24px 32px; }
   .email-header-logo { color: #ffffff; font-size: 18px; font-weight: 900; letter-spacing: -0.5px; }
-  .email-header-logo span { color: #D90000; }
+  .email-header-logo span { color: ${accentColor}; }
   .email-body { padding: 0; }
   .email-footer { background: #0a0a0a; padding: 16px 32px; text-align: center; }
   .email-footer p { color: #666; font-size: 11px; margin: 0; }
-  .email-footer a { color: #D90000; text-decoration: none; }
+  .email-footer a { color: ${accentColor}; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -113,9 +116,18 @@ function buildPreviewHtml(sequenceId: string, event: any, eventId: string): stri
   <div class="email-header">
     <div class="email-header-logo">kool<span>&#9829;</span></div>
   </div>
+  ${heroImageUrl ? `
+  <div style="width:100%;max-height:280px;overflow:hidden;">
+    <img src="${heroImageUrl}" alt="${eventName}" style="width:100%;height:280px;object-fit:cover;display:block;" />
+  </div>` : ""}
   <div class="email-body">
     ${html}
+    ${landingPageUrl ? `
+    <p style="text-align:center;margin:0 0 24px;">
+      <a href="${landingPageUrl}" style="color:${accentColor};font-size:13px;text-decoration:none;">view event page →</a>
+    </p>` : ""}
   </div>
+  <div style="height:3px;background:${accentColor};"></div>
   <div class="email-footer">
     <p>powered by <a href="https://koolevents.app">the koolture group (TKG)</a> · all rights reserved</p>
   </div>
@@ -148,7 +160,7 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
   async function loadData(id: string) {
     const { data: eventData } = await supabase
       .from("events")
-      .select("name, email_sequences, event_date, event_time, location, venue_name, dress_code")
+      .select("name, email_sequences, event_date, event_time, location, venue_name, dress_code, accent_color, landing_image_url, slug")
       .eq("id", id)
       .single();
     if (eventData) {
@@ -239,6 +251,31 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
             <Save className="w-4 h-4" />
             {saving ? "saving..." : saved ? "saved!" : "save changes"}
           </button>
+        </div>
+
+        {/* Event Branding Status Card */}
+        <div className="bg-gray-50 border border-gray-100 rounded-sm p-4 mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            {event?.accent_color && (
+              <div className="w-5 h-5 rounded-full border border-gray-200 shrink-0" style={{ background: event.accent_color }} />
+            )}
+            {event?.landing_image_url && (
+              <img src={event.landing_image_url} alt="" className="w-10 h-7 object-cover rounded-sm shrink-0" />
+            )}
+            <div>
+              <p className="text-sm font-semibold">
+                {event?.accent_color || event?.landing_image_url ? "event branding active" : "no event branding set"}
+              </p>
+              <p className="text-xs text-gray-400">
+                {event?.accent_color || event?.landing_image_url
+                  ? "your emails will match your landing page"
+                  : "set colors and hero image on the landing page tab"}
+              </p>
+            </div>
+          </div>
+          <Link href={`/events/${eventId}/landing-page`} className="text-xs text-kool-red hover:underline shrink-0">
+            edit branding →
+          </Link>
         </div>
 
         {/* Timeline */}

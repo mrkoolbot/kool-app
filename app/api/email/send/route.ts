@@ -13,8 +13,10 @@ export async function POST(request: Request) {
   const { eventId, sequenceId, recipientType } = await request.json();
   // recipientType: "all" | "not_responded" | "confirmed" | "attending"
 
-  // Get event data
-  const { data: event } = await supabase.from("events").select("*").eq("id", eventId).single();
+  // Get event data (including branding)
+  const { data: event } = await supabase.from("events")
+    .select("*, landing_image_url, accent_color, slug")
+    .eq("id", eventId).single();
   if (!event) return NextResponse.json({ error: "event not found" }, { status: 404 });
 
   // Get sequence config
@@ -45,6 +47,10 @@ export async function POST(request: Request) {
     .replace("{{event_name}}", event.name)
     .replace("{{event_date}}", eventDate);
 
+  const accentColor = event.accent_color || "#D90000";
+  const heroImageUrl = event.landing_image_url || null;
+  const landingPageUrl = event.slug ? `https://koolevents.app/event/${event.slug}` : null;
+
   const htmlBody = buildEmailHtml({
     sequenceId,
     eventName: event.name,
@@ -55,6 +61,9 @@ export async function POST(request: Request) {
     dressCode: event.dress_code || "",
     rsvpUrl,
     customBody: seqData?.custom_body || "",
+    accentColor,
+    heroImageUrl,
+    landingPageUrl,
   });
 
   // Send to all guests with email addresses
@@ -113,6 +122,9 @@ function buildEmailHtml({
   dressCode,
   rsvpUrl,
   customBody,
+  accentColor = "#D90000",
+  heroImageUrl = null,
+  landingPageUrl = null,
 }: {
   sequenceId: string;
   eventName: string;
@@ -123,8 +135,10 @@ function buildEmailHtml({
   dressCode: string;
   rsvpUrl: string;
   customBody: string;
+  accentColor?: string;
+  heroImageUrl?: string | null;
+  landingPageUrl?: string | null;
 }): string {
-  const accentColor = "#D90000";
   const location_display = venueName
     ? `${venueName}${location ? " · " + location : ""}`
     : location;
@@ -139,6 +153,11 @@ function buildEmailHtml({
       <span style="font-size:28px;font-weight:900;color:#ffffff;letter-spacing:-0.02em;">kool</span><span style="font-size:22px;color:${accentColor};font-weight:900;">♥</span>
       <div style="font-size:10px;color:#ffffff;letter-spacing:0.25em;opacity:0.7;margin-top:2px;">events</div>
     </div>
+    ${heroImageUrl ? `
+    <!-- Hero Image -->
+    <div style="width:100%;max-height:280px;overflow:hidden;">
+      <img src="${heroImageUrl}" alt="${eventName}" style="width:100%;height:280px;object-fit:cover;display:block;" />
+    </div>` : ""}
     <!-- Body -->
     <div style="padding:40px;">
       <p style="font-size:15px;color:#333;line-height:1.6;">hi {{guest_name}},</p>
@@ -155,8 +174,14 @@ function buildEmailHtml({
         <a href="${rsvpUrl}" style="background:${accentColor};color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:4px;font-weight:700;font-size:14px;display:inline-block;">
           ${sequenceId === "rsvp_reminder" ? "rsvp now →" : "view event →"}
         </a>
+        ${landingPageUrl ? `
+        <p style="text-align:center;margin-top:12px;">
+          <a href="${landingPageUrl}" style="color:${accentColor};font-size:13px;text-decoration:none;">view event page →</a>
+        </p>` : ""}
       </div>` : ""}
     </div>
+    <!-- Accent bar -->
+    <div style="height:3px;background:${accentColor};"></div>
     <!-- Footer -->
     <div style="border-top:1px solid #eee;padding:20px 40px;text-align:center;">
       <p style="color:#999;font-size:12px;margin:0;">powered by <a href="https://koolevents.app" style="color:${accentColor};text-decoration:none;font-weight:600;">the koolture group (TKG)</a> · all rights reserved</p>
