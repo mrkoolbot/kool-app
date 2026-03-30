@@ -73,9 +73,7 @@ export default function LandingPage() {
           <KoolLogo inverted={true} size="lg" />
         </div>
 
-        <p className="text-kool-red text-xs font-bold tracking-[0.3em] mb-6">
-          by the koolture group
-        </p>
+
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-kool-black leading-[0.95] mb-8 tracking-tight">
           the tool that makes<br />
           <span className="text-kool-red">any event feel</span><br />

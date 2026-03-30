@@ -4,7 +4,7 @@
   <defs>
     <style>
       .st0 {
-        font-family: BimboPro-Ballpoint, 'Bimbo Pro';
+        font-family: var(--font-galano, Arial, sans-serif);
         font-size: 41.21px;
         letter-spacing: .2em;
         stroke: #fff;
@@ -33,14 +33,14 @@
       }
 
       .st2, .st4 {
-        font-family: GalanoGrotesque-Bold, 'Galano Grotesque';
+        font-family: var(--font-galano, 'Galano Grotesque', Arial Black, sans-serif);
         font-size: 110px;
         font-weight: 700;
         isolation: isolate;
       }
 
       .st5 {
-        font-family: GalanoGrotesque-Medium, 'Galano Grotesque';
+        font-family: var(--font-galano, 'Galano Grotesque', Arial, sans-serif);
         font-size: 21px;
         font-weight: 500;
         letter-spacing: 1.4em;
