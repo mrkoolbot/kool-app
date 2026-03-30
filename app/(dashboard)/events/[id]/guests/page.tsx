@@ -34,6 +34,7 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
   const [eventDate, setEventDate] = useState("");
   const [eventTime, setEventTime] = useState("");
   const [eventLocation, setEventLocation] = useState("");
+  const [autoSendInvitation, setAutoSendInvitation] = useState(false);
   const [guests, setGuests] = useState<GuestWithInvite[]>([]);
   const [plan, setPlan] = useState("free");
   const [showForm, setShowForm] = useState(false);
@@ -66,12 +67,13 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
     if (!user) return;
     const { data: profile } = await supabase.from("profiles").select("plan").eq("id", user.id).single();
     setPlan(profile?.plan || "free");
-    const { data: event } = await supabase.from("events").select("name, event_date, event_time, location").eq("id", id).single();
+    const { data: event } = await supabase.from("events").select("name, event_date, event_time, location, auto_send_invitation").eq("id", id).single();
     if (event) {
       setEventName(event.name || "");
       setEventDate(event.event_date || "");
       setEventTime(event.event_time || "");
       setEventLocation(event.location || "");
+      setAutoSendInvitation(!!event.auto_send_invitation);
     }
     const { data } = await supabase.from("guests").select("*").eq("event_id", id).order("last_name");
     setGuests(data || []);
@@ -129,7 +131,19 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
       setGuests((prev) => [...prev, data]);
       setForm({ first_name: "", last_name: "", email: "", phone: "", dietary_restrictions: "", plus_one: false, company: "", position: "" });
       setShowForm(false);
-// invite not auto-sent — subscriber sends manually from email sequences
+      // Auto-send invitation if toggle is on and guest has email
+      if (autoSendInvitation && data.email) {
+        fetch("/api/email/send", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            eventId,
+            sequenceId: "invitation",
+            recipientType: "specific",
+            guestId: data.id,
+          }),
+        }).catch(() => {/* silent fail */});
+      }
     }
   }
 

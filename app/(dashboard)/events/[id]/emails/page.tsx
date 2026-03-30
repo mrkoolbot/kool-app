@@ -147,6 +147,8 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
   const [editItem, setEditItem] = useState<EmailSequenceItem | null>(null);
   const [sendModal, setSendModal] = useState<EmailSequenceItem | null>(null);
   const [sendHistory, setSendHistory] = useState<Record<string, number>>({});
+  const [autoSendEnabled, setAutoSendEnabled] = useState(false);
+  const [togglingAutoSend, setTogglingAutoSend] = useState(false);
   const supabase = createClient();
 
   useEffect(() => {
@@ -159,12 +161,13 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
   async function loadData(id: string) {
     const { data: eventData } = await supabase
       .from("events")
-      .select("name, email_sequences, event_date, event_time, location, venue_name, dress_code, accent_color, landing_image_url, slug")
+      .select("name, email_sequences, event_date, event_time, location, venue_name, dress_code, accent_color, landing_image_url, slug, auto_send_invitation")
       .eq("id", id)
       .single();
     if (eventData) {
       setEventName(eventData.name || "");
       setEvent(eventData);
+      setAutoSendEnabled(!!eventData.auto_send_invitation);
       if (eventData.email_sequences && Array.isArray(eventData.email_sequences) && eventData.email_sequences.length > 0) {
         const savedMap = new Map<string, EmailSequenceItem>(
           (eventData.email_sequences as EmailSequenceItem[]).map((s) => [s.id, s])
@@ -205,6 +208,14 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
 
   function updateTriggerValue(id: string, value: number) {
     setSequences((prev) => prev.map((s) => s.id === id ? { ...s, triggerValue: value } : s));
+  }
+
+  async function toggleAutoSend() {
+    setTogglingAutoSend(true);
+    const newVal = !autoSendEnabled;
+    setAutoSendEnabled(newVal);
+    await supabase.from("events").update({ auto_send_invitation: newVal }).eq("id", eventId);
+    setTogglingAutoSend(false);
   }
 
   function applyEdit(updated: EmailSequenceItem) {
@@ -275,6 +286,27 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
           <Link href={`/events/${eventId}/landing-page`} className="text-xs text-kool-red hover:underline shrink-0">
             edit branding →
           </Link>
+        </div>
+
+        {/* Auto-send toggle */}
+        <div className="bg-gray-50 border border-gray-100 rounded-sm p-4 mb-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-semibold">auto-send invitation when guest is added</p>
+              <p className="text-xs text-gray-400 mt-0.5">
+                {autoSendEnabled
+                  ? "guests receive the invitation email automatically when added"
+                  : "off — you control when invitations go out"}
+              </p>
+            </div>
+            <button
+              onClick={() => toggleAutoSend()}
+              disabled={togglingAutoSend}
+              className={`relative w-12 h-6 rounded-full transition-colors disabled:opacity-60 ${autoSendEnabled ? "bg-kool-red" : "bg-gray-200"}`}
+            >
+              <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${autoSendEnabled ? "left-7" : "left-1"}`} />
+            </button>
+          </div>
         </div>
 
         {/* Timeline */}
@@ -388,6 +420,10 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
             {saving ? "saving..." : saved ? "saved!" : "save changes"}
           </button>
         </div>
+
+        <p className="text-xs text-gray-400 text-center mt-8">
+          email sending is optional — use KOOL for event management only if you prefer to send invitations through your own email.
+        </p>
       </main>
 
       {/* Preview Modal */}
@@ -433,11 +469,12 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
         />
       )}
 
-      {/* Send Now Modal */}
-      {sendModal && (
+      {/* Send Now Modal (3-step) */}
+      {sendModal && event && (
         <SendNowModal
           item={sendModal}
           eventId={eventId}
+          event={event}
           onClose={() => setSendModal(null)}
           onSent={(seqId) => {
             setSendHistory((prev) => ({ ...prev, [seqId]: (prev[seqId] || 0) + 1 }));
@@ -463,18 +500,44 @@ function SequenceIcon({ seqId, enabled }: { seqId: string; enabled: boolean }) {
 function SendNowModal({
   item,
   eventId,
+  event,
   onClose,
   onSent,
 }: {
   item: EmailSequenceItem;
   eventId: string;
+  event: any;
   onClose: () => void;
   onSent: (seqId: string) => void;
 }) {
+  const [sendStep, setSendStep] = useState<0 | 1 | 2 | 3>(1);
+  const [customSubject, setCustomSubject] = useState(item.subject);
+  const [customMessage, setCustomMessage] = useState("");
   const [recipientType, setRecipientType] = useState<"all" | "not_responded" | "confirmed">("all");
+  const [guestCounts, setGuestCounts] = useState<Record<string, number>>({ all: 0, not_responded: 0, confirmed: 0 });
+  const [loadingCounts, setLoadingCounts] = useState(true);
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<{ sent: number; total: number } | null>(null);
   const [error, setError] = useState("");
+  const supabase = createClient();
+
+  useEffect(() => {
+    async function fetchCounts() {
+      const { data: all } = await supabase.from("guests").select("id, email, rsvp_status").eq("event_id", eventId);
+      if (all) {
+        const withEmail = all.filter((g: any) => g.email);
+        setGuestCounts({
+          all: withEmail.length,
+          not_responded: withEmail.filter((g: any) => !g.rsvp_status || g.rsvp_status === "pending").length,
+          confirmed: withEmail.filter((g: any) => g.rsvp_status === "attending").length,
+        });
+      }
+      setLoadingCounts(false);
+    }
+    fetchCounts();
+  }, [eventId]);
+
+  const previewHtml = buildPreviewHtml(item.id, event, eventId);
 
   async function handleSend() {
     setSending(true);
@@ -487,6 +550,8 @@ function SendNowModal({
           eventId,
           sequenceId: item.id,
           recipientType,
+          overrideSubject: customSubject !== item.subject ? customSubject : undefined,
+          overrideMessage: customMessage || undefined,
         }),
       });
       const data = await res.json();
@@ -496,32 +561,45 @@ function SendNowModal({
         setResult(data);
         setTimeout(() => onSent(item.id), 2000);
       }
-    } catch (e) {
+    } catch {
       setError("network error — please try again");
     } finally {
       setSending(false);
     }
   }
 
-  const recipientLabels = {
-    all: "all guests",
-    not_responded: "guests who haven't responded",
-    confirmed: "confirmed / attending guests",
-  };
+  const stepLabels = ["", "customize", "preview", "send"];
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={onClose}>
-      <div className="bg-white rounded-sm max-w-md w-full" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between p-5 border-b border-gray-100">
+    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={onClose}>
+      <div
+        className={`bg-white rounded-sm w-full flex flex-col ${sendStep === 2 ? "max-w-2xl max-h-[90vh]" : "max-w-lg"}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
           <div>
-            <p className="font-bold">send now</p>
-            <p className="text-xs text-gray-500 mt-0.5">{item.name}</p>
+            <p className="font-bold text-sm">send now · {item.name}</p>
+            {!result && (
+              <div className="flex items-center gap-1.5 mt-1.5">
+                {[1, 2, 3].map((s) => (
+                  <div key={s} className="flex items-center gap-1.5">
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold transition-colors ${
+                      sendStep === s ? "bg-kool-red text-white" : sendStep > s ? "bg-green-500 text-white" : "bg-gray-100 text-gray-400"
+                    }`}>{sendStep > s ? "✓" : s}</div>
+                    <span className={`text-[10px] ${sendStep === s ? "text-kool-red font-semibold" : "text-gray-400"}`}>{stepLabels[s]}</span>
+                    {s < 3 && <div className="w-4 h-px bg-gray-200" />}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           <button onClick={onClose} className="text-gray-400 hover:text-kool-black">
             <X className="w-5 h-5" />
           </button>
         </div>
 
+        {/* Step content */}
         {result ? (
           <div className="p-8 text-center">
             <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -532,32 +610,92 @@ function SendNowModal({
               <p className="text-xs text-gray-400 mt-1">{result.total - result.sent} guests had no email address</p>
             )}
           </div>
-        ) : (
+        ) : sendStep === 1 ? (
+          /* Step 1: Customize */
+          <div className="p-5 space-y-4">
+            <div>
+              <label className="block text-xs font-semibold mb-1.5 text-gray-600">subject line</label>
+              <input
+                value={customSubject}
+                onChange={(e) => setCustomSubject(e.target.value)}
+                className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-kool-red"
+                placeholder="email subject..."
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold mb-1.5 text-gray-600">
+                personal message <span className="text-gray-400 font-normal">(optional — appears above the email body)</span>
+              </label>
+              <textarea
+                value={customMessage}
+                onChange={(e) => setCustomMessage(e.target.value)}
+                rows={4}
+                className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-kool-red resize-none"
+                placeholder="add a personal note to your guests..."
+              />
+            </div>
+            <div className="flex gap-3 pt-1">
+              <button
+                onClick={() => setSendStep(2)}
+                disabled={!customSubject.trim()}
+                className="flex-1 bg-kool-red text-white py-2.5 rounded-sm font-bold text-sm hover:bg-kool-crimson transition-colors disabled:opacity-50"
+              >
+                next: preview →
+              </button>
+              <button onClick={onClose} className="border border-gray-200 px-5 py-2.5 rounded-sm text-sm hover:border-gray-400 transition-colors">
+                cancel
+              </button>
+            </div>
+          </div>
+        ) : sendStep === 2 ? (
+          /* Step 2: Preview */
+          <>
+            <div className="overflow-y-auto flex-1 p-4 bg-gray-50">
+              <iframe
+                srcDoc={previewHtml}
+                className="w-full rounded-sm border border-gray-200"
+                style={{ minHeight: "500px", background: "white" }}
+                title="email preview"
+              />
+            </div>
+            <div className="px-5 py-4 border-t border-gray-100 flex gap-3">
+              <button onClick={() => setSendStep(1)} className="border border-gray-200 px-5 py-2.5 rounded-sm text-sm hover:border-gray-400 transition-colors">
+                ← back
+              </button>
+              <button
+                onClick={() => setSendStep(3)}
+                className="flex-1 bg-kool-red text-white py-2.5 rounded-sm font-bold text-sm hover:bg-kool-crimson transition-colors"
+              >
+                next: choose recipients →
+              </button>
+            </div>
+          </>
+        ) : sendStep === 3 ? (
+          /* Step 3: Send */
           <div className="p-5 space-y-4">
             <div>
               <label className="block text-xs font-semibold mb-2 text-gray-600">send to</label>
               <div className="space-y-2">
-                {(["all", "not_responded", "confirmed"] as const).map((type) => (
-                  <label key={type} className="flex items-center gap-3 cursor-pointer group">
-                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${recipientType === type ? "border-kool-red" : "border-gray-300 group-hover:border-gray-400"}`}>
-                      {recipientType === type && <div className="w-2 h-2 rounded-full bg-kool-red" />}
-                    </div>
-                    <input
-                      type="radio"
-                      className="sr-only"
-                      checked={recipientType === type}
-                      onChange={() => setRecipientType(type)}
-                    />
-                    <span className="text-sm text-gray-700">{recipientLabels[type]}</span>
-                  </label>
-                ))}
+                {(["all", "not_responded", "confirmed"] as const).map((type) => {
+                  const labels: Record<string, string> = {
+                    all: "all guests",
+                    not_responded: "haven't responded",
+                    confirmed: "confirmed / attending",
+                  };
+                  return (
+                    <label key={type} className="flex items-center gap-3 cursor-pointer group">
+                      <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${recipientType === type ? "border-kool-red" : "border-gray-300 group-hover:border-gray-400"}`}>
+                        {recipientType === type && <div className="w-2 h-2 rounded-full bg-kool-red" />}
+                      </div>
+                      <input type="radio" className="sr-only" checked={recipientType === type} onChange={() => setRecipientType(type)} />
+                      <span className="text-sm text-gray-700 flex-1">{labels[type]}</span>
+                      <span className="text-xs text-gray-400 font-medium">
+                        {loadingCounts ? "..." : `${guestCounts[type]} with email`}
+                      </span>
+                    </label>
+                  );
+                })}
               </div>
-            </div>
-
-            <div className="bg-amber-50 border border-amber-100 rounded-sm px-3 py-2.5">
-              <p className="text-xs text-amber-700">
-                <strong>heads up:</strong> this will send the <strong>{item.name}</strong> email immediately to {recipientLabels[recipientType]} for this event.
-              </p>
             </div>
 
             {error && (
@@ -565,23 +703,23 @@ function SendNowModal({
             )}
 
             <div className="flex gap-3 pt-1">
+              <button onClick={() => setSendStep(2)} className="border border-gray-200 px-4 py-2.5 rounded-sm text-sm hover:border-gray-400 transition-colors">
+                ← back
+              </button>
               <button
                 onClick={handleSend}
-                disabled={sending}
+                disabled={sending || guestCounts[recipientType] === 0}
                 className="flex-1 flex items-center justify-center gap-2 bg-kool-red text-white py-2.5 rounded-sm font-bold text-sm hover:bg-kool-crimson transition-colors disabled:opacity-50"
               >
                 <Zap className="w-4 h-4" />
-                {sending ? "sending..." : "send now"}
+                {sending ? "sending..." : `send to ${loadingCounts ? "..." : guestCounts[recipientType]} guests`}
               </button>
-              <button
-                onClick={onClose}
-                className="border border-gray-200 px-5 py-2.5 rounded-sm text-sm hover:border-gray-400 transition-colors"
-              >
+              <button onClick={onClose} className="border border-gray-200 px-4 py-2.5 rounded-sm text-sm hover:border-gray-400 transition-colors">
                 cancel
               </button>
             </div>
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );

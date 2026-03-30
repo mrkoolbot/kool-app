@@ -1,4 +1,5 @@
 // Run supabase/migrations/006_email_sends.sql before using
+// Migration also required: ALTER TABLE events ADD COLUMN IF NOT EXISTS auto_send_invitation BOOLEAN DEFAULT FALSE;
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createClient } from "@/lib/supabase/server";
@@ -10,8 +11,8 @@ export async function POST(request: Request) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
-  const { eventId, sequenceId, recipientType } = await request.json();
-  // recipientType: "all" | "not_responded" | "confirmed" | "attending"
+  const { eventId, sequenceId, recipientType, guestId, overrideSubject, overrideMessage } = await request.json();
+  // recipientType: "all" | "not_responded" | "confirmed" | "attending" | "specific"
 
   // Get event data (including branding)
   const { data: event } = await supabase.from("events")
@@ -24,11 +25,18 @@ export async function POST(request: Request) {
     .select("*").eq("event_id", eventId).eq("sequence_id", sequenceId).single();
 
   // Get guests based on recipient type
-  let guestsQuery = supabase.from("guests").select("*").eq("event_id", eventId);
-  if (recipientType === "not_responded") guestsQuery = guestsQuery.or("rsvp_status.is.null,rsvp_status.eq.pending");
-  if (recipientType === "confirmed") guestsQuery = guestsQuery.eq("rsvp_status", "attending");
+  let guests: any[];
+  if (recipientType === "specific" && guestId) {
+    const { data: singleGuest } = await supabase.from("guests").select("*").eq("id", guestId).single();
+    guests = singleGuest ? [singleGuest] : [];
+  } else {
+    let guestsQuery = supabase.from("guests").select("*").eq("event_id", eventId);
+    if (recipientType === "not_responded") guestsQuery = guestsQuery.or("rsvp_status.is.null,rsvp_status.eq.pending");
+    if (recipientType === "confirmed") guestsQuery = guestsQuery.eq("rsvp_status", "attending");
+    const { data } = await guestsQuery;
+    guests = data || [];
+  }
 
-  const { data: guests } = await guestsQuery;
   if (!guests || guests.length === 0) return NextResponse.json({ sent: 0 });
 
   // Build email from template with event data
@@ -51,7 +59,7 @@ export async function POST(request: Request) {
     return `${hour12}:${m} ${ampm}`;
   })();
 
-  const subject = (seqData?.custom_subject || getDefaultSubject(sequenceId, event.name))
+  const subject = (overrideSubject || seqData?.custom_subject || getDefaultSubject(sequenceId, event.name))
     .replace("{{event_name}}", event.name)
     .replace("{{event_date}}", eventDate);
 
@@ -69,6 +77,7 @@ export async function POST(request: Request) {
     dressCode: event.dress_code || "",
     rsvpUrl,
     customBody: seqData?.custom_body || "",
+    overrideMessage: overrideMessage || "",
     accentColor,
     heroImageUrl,
     landingPageUrl,
@@ -130,6 +139,7 @@ function buildEmailHtml({
   dressCode,
   rsvpUrl,
   customBody,
+  overrideMessage = "",
   accentColor = "#D90000",
   heroImageUrl = null,
   landingPageUrl = null,
@@ -143,6 +153,7 @@ function buildEmailHtml({
   dressCode: string;
   rsvpUrl: string;
   customBody: string;
+  overrideMessage?: string;
   accentColor?: string;
   heroImageUrl?: string | null;
   landingPageUrl?: string | null;
@@ -168,6 +179,7 @@ function buildEmailHtml({
     <!-- Body -->
     <div style="padding:40px;">
       <p style="font-size:15px;color:#333;line-height:1.6;">hi {{guest_name}},</p>
+      ${overrideMessage ? `<p style="font-size:15px;color:#333;line-height:1.6;">${overrideMessage}</p>` : ""}
       ${customBody ? `<p style="font-size:15px;color:#333;line-height:1.6;">${customBody}</p>` : getDefaultBody(sequenceId, eventName)}
       <!-- Event details -->
       <div style="background:#f8f8f8;border-radius:4px;padding:20px;margin:24px 0;">
