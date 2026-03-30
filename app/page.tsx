@@ -227,8 +227,8 @@ export default function LandingPage() {
             <div className="text-4xl font-black mb-1">$0</div>
             <p className="text-gray-500 text-sm mb-8">forever. no credit card.</p>
             <ul className="space-y-2 text-sm text-gray-600 mb-8">
-              {["1 active event", "up to 25 guests", "smart checklist", "planning timeline", "budget tracker", "vendor list", "event etiquette manual"].map(f => (
-                <li key={f} className={`flex items-center gap-2 ${f === "event etiquette manual" ? "text-kool-red font-semibold" : ""}`}>
+              {["1 active event", "up to 50 guests", "smart checklist (20+ categories)", "run of show / timeline", "budget tracker", "vendor management", "catering calculator", "public event landing page", "guest rsvp page"].map(f => (
+                <li key={f} className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-gray-200 flex-shrink-0" />
                   {f}
                 </li>
@@ -243,11 +243,11 @@ export default function LandingPage() {
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-kool-red text-white text-xs font-bold px-3 py-1">most popular</div>
             <div className="text-sm font-bold text-kool-red mb-2">premium</div>
             <div className="text-4xl font-black mb-1">$25<span className="text-xl font-normal text-gray-400">/mo</span></div>
-            <p className="text-gray-500 text-sm mb-8">3 events · 100 guests</p>
+            <p className="text-gray-500 text-sm mb-8">unlimited events + guests</p>
             <ul className="space-y-2 text-sm text-gray-600 mb-8">
-              {["3 active events", "up to 100 guests", "full ai-powered checklists", "vendor management suite", "budget manager + payments", "run of show generator", "calendar sync + reminders", "event etiquette manual"].map(f => (
-                <li key={f} className={`flex items-center gap-2 ${f === "event etiquette manual" ? "text-kool-red font-semibold" : ""}`}>
-                  <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />
+              {["everything in free, plus:", "unlimited events", "unlimited guests", "smart timeline generator", "automated email sequences", "qr code check-in", "conditional rsvp logic", "custom event branding", "priority TKG consultation"].map(f => (
+                <li key={f} className={`flex items-center gap-2 ${f === "everything in free, plus:" ? "text-gray-400 text-xs font-bold uppercase tracking-widest" : ""}`}>
+                  {f !== "everything in free, plus:" && <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />}
                   {f}
                 </li>
               ))}
@@ -262,9 +262,9 @@ export default function LandingPage() {
             <div className="text-4xl font-black mb-1">$39<span className="text-xl font-normal text-gray-400">/mo</span></div>
             <p className="text-gray-400 text-sm mb-8">unlimited events + guests</p>
             <ul className="space-y-2 text-sm text-gray-300 mb-8">
-              {["unlimited events", "unlimited guests", "event war room", "guest intelligence", "smart blueprints", "post-event brain", "dedicated support", "event etiquette manual"].map(f => (
-                <li key={f} className={`flex items-center gap-2 ${f === "event etiquette manual" ? "text-kool-red font-semibold" : ""}`}>
-                  <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />
+              {["everything in premium, plus:", "event war room", "guest intelligence", "smart event blueprints", "post-event brain", "white-label rsvp pages", "dedicated support"].map(f => (
+                <li key={f} className={`flex items-center gap-2 ${f === "everything in premium, plus:" ? "text-gray-500 text-xs font-bold uppercase tracking-widest" : ""}`}>
+                  {f !== "everything in premium, plus:" && <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />}
                   {f}
                 </li>
               ))}
