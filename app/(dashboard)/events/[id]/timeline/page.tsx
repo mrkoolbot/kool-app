@@ -116,7 +116,7 @@ export default function TimelinePage({ params }: { params: Promise<{ id: string 
       <main className="max-w-3xl mx-auto px-6 py-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-black">run of show.</h1>
+            <h1 className="text-2xl font-black">run of show</h1>
             <p className="text-gray-500 text-sm mt-1">your day-of timeline</p>
           </div>
           <button onClick={() => setShowForm(true)}

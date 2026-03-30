@@ -103,7 +103,7 @@ export default function NewEventPage() {
       </header>
 
       <main className="max-w-2xl mx-auto px-6 py-12">
-        <h1 className="text-3xl font-black mb-2 tracking-tight">create your event.</h1>
+        <h1 className="text-3xl font-black mb-2 tracking-tight">create your event</h1>
         <p className="text-gray-500 mb-10">fill in the details and we&apos;ll build your personalized planning dashboard.</p>
 
         {error && (

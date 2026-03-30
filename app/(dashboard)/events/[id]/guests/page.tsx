@@ -190,7 +190,7 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
       <main className="max-w-4xl mx-auto px-6 py-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-black tracking-tight">guest list.</h1>
+            <h1 className="text-2xl font-black tracking-tight">guest list</h1>
             <p className="text-gray-500 text-sm mt-1">
               {guests.length} guests
               {plan === "free" && <span className="text-kool-red font-semibold"> · {25 - guests.length} remaining on free plan</span>}

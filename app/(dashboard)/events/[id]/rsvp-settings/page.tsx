@@ -210,7 +210,7 @@ export default function RsvpSettingsPage({ params }: { params: Promise<{ id: str
       <main className="max-w-3xl mx-auto px-6 py-10">
         <div className="flex items-start justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-black tracking-tight">rsvp settings.</h1>
+            <h1 className="text-2xl font-black tracking-tight">rsvp settings</h1>
             <p className="text-gray-500 text-sm mt-1">
               {eventName && <span className="font-medium">{eventName} · </span>}
               {totalEnabled} question{totalEnabled !== 1 ? "s" : ""} enabled

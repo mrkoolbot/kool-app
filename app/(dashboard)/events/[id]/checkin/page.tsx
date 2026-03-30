@@ -127,7 +127,7 @@ export default function CheckinPage({ params }: { params: Promise<{ id: string }
       <main className="max-w-4xl mx-auto px-6 py-10">
         <div className="flex items-start justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-black tracking-tight">check-in.</h1>
+            <h1 className="text-2xl font-black tracking-tight">check-in</h1>
             <p className="text-gray-500 text-sm mt-1">
               {eventName && <span className="font-medium">{eventName} · </span>}
               <span className="text-kool-red font-bold">{checkedInCount} of {totalCount}</span> checked in

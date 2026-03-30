@@ -80,7 +80,7 @@ export default function VendorsPage({ params }: { params: Promise<{ id: string }
       <main className="max-w-4xl mx-auto px-6 py-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-black">vendor management.</h1>
+            <h1 className="text-2xl font-black">vendor management</h1>
             <p className="text-gray-500 text-sm mt-1">{confirmedCount} confirmed · {vendors.length} total</p>
           </div>
           <button onClick={() => setShowForm(true)}

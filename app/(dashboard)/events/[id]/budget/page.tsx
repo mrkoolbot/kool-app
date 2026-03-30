@@ -80,7 +80,7 @@ export default function BudgetPage({ params }: { params: Promise<{ id: string }>
 
       <main className="max-w-4xl mx-auto px-6 py-10">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl font-black tracking-tight">budget tracker.</h1>
+          <h1 className="text-2xl font-black tracking-tight">budget tracker</h1>
           <button onClick={() => setShowForm(true)}
             className="flex items-center gap-2 bg-kool-red text-white text-sm px-4 py-2.5 rounded-sm hover:bg-kool-crimson transition-colors">
             <Plus className="w-4 h-4" /> add item

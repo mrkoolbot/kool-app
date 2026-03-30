@@ -101,7 +101,7 @@ export default function EmailSequencesPage({ params }: { params: Promise<{ id: s
       <main className="max-w-3xl mx-auto px-6 py-10">
         <div className="flex items-start justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-black tracking-tight">email sequences.</h1>
+            <h1 className="text-2xl font-black tracking-tight">email sequences</h1>
             <p className="text-gray-500 text-sm mt-1">
               {eventName && <span className="font-medium">{eventName} · </span>}
               {sequences.filter((s) => s.enabled).length} sequences active

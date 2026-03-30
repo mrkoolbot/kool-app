@@ -204,7 +204,7 @@ export default function ChecklistPage({ params }: { params: Promise<{ id: string
 
       <main className="max-w-3xl mx-auto px-6 py-10">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-black tracking-tight">event checklist.</h1>
+          <h1 className="text-2xl font-black tracking-tight">event checklist</h1>
           <button
             onClick={() => setShowAddTopic(true)}
             className="flex items-center gap-2 bg-kool-red text-white text-sm px-4 py-2.5 rounded-sm hover:bg-kool-crimson transition-colors"
