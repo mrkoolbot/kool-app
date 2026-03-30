@@ -20,6 +20,7 @@ const FREE_FEATURES = [
 ];
 
 const PREMIUM_FEATURES = [
+  "everything in free, plus:",
   "unlimited events",
   "unlimited guests",
   "full checklist suite — 20+ categories",
@@ -35,9 +36,7 @@ const PREMIUM_FEATURES = [
 ];
 
 const UNLIMITED_FEATURES = [
-  "unlimited active events",
-  "unlimited guests",
-  "everything in premium",
+  "everything in premium, plus:",
   "event war room (day-of coordination)",
   "advanced guest intelligence",
   "multi-event dashboard",
@@ -91,10 +90,14 @@ export default function PricingPage() {
             <p className="text-gray-500 text-sm mb-8">per month · billed monthly</p>
             <ul className="space-y-3 mb-10">
               {PREMIUM_FEATURES.map((f) => (
-                <li key={f} className={`flex items-start gap-3 text-sm ${f === ETIQUETTE_FREEBIE ? "text-kool-red font-semibold" : "text-gray-600"}`}>
-                  <Check className={`w-4 h-4 mt-0.5 shrink-0 ${f === ETIQUETTE_FREEBIE ? "text-kool-red" : "text-kool-red"}`} />
-                  {f}
-                </li>
+                f === "everything in free, plus:" ? (
+                  <li key={f} className="text-xs font-bold text-gray-400 uppercase tracking-widest pt-1 pb-0 list-none">{f}</li>
+                ) : (
+                  <li key={f} className={`flex items-start gap-3 text-sm ${f === ETIQUETTE_FREEBIE ? "text-kool-red font-semibold" : "text-gray-600"}`}>
+                    <Check className={`w-4 h-4 mt-0.5 shrink-0 ${f === ETIQUETTE_FREEBIE ? "text-kool-red" : "text-kool-red"}`} />
+                    {f}
+                  </li>
+                )
               ))}
             </ul>
             <Link href="/signup?plan=premium" className="block w-full text-center bg-kool-red text-white py-3 text-sm font-bold hover:bg-red-700 transition-colors">
@@ -110,10 +113,14 @@ export default function PricingPage() {
             <p className="text-gray-400 text-sm mb-8">per month · billed monthly</p>
             <ul className="space-y-3 mb-10">
               {UNLIMITED_FEATURES.map((f) => (
-                <li key={f} className={`flex items-start gap-3 text-sm ${f === ETIQUETTE_FREEBIE ? "text-kool-red font-semibold" : "text-gray-300"}`}>
-                  <Check className={`w-4 h-4 mt-0.5 shrink-0 ${f === ETIQUETTE_FREEBIE ? "text-kool-red" : "text-kool-red"}`} />
-                  {f}
-                </li>
+                f === "everything in premium, plus:" ? (
+                  <li key={f} className="text-xs font-bold text-gray-500 uppercase tracking-widest pt-1 pb-0 list-none">{f}</li>
+                ) : (
+                  <li key={f} className={`flex items-start gap-3 text-sm ${f === ETIQUETTE_FREEBIE ? "text-kool-red font-semibold" : "text-gray-300"}`}>
+                    <Check className={`w-4 h-4 mt-0.5 shrink-0 ${f === ETIQUETTE_FREEBIE ? "text-kool-red" : "text-kool-red"}`} />
+                    {f}
+                  </li>
+                )
               ))}
             </ul>
             <Link href="/signup?plan=unlimited" className="block w-full text-center border border-white text-white py-3 text-sm font-bold hover:bg-white hover:text-obsidian transition-colors">
