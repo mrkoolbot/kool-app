@@ -1,61 +1,48 @@
 "use client"
 
-// Inline SVG logo — uses page CSS fonts, renders correctly on all devices
-export function KoolLogo({ className = "", inverted = false, size = "md" }: {
-  className?: string
-  inverted?: boolean
-  size?: "sm" | "md" | "lg"
-}) {
-  const heights: Record<string, number> = { sm: 36, md: 52, lg: 88 }
-  const h = heights[size] || heights.md
-  const w = h * 2
+export function KoolLogo({ className = "", inverted = false, size = "md" }: { className?: string, inverted?: boolean, size?: "sm" | "md" | "lg" }) {
+  const textColor = inverted ? "#0A0A0A" : "#ffffff";
 
-  const fill = inverted ? "#0a0a0a" : "#ffffff"
+  const sizes: Record<string, { kool: string; heart: string; events: string; gap: string; letterSpacing: string }> = {
+    sm: { kool: "22px",  heart: "16px", events: "7px",  gap: "1px",  letterSpacing: "0.22em" },
+    md: { kool: "32px",  heart: "24px", events: "10px", gap: "2px",  letterSpacing: "0.22em" },
+    lg: { kool: "56px",  heart: "40px", events: "16px", gap: "3px",  letterSpacing: "0.22em" },
+  };
+  const s = sizes[size] || sizes.md;
 
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 400 200"
-      width={w}
-      height={h}
-      aria-label="kool events"
-      role="img"
-      className={className}
-      style={{ display: "inline-block", flexShrink: 0 }}
+    <span
+      className={`inline-flex flex-col items-start leading-none select-none ${className}`}
+      style={{ gap: s.gap }}
     >
-      {/* "kool" text */}
-      <text
-        x="78"
-        y="133"
+      <span className="flex items-baseline" style={{ gap: "1px", lineHeight: 1 }}>
+        <span
+          style={{
+            fontSize: s.kool,
+            color: textColor,
+            letterSpacing: "-0.02em",
+            lineHeight: 1,
+            fontFamily: "var(--font-galano, 'Galano Grotesque', Arial Black, sans-serif)",
+            fontWeight: 700,
+          }}
+        >
+          kool
+        </span>
+        <span style={{ fontSize: s.heart, color: "#D90000", lineHeight: 1, fontWeight: 900 }}>♥</span>
+      </span>
+      <span
         style={{
-          fontFamily: "var(--font-galano, 'Galano Grotesque', Arial Black, sans-serif)",
-          fontWeight: 700,
-          fontSize: 112,
-          fill,
-          letterSpacing: "-1px",
-        }}
-      >
-        kool
-      </text>
-      {/* Heart mark — exact path from official file */}
-      <path
-        d="M200,100s8.2-11,14.86-11c3.07,0,5.64,2.5,5.64,5.5,0,2.3-1.43,4.3-3.49,5.5,2.05,1.2,3.49,3.2,3.49,5.5,0,3-2.56,5.5-5.64,5.5-6.66,0-14.86-11-14.86-11Z"
-        fill="#d90000"
-      />
-      {/* "events" text */}
-      <text
-        x="90"
-        y="158"
-        style={{
+          fontSize: s.events,
+          color: textColor,
+          letterSpacing: s.letterSpacing,
+          lineHeight: 1,
           fontFamily: "var(--font-galano, 'Galano Grotesque', Arial, sans-serif)",
           fontWeight: 500,
-          fontSize: 20,
-          fill,
-          letterSpacing: "8px",
+          opacity: 0.85,
         }}
       >
         events
-      </text>
-    </svg>
-  )
+      </span>
+    </span>
+  );
 }
