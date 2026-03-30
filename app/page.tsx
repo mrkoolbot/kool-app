@@ -227,7 +227,7 @@ export default function LandingPage() {
             <div className="text-4xl font-black mb-1">$0</div>
             <p className="text-gray-500 text-sm mb-8">forever. no credit card.</p>
             <ul className="space-y-2 text-sm text-gray-600 mb-8">
-              {["1 active event", "up to 50 guests", "smart checklist (20+ categories)", "run of show / timeline", "budget tracker", "vendor management", "catering calculator", "public event landing page", "guest rsvp page"].map(f => (
+              {["1 active event", "up to 25 guests", "smart checklist (20+ categories)", "run of show / timeline", "budget tracker", "vendor management", "catering calculator", "public event landing page", "guest rsvp page"].map(f => (
                 <li key={f} className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-gray-200 flex-shrink-0" />
                   {f}

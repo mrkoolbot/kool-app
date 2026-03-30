@@ -8,7 +8,7 @@ const ETIQUETTE_FREEBIE = "event etiquette manual (free for all)";
 
 const FREE_FEATURES = [
   "1 active event at a time",
-  "up to 50 guests",
+  "up to 25 guests",
   "smart checklist by event type",
   "run of show / timeline",
   "budget tracker",
