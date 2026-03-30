@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 200">
+  <!-- Generator: Adobe Illustrator 30.2.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        font-family: BimboPro-Ballpoint, 'Bimbo Pro';
+        font-size: 41.21px;
+        letter-spacing: .2em;
+        stroke: #0a0a0a;
+        stroke-width: .75px;
+      }
+
+      .st0, .st1, .st2, .st3 {
+        stroke-miterlimit: 10;
+      }
+
+      .st0, .st2, .st4, .st5 {
+        fill: #0a0a0a;
+      }
+
+      .st1, .st2, .st3 {
+        stroke: #000;
+        stroke-width: .25px;
+      }
+
+      .st1, .st6 {
+        fill: #0a0a0a;
+      }
+
+      .st7, .st3 {
+        fill: #d90000;
+      }
+
+      .st2, .st4 {
+        font-family: GalanoGrotesque-Bold, 'Galano Grotesque';
+        font-size: 110px;
+        font-weight: 700;
+        isolation: isolate;
+      }
+
+      .st5 {
+        font-family: GalanoGrotesque-Medium, 'Galano Grotesque';
+        font-size: 21px;
+        font-weight: 500;
+        letter-spacing: 1.4em;
+      }
+    </style>
+  </defs>
+  <g>
+    <text class="st2" transform="translate(295 -247.1)"><tspan x="0" y="0">kool</tspan></text>
+    <path class="st3" d="M410-272.1s11.2-15.4,20.3-15.4c4.2,0,7.7,3.5,7.7,7.7,0,3.22-1.96,6.02-4.76,7.7,2.8,1.68,4.76,4.48,4.76,7.7,0,4.2-3.5,7.7-7.7,7.7-9.1,0-20.3-15.4-20.3-15.4Z"/>
+    <text class="st0" transform="translate(380.66 -217.7) scale(.99 1)"><tspan x="0" y="0">events</tspan></text>
+  </g>
+  <text class="st4" transform="translate(82 125.9)"><tspan x="0" y="0">kool</tspan></text>
+  <path class="st7" d="M200,100s8.2-11,14.86-11c3.07,0,5.64,2.5,5.64,5.5,0,2.3-1.43,4.3-3.49,5.5,2.05,1.2,3.49,3.2,3.49,5.5,0,3-2.56,5.5-5.64,5.5-6.66,0-14.86-11-14.86-11Z"/>
+  <text class="st5" transform="translate(88.38 151.94) scale(.99 1)"><tspan x="0" y="0">events</tspan></text>
+</svg>
