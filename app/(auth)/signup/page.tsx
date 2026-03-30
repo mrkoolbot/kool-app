@@ -32,10 +32,28 @@ export default function SignupPage() {
       setError(error.message);
       setLoading(false);
     } else if (data.session) {
-      // Email confirmation disabled — go straight to dashboard
+      // Email confirmation disabled — send welcome email then go to dashboard
+      try {
+        await fetch("/api/email/welcome", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+      } catch {
+        // non-blocking — don't fail signup if welcome email fails
+      }
       router.push("/dashboard");
     } else {
-      // Email confirmation required
+      // Email confirmation required — still fire welcome email
+      try {
+        await fetch("/api/email/welcome", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+      } catch {
+        // non-blocking
+      }
       setEmailSent(true);
       setLoading(false);
     }

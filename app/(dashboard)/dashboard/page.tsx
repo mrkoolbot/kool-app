@@ -127,6 +127,18 @@ export default async function DashboardPage() {
           </div>
         )}
 
+        {/* Etiquette Manual Card */}
+        <Link href="/etiquette" className="block bg-kool-black text-white rounded-sm p-6 mt-6 hover:bg-gray-900 transition-colors">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-kool-red text-xs font-bold tracking-[0.2em] mb-1">exclusive resource</p>
+              <h3 className="font-black text-lg">the event etiquette manual</h3>
+              <p className="text-white/60 text-sm mt-1">25 chapters by paula mescolin — the definitive guide to extraordinary events</p>
+            </div>
+            <ArrowRight className="w-5 h-5 text-kool-red shrink-0 ml-4" />
+          </div>
+        </Link>
+
         {/* TKG CTA */}
         <div className="mt-12 bg-kool-black rounded-sm p-8 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
