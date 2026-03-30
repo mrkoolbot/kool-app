@@ -191,7 +191,7 @@ function buildEmailHtml({
       ${sequenceId !== "post_event" ? `
       <div style="text-align:center;margin:32px 0;">
         <a href="${rsvpUrl}" style="background:${accentColor};color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:4px;font-weight:700;font-size:14px;display:inline-block;">
-          ${sequenceId === "rsvp_reminder" ? "rsvp now →" : "view event →"}
+          ${["invitation", "rsvp_reminder", "save_the_date"].includes(sequenceId) ? "rsvp now →" : "view event details →"}
         </a>
         ${landingPageUrl ? `
         <p style="text-align:center;margin-top:12px;">
