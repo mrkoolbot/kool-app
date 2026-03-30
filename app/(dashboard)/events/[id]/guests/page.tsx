@@ -233,7 +233,7 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
               {plan === "free" && <span className="text-kool-red font-semibold"> · {25 - guests.length} remaining on free plan</span>}
             </p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2">
             <button onClick={copyRsvpLink}
               className="flex items-center gap-2 border border-gray-200 text-sm px-4 py-2.5 rounded-sm hover:border-kool-black transition-colors">
               {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
@@ -300,7 +300,7 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
           <div className="bg-white border border-kool-red rounded-sm p-6 mb-6">
             <h3 className="font-bold mb-4">add guest</h3>
             <form onSubmit={addGuest} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold mb-1.5 text-gray-600">first name *</label>
                   <input required value={form.first_name} onChange={(e) => setForm(p => ({ ...p, first_name: e.target.value }))}
@@ -312,7 +312,7 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
                     className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-kool-red" />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold mb-1.5 text-gray-600">
                     email
@@ -327,7 +327,7 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
                     className="w-full border border-gray-200 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-kool-red" />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold mb-1.5 text-gray-600">company</label>
                   <input value={form.company || ""} onChange={(e) => setForm(p => ({ ...p, company: e.target.value }))}

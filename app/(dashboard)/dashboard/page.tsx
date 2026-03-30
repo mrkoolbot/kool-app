@@ -47,7 +47,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Welcome */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-black tracking-tight mb-1">
               hey {firstName}<span className="text-kool-red">.</span>

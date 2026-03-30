@@ -89,7 +89,7 @@ export default function BudgetPage({ params }: { params: Promise<{ id: string }>
 
         {/* Budget summary */}
         <div className="bg-white border border-gray-100 rounded-sm p-6 mb-6">
-          <div className="grid grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6">
             <div className="text-center">
               <div className="text-3xl font-black text-kool-black">{formatCurrency(totalBudget)}</div>
               <div className="text-xs text-gray-400 mt-1">total budget</div>
@@ -121,7 +121,7 @@ export default function BudgetPage({ params }: { params: Promise<{ id: string }>
         {showForm && (
           <div className="bg-white border border-kool-red rounded-sm p-5 mb-6">
             <form onSubmit={addItem} className="space-y-3">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <select value={form.category} onChange={(e) => setForm(p => ({ ...p, category: e.target.value }))}
                   className="border border-gray-200 rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-kool-red bg-white">
                   {BUDGET_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -130,7 +130,7 @@ export default function BudgetPage({ params }: { params: Promise<{ id: string }>
                   placeholder="item name"
                   className="border border-gray-200 rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-kool-red" />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs text-gray-500 mb-1">estimated cost</label>
                   <input type="number" value={form.estimated_cost} onChange={(e) => setForm(p => ({ ...p, estimated_cost: e.target.value }))}

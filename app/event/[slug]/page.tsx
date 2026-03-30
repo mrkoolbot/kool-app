@@ -45,7 +45,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
       {/* Hero */}
       <div className="relative">
         {event.landing_image_url ? (
-          <div className="relative h-[60vh] min-h-[400px] overflow-hidden">
+          <div className="relative h-[40vh] sm:h-[60vh] min-h-[300px] sm:min-h-[400px] overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={event.landing_image_url}
@@ -66,7 +66,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
       </div>
 
       {/* Main content */}
-      <div className="max-w-2xl mx-auto px-6 py-12 md:px-8">
+      <div className="max-w-2xl mx-auto px-4 py-8 sm:px-6 sm:py-12 md:px-8">
         {/* RSVP CTA */}
         <div className="mb-12 text-center">
           <Link

@@ -162,12 +162,12 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
         </div>
 
         {/* Navigation tabs */}
-        <div className="bg-white border border-gray-100 rounded-sm p-2 flex flex-wrap gap-1 mb-6">
+        <div className="bg-white border border-gray-100 rounded-sm p-2 flex gap-1 mb-6 overflow-x-auto whitespace-nowrap scrollbar-hide">
           {tabs.map((tab) => (
             <Link
               key={tab.label}
               href={tab.href}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-sm text-sm font-semibold text-gray-500 hover:text-kool-black hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-sm text-sm font-semibold text-gray-500 hover:text-kool-black hover:bg-gray-50 transition-colors shrink-0"
             >
               {tab.icon}
               {tab.label}

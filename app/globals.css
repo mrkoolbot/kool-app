@@ -62,3 +62,12 @@ body {
 .border-kool-red { border-color: #eb1e00; }
 .hover\:bg-kool-red:hover { background-color: #eb1e00; }
 .hover\:text-kool-red:hover { color: #eb1e00; }
+
+/* scrollbar-hide utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

@@ -55,7 +55,7 @@ export default function LandingPage() {
           <Link href="https://thekoolturegroup.com" target="_blank" className="hover:text-kool-red transition-colors">the koolture group</Link>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/login" className="text-sm text-gray-600 hover:text-kool-black transition-colors">log in</Link>
+          <Link href="/login" className="hidden sm:inline text-sm text-gray-600 hover:text-kool-black transition-colors">log in</Link>
           <Link
             href="/signup"
             className="bg-kool-red text-white text-sm px-5 py-2.5 rounded-sm font-semibold hover:bg-kool-crimson transition-colors"
@@ -76,7 +76,7 @@ export default function LandingPage() {
         <p className="text-kool-red text-xs font-bold tracking-[0.3em] mb-6">
           by the koolture group
         </p>
-        <h1 className="text-5xl md:text-7xl font-black text-kool-black leading-[0.95] mb-8 tracking-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-kool-black leading-[0.95] mb-8 tracking-tight">
           the tool that makes<br />
           <span className="text-kool-red">any event feel</span><br />
           like a production.

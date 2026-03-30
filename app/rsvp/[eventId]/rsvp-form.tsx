@@ -135,7 +135,7 @@ export default function RSVPForm({
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label className="block text-xs font-semibold mb-1.5 text-gray-600">first name *</label>
           <input
