@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 
   // Get guests based on recipient type
   let guestsQuery = supabase.from("guests").select("*").eq("event_id", eventId);
-  if (recipientType === "not_responded") guestsQuery = guestsQuery.is("rsvp_status", null);
+  if (recipientType === "not_responded") guestsQuery = guestsQuery.or("rsvp_status.is.null,rsvp_status.eq.pending");
   if (recipientType === "confirmed") guestsQuery = guestsQuery.eq("rsvp_status", "attending");
 
   const { data: guests } = await guestsQuery;
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
         from: "KOOL Events <events@koolevents.app>",
         to: guest.email,
         subject,
-        html: htmlBody.replace("{{guest_name}}", guest.name || "guest"),
+        html: htmlBody.replace("{{guest_name}}", [guest.first_name, guest.last_name].filter(Boolean).join(" ") || "guest"),
       });
       sent++;
     } catch (e) {
