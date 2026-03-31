@@ -22,7 +22,7 @@ export async function POST(request: Request) {
 <body style="margin:0;padding:0;background:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
   <div style="max-width:560px;margin:40px auto;background:#ffffff;">
     <div style="background:#0a0a0a;padding:28px 40px;text-align:center;">
-      <img src="https://koolevents.app/kool-logo-official-v2.svg" alt="kool events" width="140" height="70" style="display:inline-block;border:0;" />
+      <img src="https://koolevents.app/kool-events-logo-col.svg" alt="kool events" width="140" height="70" style="display:inline-block;border:0;" />
     </div>
     <div style="padding:40px;">
       <p style="font-size:15px;color:#333;line-height:1.6;margin:0 0 16px;">welcome to KOOL.</p>

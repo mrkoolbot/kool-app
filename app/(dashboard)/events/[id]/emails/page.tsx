@@ -113,7 +113,7 @@ function buildPreviewHtml(sequenceId: string, event: any, eventId: string): stri
 <body>
 <div class="email-wrapper">
   <div class="email-header">
-    <img src="https://koolevents.app/kool-logo-official-v2.svg" alt="kool events" width="140" height="70" style="display:inline-block;border:0;" />
+    <img src="https://koolevents.app/kool-events-logo-col.svg" alt="kool events" width="140" height="70" style="display:inline-block;border:0;" />
   </div>
   ${heroImageUrl ? `
   <div style="width:100%;max-height:280px;overflow:hidden;">

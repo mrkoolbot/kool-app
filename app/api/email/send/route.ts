@@ -169,7 +169,7 @@ function buildEmailHtml({
   <div style="max-width:560px;margin:40px auto;background:#ffffff;border-radius:4px;overflow:hidden;">
     <!-- Header -->
     <div style="background:#0a0a0a;padding:28px 40px;text-align:center;">
-      <img src="https://koolevents.app/kool-logo-official-v2.svg" alt="kool events" width="140" height="70" style="display:inline-block;border:0;" />
+      <img src="https://koolevents.app/kool-events-logo-col.svg" alt="kool events" width="140" height="70" style="display:inline-block;border:0;" />
     </div>
     ${heroImageUrl ? `
     <!-- Hero Image -->
