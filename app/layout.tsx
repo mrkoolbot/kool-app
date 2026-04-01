@@ -58,3 +58,4 @@ export default function RootLayout({
     </html>
   );
 }
+// favicon-cache-bust: 1775011514
