@@ -1,6 +1,15 @@
 import Link from "next/link";
 import { ArrowLeft, Download } from "lucide-react";
 import { KoolLogo } from "@/components/kool-logo";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+
+export default async function EtiquetteManualPageWrapper() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+  return <EtiquetteManualPage />;
+}
 
 const chapters = [
   { num: "01", id: "what-manners-actually-mean", title: "what manners actually mean" },
@@ -30,7 +39,7 @@ const chapters = [
   { num: "25", id: "the-hosts-invisible-rule-book", title: "the host's invisible rule book" },
 ];
 
-export default function EtiquetteManualPage() {
+function EtiquetteManualPage() {
   return (
     <div className="min-h-screen font-galano" style={{ backgroundColor: "#0A0A0A", color: "#FFFFFF" }}>
       {/* Header */}
