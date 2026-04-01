@@ -1030,13 +1030,15 @@ export default function EtiquetteManualPage() {
             {/* ── informal diagram ── */}
             <p className="text-xs font-bold mb-3" style={{ color: red, letterSpacing: "0.14em" }}>informal place setting</p>
             <div className="mb-8 rounded-sm overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
-              <InformalSettingDiagram />
+              <img src="/ch08-informal-setting.png" alt="informal place setting diagram" style={{ width: "100%", display: "block" }} />
+              {/* <InformalSettingDiagram /> */}
             </div>
 
             {/* ── formal diagram ── */}
             <p className="text-xs font-bold mb-3" style={{ color: red, letterSpacing: "0.14em" }}>formal dinner setting</p>
             <div className="mb-8 rounded-sm overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
-              <TableSettingDiagram />
+              <img src="/ch08-place-setting.png" alt="formal dinner place setting diagram" style={{ width: "100%", display: "block" }} />
+              {/* <TableSettingDiagram /> */}
             </div>
 
             <p className="text-xs font-bold mb-3" style={{ color: red, letterSpacing: "0.14em" }}>informal place setting details</p>
@@ -1080,7 +1082,8 @@ export default function EtiquetteManualPage() {
 
             {/* ── full diagram ── */}
             <div className="mb-8 rounded-sm overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
-              <UtensilsDiagram />
+              <img src="/ch09-table-etiquette.png" alt="table etiquette utensil signals" style={{ width: "100%", display: "block" }} />
+              {/* <UtensilsDiagram /> */}
             </div>
 
             <p className="text-xs font-bold mb-3" style={{ color: red, letterSpacing: "0.14em" }}>the two schools</p>
