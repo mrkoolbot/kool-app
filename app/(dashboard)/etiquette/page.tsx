@@ -279,37 +279,6 @@ const chapters = [
 
 // ─── table setting diagram (ch08) ────────────────────────────────────────────
 
-function TSDFork({ x, y, h, w = 7 }: { x: number; y: number; h: number; w?: number }) {
-  const tineH = h * 0.28; const neckH = h * 0.12; const handleH = h * 0.60;
-  const ty = y; const ny = y + tineH; const hy = ny + neckH;
-  return (
-    <g>
-      <rect x={x - w * 0.4} y={hy} width={w * 0.8} height={handleH} rx={w * 0.35} fill="#2A2A2A"/>
-      <rect x={x - w * 0.22} y={ny} width={w * 0.44} height={neckH + 2} fill="#2A2A2A"/>
-      {([-1.4, -0.45, 0.45, 1.4] as number[]).map((offset, i) => (
-        <rect key={i} x={x + offset * w * 0.32 - 0.9} y={ty} width={1.8} height={tineH + 2} rx={0.9} fill="#2A2A2A"/>
-      ))}
-    </g>
-  );
-}
-function TSDKnife({ x, y, h, w = 7 }: { x: number; y: number; h: number; w?: number }) {
-  const bladeH = h * 0.38;
-  return (
-    <g>
-      <rect x={x - w * 0.45} y={y + bladeH} width={w * 0.9} height={h * 0.62} rx={w * 0.38} fill="#2A2A2A"/>
-      <path d={`M${x - w * 0.3},${y + bladeH} L${x - w * 0.3},${y + 6} Q${x - w * 1.1},${y + bladeH * 0.5} ${x - w * 0.3},${y + bladeH} Z`} fill="#2A2A2A"/>
-      <rect x={x - w * 0.15} y={y} width={w * 0.3} height={bladeH} rx={w * 0.12} fill="#2A2A2A"/>
-    </g>
-  );
-}
-function TSDSpoon({ x, y, h, rx: rxx = 8, ry: ryy = 12 }: { x: number; y: number; h: number; rx?: number; ry?: number }) {
-  return (
-    <g>
-      <ellipse cx={x} cy={y + ryy} rx={rxx} ry={ryy} fill="#2A2A2A"/>
-      <rect x={x - 2.5} y={y + ryy * 2 - 2} width={5} height={h - ryy * 2 + 2} rx={2.5} fill="#2A2A2A"/>
-    </g>
-  );
-}
 function TSDLabel({ x, y, letter }: { x: number; y: number; letter: string }) {
   return (
     <g>
@@ -321,95 +290,124 @@ function TSDLabel({ x, y, letter }: { x: number; y: number; letter: string }) {
 
 function TableSettingDiagram() {
   const lbl = (x: number, y: number, letter: string) => <TSDLabel x={x} y={y} letter={letter}/>;
+  const sw = 1.8; // stroke width for utensils
+  const sc = "#1A1A1A"; // stroke color
   return (
     <div className="mb-8">
-      <svg viewBox="0 0 680 520" width="100%" style={{ display: "block", maxWidth: 680 }} role="img" aria-label="formal dinner place setting">
-        <rect width="680" height="520" fill="white" rx="4" stroke="#EBEBEB" strokeWidth="1"/>
-        <text x="340" y="26" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0A0A0A" letterSpacing="0.5">formal dinner setting</text>
+      <svg viewBox="0 0 720 560" width="100%" style={{ display: "block", maxWidth: 720 }} role="img" aria-label="formal dinner place setting">
+        <defs>
+          <style>{`
+            .tsd-lbl { font-family: inherit; font-size: 9px; fill: #444; }
+            .tsd-title { font-family: inherit; font-size: 11px; font-weight: 700; fill: #0A0A0A; }
+          `}</style>
+        </defs>
+        <rect width="720" height="560" fill="white" rx="4" stroke="#EBEBEB" strokeWidth="1"/>
+        <text x="360" y="28" textAnchor="middle" className="tsd-title" letterSpacing="0.5">formal dinner setting</text>
 
-        {/* ── A: NAPKIN — far left, vertical rectangle ── */}
-        <rect x="52" y="130" width="42" height="160" rx="2" fill="#EDE9E2" stroke="#B0A898" strokeWidth="1.2"/>
-        <line x1="52" y1="155" x2="94" y2="155" stroke="#B0A898" strokeWidth="0.7"/>
-        {lbl(73, 314, "A")}
+        {/* ── A: NAPKIN — folded, far left ── */}
+        <rect x="48" y="152" width="44" height="140" rx="3" fill="#F0EDE6" stroke="#B8B0A4" strokeWidth="1.2"/>
+        <line x1="48" y1="174" x2="92" y2="174" stroke="#C8C0B4" strokeWidth="0.7"/>
+        <line x1="48" y1="190" x2="92" y2="190" stroke="#C8C0B4" strokeWidth="0.5"/>
+        <line x1="62" y1="152" x2="78" y2="174" stroke="#C8C0B4" strokeWidth="0.5"/>
+        {lbl(70, 310, "A")}
 
-        {/* ── B: SERVICE PLATE ── */}
-        <circle cx="330" cy="225" r="108" fill="#F2EFE9" stroke="#C0BAB0" strokeWidth="1.5"/>
-        <circle cx="330" cy="225" r="86" fill="white" stroke="#1A1A1A" strokeWidth="2"/>
-        <circle cx="330" cy="225" r="68" fill="none" stroke="#1A1A1A" strokeWidth="0.6"/>
-        {lbl(330, 225, "B")}
+        {/* ── B: SERVICE PLATE + DINNER PLATE ── */}
+        <circle cx="340" cy="248" r="116" fill="#F5F2EC" stroke="#C8C0B4" strokeWidth="1.5"/>
+        <circle cx="340" cy="248" r="92" fill="white" stroke={sc} strokeWidth="2"/>
+        <circle cx="340" cy="248" r="74" fill="none" stroke={sc} strokeWidth="0.6"/>
+        {lbl(340, 248, "B")}
 
-        {/* ── C: SOUP BOWL on liner plate ── */}
-        <circle cx="330" cy="210" r="46" fill="white" stroke="#1A1A1A" strokeWidth="1.4"/>
-        <circle cx="330" cy="210" r="34" fill="#F8F8F8" stroke="#1A1A1A" strokeWidth="1.2"/>
-        {lbl(370, 178, "C")}
+        {/* ── C: SOUP BOWL on show plate ── */}
+        <circle cx="340" cy="232" r="50" fill="#FAFAF8" stroke={sc} strokeWidth="1.3"/>
+        <circle cx="340" cy="232" r="38" fill="white" stroke="#CCCCCC" strokeWidth="0.8"/>
+        {lbl(394, 196, "C")}
 
         {/* ── D: BREAD & BUTTER PLATE — upper left ── */}
-        <circle cx="152" cy="112" r="38" fill="#F2EFE9" stroke="#C0BAB0" strokeWidth="1.4"/>
-        <circle cx="152" cy="112" r="28" fill="white" stroke="#1A1A1A" strokeWidth="1.2"/>
-        {/* butter knife diagonal */}
-        <line x1="168" y1="128" x2="136" y2="96" stroke="#1A1A1A" strokeWidth="2.2" strokeLinecap="round"/>
-        <path d="M136 96 Q131 101 138 108 L143 103" stroke="#1A1A1A" strokeWidth="1" fill="none"/>
-        {lbl(110, 112, "D")}
+        <circle cx="148" cy="118" r="40" fill="#F5F2EC" stroke="#C8C0B4" strokeWidth="1.3"/>
+        <circle cx="148" cy="118" r="30" fill="white" stroke={sc} strokeWidth="1"/>
+        {/* butter knife — diagonal across plate */}
+        <line x1="162" y1="132" x2="134" y2="104" stroke={sc} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M134 104 Q129 109 136 116 L141 111" stroke={sc} strokeWidth="1" fill="none"/>
+        {lbl(102, 118, "D")}
 
-        {/* ── E: WATER GLASS — upper right, largest ── */}
-        <circle cx="514" cy="100" r="30" fill="none" stroke="#1A1A1A" strokeWidth="2"/>
-        <circle cx="514" cy="100" r="22" fill="none" stroke="#1A1A1A" strokeWidth="0.5"/>
-        {lbl(514, 100, "E")}
+        {/* ── GLASSES — upper right ── */}
+        {/* E: water goblet — largest */}
+        <circle cx="524" cy="106" r="32" fill="none" stroke={sc} strokeWidth="2"/>
+        <circle cx="524" cy="106" r="24" fill="none" stroke={sc} strokeWidth="0.5"/>
+        {lbl(524, 106, "E")}
+        {/* F: red wine glass */}
+        <circle cx="590" cy="84" r="25" fill="none" stroke={sc} strokeWidth="1.6"/>
+        {lbl(590, 84, "F")}
+        {/* G: white wine glass */}
+        <circle cx="638" cy="118" r="21" fill="none" stroke={sc} strokeWidth="1.4"/>
+        {lbl(638, 118, "G")}
 
-        {/* ── F: WINE GLASS — right of water ── */}
-        <circle cx="578" cy="86" r="24" fill="none" stroke="#1A1A1A" strokeWidth="1.6"/>
-        {lbl(578, 86, "F")}
+        {/* ══ FORKS — left side ══ */}
+        {/* H: SALAD FORK — outermost, shorter */}
+        {/* handle */}
+        <line x1="194" y1="360" x2="194" y2="224" stroke={sc} strokeWidth={sw} strokeLinecap="round"/>
+        {/* neck */}
+        <line x1="194" y1="224" x2="194" y2="204" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
+        {/* tines */}
+        <line x1="189" y1="204" x2="189" y2="188" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
+        <line x1="193" y1="202" x2="193" y2="186" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
+        <line x1="197" y1="202" x2="197" y2="186" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
+        <line x1="201" y1="204" x2="201" y2="188" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
+        {lbl(194, 376, "H")}
 
-        {/* ── G: WINE GLASS 2 — far right ── */}
-        <circle cx="628" cy="118" r="20" fill="none" stroke="#1A1A1A" strokeWidth="1.4"/>
-        {lbl(628, 118, "G")}
+        {/* I: DINNER FORK — inner, taller */}
+        <line x1="218" y1="364" x2="218" y2="210" stroke={sc} strokeWidth="2.2" strokeLinecap="round"/>
+        <line x1="218" y1="210" x2="218" y2="186" stroke={sc} strokeWidth="1.4" strokeLinecap="round"/>
+        <line x1="212" y1="186" x2="212" y2="168" stroke={sc} strokeWidth="1.4" strokeLinecap="round"/>
+        <line x1="216" y1="184" x2="216" y2="166" stroke={sc} strokeWidth="1.4" strokeLinecap="round"/>
+        <line x1="220" y1="184" x2="220" y2="166" stroke={sc} strokeWidth="1.4" strokeLinecap="round"/>
+        <line x1="224" y1="186" x2="224" y2="168" stroke={sc} strokeWidth="1.4" strokeLinecap="round"/>
+        {lbl(218, 380, "I")}
 
-        {/* ── H: SALAD FORK — outermost left, shorter ── */}
-        <TSDFork x={190} y={168} h={176} w={8}/>
-        {lbl(190, 366, "H")}
+        {/* J: DESSERT FORK — above plate, horizontal, tines right */}
+        <line x1="262" y1="62" x2="418" y2="62" stroke={sc} strokeWidth="1.8" strokeLinecap="round"/>
+        <line x1="262" y1="62" x2="284" y2="62" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
+        <line x1="408" y1="56" x2="420" y2="56" stroke={sc} strokeWidth="1.1" strokeLinecap="round"/>
+        <line x1="408" y1="62" x2="422" y2="62" stroke={sc} strokeWidth="1.1" strokeLinecap="round"/>
+        <line x1="408" y1="68" x2="420" y2="68" stroke={sc} strokeWidth="1.1" strokeLinecap="round"/>
+        {lbl(246, 62, "J")}
 
-        {/* ── I: DINNER FORK — inner left, taller ── */}
-        <TSDFork x={216} y={148} h={200} w={9}/>
-        {lbl(216, 370, "I")}
+        {/* ══ KNIVES + SPOONS — right side ══ */}
+        {/* K: DINNER KNIFE — inner, blade faces left */}
+        <line x1="462" y1="364" x2="462" y2="166" stroke={sc} strokeWidth="2.2" strokeLinecap="round"/>
+        <path d="M462 166 Q452 176 451 194 L462 198" stroke={sc} strokeWidth="1.4" fill="none" strokeLinecap="round"/>
+        {lbl(462, 380, "K")}
 
-        {/* ── J: DESSERT FORK — above plate, horizontal, tines right ── */}
-        <g transform="rotate(90 330 62)">
-          <TSDFork x={330} y={24} h={76} w={6}/>
-        </g>
-        {lbl(248, 62, "J")}
+        {/* L: TEASPOON */}
+        <line x1="488" y1="360" x2="488" y2="196" stroke={sc} strokeWidth={sw} strokeLinecap="round"/>
+        <ellipse cx="488" cy="182" rx="8" ry="12" fill="none" stroke={sc} strokeWidth="1.4"/>
+        {lbl(488, 376, "L")}
 
-        {/* ── K: KNIFE — inner right, blade faces left ── */}
-        <TSDKnife x={448} y={148} h={200} w={9}/>
-        {lbl(448, 370, "K")}
-
-        {/* ── L: TEASPOON — middle right ── */}
-        <TSDSpoon x={474} y={152} h={190} rx={7} ry={11}/>
-        {lbl(474, 364, "L")}
-
-        {/* ── M: SOUP SPOON — outermost right ── */}
-        <TSDSpoon x={500} y={148} h={192} rx={9} ry={14}/>
-        {lbl(500, 362, "M")}
+        {/* M: SOUP SPOON — outermost */}
+        <line x1="514" y1="360" x2="514" y2="190" stroke={sc} strokeWidth={sw} strokeLinecap="round"/>
+        <ellipse cx="514" cy="174" rx="10" ry="15" fill="none" stroke={sc} strokeWidth="1.6"/>
+        {lbl(514, 376, "M")}
 
         {/* ── LEGEND ── */}
-        <line x1="28" y1="400" x2="652" y2="400" stroke="#EBEBEB" strokeWidth="1.2"/>
+        <line x1="28" y1="422" x2="692" y2="422" stroke="#EBEBEB" strokeWidth="1.2"/>
 
-        <text x="40" y="418" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">A.</tspan> napkin</text>
-        <text x="40" y="432" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">B.</tspan> service plate</text>
-        <text x="40" y="446" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">C.</tspan> soup bowl on liner plate</text>
-        <text x="40" y="460" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">D.</tspan> bread &amp; butter plate with butter knife</text>
-        <text x="40" y="474" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">E.</tspan> water glass</text>
-        <text x="40" y="488" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">F.</tspan> wine glass</text>
-        <text x="40" y="502" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">G.</tspan> wine glass</text>
+        <text x="40" y="440" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">A.</tspan> napkin</text>
+        <text x="40" y="455" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">B.</tspan> service plate</text>
+        <text x="40" y="470" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">C.</tspan> soup bowl on show plate</text>
+        <text x="40" y="485" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">D.</tspan> bread &amp; butter plate + butter knife</text>
+        <text x="40" y="500" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">E.</tspan> water glass</text>
+        <text x="40" y="515" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">F.</tspan> red wine glass</text>
+        <text x="40" y="530" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">G.</tspan> white wine glass</text>
 
-        <text x="360" y="418" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">H.</tspan> salad fork</text>
-        <text x="360" y="432" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">I.</tspan> dinner fork</text>
-        <text x="360" y="446" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">J.</tspan> dessert fork</text>
-        <text x="360" y="460" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">K.</tspan> knife</text>
-        <text x="360" y="474" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">L.</tspan> teaspoon</text>
-        <text x="360" y="488" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">M.</tspan> soup spoon</text>
+        <text x="390" y="440" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">H.</tspan> salad fork</text>
+        <text x="390" y="455" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">I.</tspan> dinner fork</text>
+        <text x="390" y="470" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">J.</tspan> dessert fork</text>
+        <text x="390" y="485" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">K.</tspan> dinner knife</text>
+        <text x="390" y="500" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">L.</tspan> teaspoon</text>
+        <text x="390" y="515" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">M.</tspan> soup spoon</text>
 
-        <line x1="28" y1="512" x2="652" y2="512" stroke="#EBEBEB" strokeWidth="1.2"/>
-        <text x="340" y="524" textAnchor="middle" fontSize="8.5" fill="#D90000">the koolture group</text>
+        <line x1="28" y1="546" x2="692" y2="546" stroke="#EBEBEB" strokeWidth="1.2"/>
+        <text x="360" y="558" textAnchor="middle" fontSize="8.5" fill="#D90000">the koolture group</text>
       </svg>
     </div>
   );
