@@ -562,10 +562,14 @@ function UtensilsDiagram() {
         </g>
         <text x="76" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" fontFamily="var(--font-galano, sans-serif)">pause</text>
 
-        {/* 2. READY FOR SECOND PLATE */}
+        {/* 2. READY FOR SECOND PLATE — fork tilted right ~20deg, knife tilted left ~20deg, crossing at plate center */}
         <P cx={228} cy={138}/>
-        <Fork cx={218} ty={88} h={100}/>
-        <Knife cx={238} ty={88} h={100}/>
+        <g transform="rotate(20 228 138)">
+          <Fork cx={216} ty={82} h={108}/>
+        </g>
+        <g transform="rotate(-20 228 138)">
+          <Knife cx={240} ty={82} h={108}/>
+        </g>
         <text x="228" y="218" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" fontFamily="var(--font-galano, sans-serif)">ready for</text>
         <text x="228" y="232" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" fontFamily="var(--font-galano, sans-serif)">second plate</text>
 
