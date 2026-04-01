@@ -205,14 +205,14 @@ Mr. and Mrs. Paulo Mescolin
 *(traditionalist form — still the most formal and widely accepted)*
 
 **a married couple, different last names:**
-Ms. Paula Costa and Mr. Paulo Mescolin
+Ms. Paula Marques and Mr. Paulo Mescolin
 *(list the person with whom you have the primary relationship first)*
 
 **same-sex couples:**
 follow the same rule — list alphabetically or by the strength of your relationship with each. either name may come first.
 
 **a couple who are not married:**
-Ms. Paula Costa
+Ms. Paula Marques
 Mr. Paulo Mescolin
 *(list on separate lines of the same envelope, with your closer contact first)*
 
@@ -222,10 +222,10 @@ Maria, Pedro
 *(children listed by age, oldest first — and only listed if they are invited)*
 
 **a single person you'd like to bring a guest:**
-Ms. Paula Costa and Guest
+Ms. Paula Marques and Guest
 
 **a single person, no guest intended:**
-Ms. Paula Costa
+Ms. Paula Marques
 *(the absence of "and guest" is intentional and clear)*
 
 **professional titles:**
