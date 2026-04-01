@@ -529,88 +529,104 @@ function TableSettingDiagram() {
 // ─── utensils diagram (ch09) ─────────────────────────────────────────────────
 
 function UtensilsDiagram() {
-  const plate = (cx: number, cy: number) => (
+  // Filled silhouette utensils matching reference image
+  const P = ({ cx, cy }: { cx: number; cy: number }) => (
     <g>
-      <circle cx={cx} cy={cy} r={60} fill="#E8E4DC" stroke="#B0A898" strokeWidth="1.5"/>
-      <circle cx={cx} cy={cy} r={48} fill="white" stroke="#888" strokeWidth="1.2"/>
-      <circle cx={cx} cy={cy} r={36} fill="none" stroke="#BBB" strokeWidth="0.6"/>
+      <circle cx={cx} cy={cy} r={62} fill="#D8D4CC" stroke="#A8A09A" strokeWidth="1.5"/>
+      <circle cx={cx} cy={cy} r={50} fill="#F0EDE8" stroke="#999" strokeWidth="1.2"/>
+      <circle cx={cx} cy={cy} r={38} fill="#F8F7F5" stroke="#CCC" strokeWidth="0.7"/>
     </g>
   );
-  const sc = "#555";
+  const fc = "#666"; // fill color for utensils
+  // Fork silhouette: cx center, top y, total height h
+  const Fork = ({ cx, ty, h }: { cx: number; ty: number; h: number }) => {
+    const tw = 8; // tine spread width
+    const th = h * 0.30; // tine section height
+    const neckH = h * 0.14;
+    const handleH = h * 0.56;
+    const ny = ty + th;
+    const hy = ny + neckH;
+    return (
+      <g fill={fc}>
+        {/* 4 tines */}
+        <rect x={cx - tw * 0.75} y={ty} width={2.2} height={th + 4} rx={1.1}/>
+        <rect x={cx - tw * 0.25} y={ty} width={2.2} height={th + 4} rx={1.1}/>
+        <rect x={cx + tw * 0.25 - 2.2} y={ty} width={2.2} height={th + 4} rx={1.1}/>
+        <rect x={cx + tw * 0.75 - 2.2} y={ty} width={2.2} height={th + 4} rx={1.1}/>
+        {/* neck */}
+        <rect x={cx - 2.5} y={ny} width={5} height={neckH + 2} rx={1}/>
+        {/* handle — slightly wider */}
+        <rect x={cx - 3.5} y={hy} width={7} height={handleH} rx={3}/>
+      </g>
+    );
+  };
+  const Knife = ({ cx, ty, h }: { cx: number; ty: number; h: number }) => {
+    const bladeH = h * 0.42;
+    const handleH = h * 0.58;
+    return (
+      <g fill={fc}>
+        {/* blade — slim rectangle with angled tip */}
+        <rect x={cx - 2} y={ty} width={4} height={bladeH} rx={1.5}/>
+        {/* blade bevel on left side */}
+        <path d={`M${cx - 2} ${ty + 8} Q${cx - 8} ${ty + bladeH * 0.5} ${cx - 2} ${ty + bladeH}`} fill={fc}/>
+        {/* handle */}
+        <rect x={cx - 4} y={ty + bladeH} width={8} height={handleH} rx={3.5}/>
+      </g>
+    );
+  };
+  const sc = "#666";
   return (
     <div className="mb-8">
-      <svg viewBox="0 0 760 300" width="100%" style={{ display: "block", maxWidth: 760 }} role="img" aria-label="table etiquette utensil signals">
+      <svg viewBox="0 0 760 300" width="100%" style={{ display: "block", maxWidth: 760 }} role="img" aria-label="table etiquette">
         <rect width="760" height="300" fill="white" rx="4" stroke="#EBEBEB" strokeWidth="1"/>
-        <text x="380" y="26" textAnchor="middle" fontSize="13" fontWeight="700" fill="#0A0A0A" letterSpacing="0.5">table etiquette</text>
+        <text x="380" y="24" textAnchor="middle" fontSize="14" fontWeight="700" fill="#0A0A0A">Table Etiquette</text>
 
-        {/* 5 plates evenly spaced: cx = 76, 228, 380, 532, 684 */}
+        {/* plates at cx: 76, 228, 380, 532, 684, cy: 138 */}
 
-        {/* ══ 1. PAUSE — fork ~8 o'clock, knife ~4 o'clock, tips inside plate ══ */}
-        {plate(76, 138)}
-        <g transform="rotate(-38 76 138)">
-          <line x1="76" y1="96" x2="76" y2="166" stroke={sc} strokeWidth="2.5" strokeLinecap="round"/>
-          <line x1="71" y1="96" x2="71" y2="83" stroke={sc} strokeWidth="1.3" strokeLinecap="round"/>
-          <line x1="75" y1="94" x2="75" y2="81" stroke={sc} strokeWidth="1.3" strokeLinecap="round"/>
-          <line x1="79" y1="94" x2="79" y2="81" stroke={sc} strokeWidth="1.3" strokeLinecap="round"/>
+        {/* 1. PAUSE */}
+        <P cx={76} cy={138}/>
+        <g transform="rotate(-40 76 138)">
+          <Fork cx={70} ty={82} h={100}/>
         </g>
         <g transform="rotate(42 76 138)">
-          <line x1="76" y1="96" x2="76" y2="166" stroke={sc} strokeWidth="2.5" strokeLinecap="round"/>
-          <path d="M76 96 Q70 104 69 116 L76 119" stroke={sc} strokeWidth="1.4" fill="none" strokeLinecap="round"/>
+          <Knife cx={82} ty={82} h={100}/>
         </g>
-        <text x="76" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0A0A0A">pause</text>
-        <text x="76" y="236" textAnchor="middle" fontSize="8.5" fill="#888">i am not finished</text>
+        <text x="76" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0A0A0A">Pause</text>
 
-        {/* ══ 2. READY FOR SECOND PLATE — both vertical, side by side ══ */}
-        {plate(228, 138)}
-        {/* fork left, tines up */}
-        <line x1="220" y1="170" x2="220" y2="110" stroke={sc} strokeWidth="2.5" strokeLinecap="round"/>
-        <line x1="215" y1="110" x2="215" y2="97" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
-        <line x1="219" y1="108" x2="219" y2="95" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
-        <line x1="223" y1="108" x2="223" y2="95" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
-        {/* knife right, blade faces fork */}
-        <line x1="236" y1="170" x2="236" y2="110" stroke={sc} strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M236 110 Q230 118 229 130 L236 133" stroke={sc} strokeWidth="1.4" fill="none" strokeLinecap="round"/>
-        <text x="228" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0A0A0A">ready for</text>
-        <text x="228" y="236" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0A0A0A">second plate</text>
+        {/* 2. READY FOR SECOND PLATE */}
+        <P cx={228} cy={138}/>
+        <Fork cx={218} ty={88} h={100}/>
+        <Knife cx={238} ty={88} h={100}/>
+        <text x="228" y="218" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0A0A0A">Ready for</text>
+        <text x="228" y="232" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0A0A0A">second plate</text>
 
-        {/* ══ 3. EXCELLENT — fork horizontal across plate ══ */}
-        {plate(380, 138)}
-        <line x1="330" y1="138" x2="430" y2="138" stroke={sc} strokeWidth="2.5" strokeLinecap="round"/>
-        {/* tines right */}
-        <line x1="420" y1="132" x2="432" y2="132" stroke={sc} strokeWidth="1.3" strokeLinecap="round"/>
-        <line x1="420" y1="138" x2="434" y2="138" stroke={sc} strokeWidth="1.3" strokeLinecap="round"/>
-        <line x1="420" y1="144" x2="432" y2="144" stroke={sc} strokeWidth="1.3" strokeLinecap="round"/>
-        {/* knife below fork, also horizontal */}
-        <line x1="330" y1="148" x2="428" y2="148" stroke={sc} strokeWidth="2" strokeLinecap="round"/>
-        <path d="M330 148 Q330 142 338 140 L338 148" stroke={sc} strokeWidth="1.2" fill="none"/>
-        <text x="380" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fill="#D90000">excellent</text>
-        <text x="380" y="236" textAnchor="middle" fontSize="8.5" fill="#888">food was delicious</text>
-
-        {/* ══ 4. FINISHED — fork & knife parallel at ~4 o'clock ══ */}
-        {plate(532, 138)}
-        <g transform="rotate(28 532 138)">
-          <line x1="524" y1="92" x2="524" y2="172" stroke={sc} strokeWidth="2.5" strokeLinecap="round"/>
-          <line x1="519" y1="92" x2="519" y2="79" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
-          <line x1="523" y1="90" x2="523" y2="77" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
-          <line x1="527" y1="90" x2="527" y2="77" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
-          <line x1="538" y1="92" x2="538" y2="172" stroke={sc} strokeWidth="2.5" strokeLinecap="round"/>
-          <path d="M538 92 Q532 100 531 112 L538 115" stroke={sc} strokeWidth="1.4" fill="none" strokeLinecap="round"/>
+        {/* 3. EXCELLENT — fork & knife horizontal */}
+        <P cx={380} cy={138}/>
+        <g transform="rotate(90 380 135)">
+          <Fork cx={380} ty={95} h={96}/>
         </g>
-        <text x="532" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0A0A0A">finished</text>
-        <text x="532" y="236" textAnchor="middle" fontSize="8.5" fill="#888">handles at 4 o&apos;clock</text>
+        <g transform="rotate(-90 380 143)">
+          <Knife cx={380} ty={103} h={88}/>
+        </g>
+        <text x="380" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fill="#D90000">Excellent</text>
 
-        {/* ══ 5. DON'T LIKE — fork & knife crossed in X ══ */}
-        {plate(684, 138)}
-        {/* fork: top-left to bottom-right */}
-        <line x1="652" y1="100" x2="716" y2="176" stroke={sc} strokeWidth="2.5" strokeLinecap="round"/>
-        <line x1="646" y1="102" x2="658" y2="98" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
-        <line x1="649" y1="97" x2="654" y2="108" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
-        <line x1="654" y1="95" x2="660" y2="106" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
-        {/* knife: top-right to bottom-left, blade faces in */}
-        <line x1="716" y1="100" x2="652" y2="176" stroke={sc} strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M716 100 Q712 108 706 112 L700 106" stroke={sc} strokeWidth="1.4" fill="none" strokeLinecap="round"/>
-        <text x="684" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0A0A0A">don&apos;t like</text>
-        <text x="684" y="236" textAnchor="middle" fontSize="8.5" fill="#888">crossed X on plate</text>
+        {/* 4. FINISHED — parallel at 4 o'clock */}
+        <P cx={532} cy={138}/>
+        <g transform="rotate(30 532 138)">
+          <Fork cx={522} ty={82} h={106}/>
+          <Knife cx={542} ty={82} h={106}/>
+        </g>
+        <text x="532" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0A0A0A">Finished</text>
+
+        {/* 5. DON'T LIKE — crossed */}
+        <P cx={684} cy={138}/>
+        <g transform="rotate(-45 684 138)">
+          <Fork cx={674} ty={82} h={106}/>
+        </g>
+        <g transform="rotate(45 684 138)">
+          <Knife cx={694} ty={82} h={106}/>
+        </g>
+        <text x="684" y="218" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0A0A0A">Don&apos;t like</text>
 
         {/* footer */}
         <line x1="28" y1="256" x2="732" y2="256" stroke="#EBEBEB" strokeWidth="1"/>
