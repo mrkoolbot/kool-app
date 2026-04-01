@@ -279,6 +279,79 @@ const chapters = [
 
 // ─── table setting diagram (ch08) ────────────────────────────────────────────
 
+function InformalSettingDiagram() {
+  const sc = "#1A1A1A";
+  const sw = 1.8;
+  const lbl = (x: number, y: number, letter: string) => <TSDLabel x={x} y={y} letter={letter}/>;
+  return (
+    <div className="mb-8">
+      <svg viewBox="0 0 600 460" width="100%" style={{ display: "block", maxWidth: 600 }} role="img" aria-label="informal place setting">
+        <rect width="600" height="460" fill="white" rx="4" stroke="#EBEBEB" strokeWidth="1"/>
+        <text x="300" y="28" textAnchor="middle" fontSize="11" fontWeight="700" fill="#0A0A0A" letterSpacing="0.5">informal place setting</text>
+
+        {/* dinner plate */}
+        <circle cx="290" cy="220" r="88" fill="#F5F2EC" stroke="#C8C0B4" strokeWidth="1.5"/>
+        <circle cx="290" cy="220" r="70" fill="white" stroke={sc} strokeWidth="1.8"/>
+        <circle cx="290" cy="220" r="56" fill="none" stroke={sc} strokeWidth="0.5"/>
+        {lbl(290, 220, "A")}
+
+        {/* napkin left of fork */}
+        <rect x="82" y="154" width="38" height="130" rx="3" fill="#F0EDE6" stroke="#B8B0A4" strokeWidth="1.2"/>
+        <line x1="82" y1="174" x2="120" y2="174" stroke="#C8C0B4" strokeWidth="0.7"/>
+        {lbl(101, 300, "B")}
+
+        {/* fork — left */}
+        <line x1="158" y1="334" x2="158" y2="182" stroke={sc} strokeWidth="2" strokeLinecap="round"/>
+        <line x1="158" y1="182" x2="158" y2="162" stroke={sc} strokeWidth="1.3" strokeLinecap="round"/>
+        <line x1="153" y1="162" x2="153" y2="148" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
+        <line x1="157" y1="160" x2="157" y2="146" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
+        <line x1="161" y1="160" x2="161" y2="146" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
+        <line x1="165" y1="162" x2="165" y2="148" stroke={sc} strokeWidth="1.2" strokeLinecap="round"/>
+        {lbl(158, 350, "C")}
+
+        {/* knife — right, blade faces left */}
+        <line x1="422" y1="334" x2="422" y2="148" stroke={sc} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M422 148 Q413 158 412 174 L422 178" stroke={sc} strokeWidth="1.3" fill="none" strokeLinecap="round"/>
+        {lbl(422, 350, "D")}
+
+        {/* spoon — right of knife */}
+        <line x1="450" y1="330" x2="450" y2="178" stroke={sc} strokeWidth={sw} strokeLinecap="round"/>
+        <ellipse cx="450" cy="164" rx="9" ry="13" fill="none" stroke={sc} strokeWidth="1.4"/>
+        {lbl(450, 346, "E")}
+
+        {/* water glass — upper right */}
+        <circle cx="480" cy="108" r="26" fill="none" stroke={sc} strokeWidth="1.8"/>
+        <circle cx="480" cy="108" r="19" fill="none" stroke={sc} strokeWidth="0.4"/>
+        {lbl(480, 108, "F")}
+
+        {/* wine glass */}
+        <circle cx="534" cy="130" r="20" fill="none" stroke={sc} strokeWidth="1.4"/>
+        {lbl(534, 130, "G")}
+
+        {/* bread plate */}
+        <circle cx="148" cy="104" r="34" fill="#F5F2EC" stroke="#C8C0B4" strokeWidth="1.2"/>
+        <circle cx="148" cy="104" r="25" fill="white" stroke={sc} strokeWidth="1"/>
+        <line x1="160" y1="116" x2="136" y2="92" stroke={sc} strokeWidth="1.8" strokeLinecap="round"/>
+        <path d="M136 92 Q131 97 138 104 L143 99" stroke={sc} strokeWidth="0.9" fill="none"/>
+        {lbl(106, 104, "H")}
+
+        {/* legend */}
+        <line x1="28" y1="378" x2="572" y2="378" stroke="#EBEBEB" strokeWidth="1.2"/>
+        <text x="40" y="396" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">A.</tspan> dinner plate</text>
+        <text x="40" y="411" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">B.</tspan> napkin</text>
+        <text x="40" y="426" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">C.</tspan> fork</text>
+        <text x="40" y="441" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">D.</tspan> knife (blade faces plate)</text>
+        <text x="310" y="396" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">E.</tspan> spoon</text>
+        <text x="310" y="411" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">F.</tspan> water glass</text>
+        <text x="310" y="426" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">G.</tspan> wine glass</text>
+        <text x="310" y="441" fontSize="9.5" fill="#0A0A0A"><tspan fontWeight="700" fill="#D90000">H.</tspan> bread plate + butter knife</text>
+        <line x1="28" y1="452" x2="572" y2="452" stroke="#EBEBEB" strokeWidth="1.2"/>
+        <text x="300" y="464" textAnchor="middle" fontSize="8.5" fill="#D90000">the koolture group</text>
+      </svg>
+    </div>
+  );
+}
+
 function TSDLabel({ x, y, letter }: { x: number; y: number; letter: string }) {
   return (
     <g>
@@ -902,12 +975,19 @@ export default function EtiquetteManualPage() {
             </div>
             <p className="leading-relaxed mb-8" style={{ color: dim }}>the placement of every element at a formal table communicates intentionality before a single word is spoken. work from outside in — the outermost utensils are always used first.</p>
 
-            {/* ── full diagram ── */}
+            {/* ── informal diagram ── */}
+            <p className="text-xs font-bold mb-3" style={{ color: red, letterSpacing: "0.14em" }}>informal place setting</p>
+            <div className="mb-8 rounded-sm overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
+              <InformalSettingDiagram />
+            </div>
+
+            {/* ── formal diagram ── */}
+            <p className="text-xs font-bold mb-3" style={{ color: red, letterSpacing: "0.14em" }}>formal dinner setting</p>
             <div className="mb-8 rounded-sm overflow-hidden" style={{ border: "1px solid #EBEBEB" }}>
               <TableSettingDiagram />
             </div>
 
-            <p className="text-xs font-bold mb-3" style={{ color: red, letterSpacing: "0.14em" }}>informal place setting</p>
+            <p className="text-xs font-bold mb-3" style={{ color: red, letterSpacing: "0.14em" }}>informal place setting details</p>
             <div className="space-y-1.5 mb-6">
               {[
                 ["left of plate", "fork"],
