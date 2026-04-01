@@ -279,45 +279,48 @@ const chapters = [
 
 // ─── table setting diagram (ch08) ────────────────────────────────────────────
 
-function TableSettingDiagram() {
-  const Fork = ({ x, y, h, w = 7 }: { x: number; y: number; h: number; w?: number }) => {
-    const tineH = h * 0.28; const neckH = h * 0.12; const handleH = h * 0.60;
-    const ty = y; const ny = y + tineH; const hy = ny + neckH;
-    return (
-      <g>
-        <rect x={x - w * 0.4} y={hy} width={w * 0.8} height={handleH} rx={w * 0.35} fill="#2A2A2A"/>
-        <rect x={x - w * 0.22} y={ny} width={w * 0.44} height={neckH + 2} fill="#2A2A2A"/>
-        {([-1.4, -0.45, 0.45, 1.4] as number[]).map((offset, i) => (
-          <rect key={i} x={x + offset * w * 0.32 - 0.9} y={ty} width={1.8} height={tineH + 2} rx={0.9} fill="#2A2A2A"/>
-        ))}
-      </g>
-    );
-  };
-  const Knife = ({ x, y, h, w = 7 }: { x: number; y: number; h: number; w?: number }) => {
-    const bladeH = h * 0.38; const handleH = h * 0.62;
-    return (
-      <g>
-        <rect x={x - w * 0.45} y={y + bladeH} width={w * 0.9} height={handleH} rx={w * 0.38} fill="#2A2A2A"/>
-        <path d={`M${x - w * 0.3},${y + bladeH} L${x - w * 0.3},${y + 6} Q${x - w * 1.1},${y + bladeH * 0.5} ${x - w * 0.3},${y + bladeH} Z`} fill="#2A2A2A"/>
-        <rect x={x - w * 0.15} y={y} width={w * 0.3} height={bladeH} rx={w * 0.12} fill="#2A2A2A"/>
-      </g>
-    );
-  };
-  const Spoon = ({ x, y, h, rx: rxx = 8, ry: ryy = 12 }: { x: number; y: number; h: number; rx?: number; ry?: number }) => {
-    const bowlH = ryy * 2;
-    return (
-      <g>
-        <ellipse cx={x} cy={y + ryy} rx={rxx} ry={ryy} fill="#2A2A2A"/>
-        <rect x={x - 2.5} y={y + bowlH - 2} width={5} height={h - bowlH + 2} rx={2.5} fill="#2A2A2A"/>
-      </g>
-    );
-  };
-  const lbl = (x: number, y: number, letter: string) => (
+function TSDFork({ x, y, h, w = 7 }: { x: number; y: number; h: number; w?: number }) {
+  const tineH = h * 0.28; const neckH = h * 0.12; const handleH = h * 0.60;
+  const ty = y; const ny = y + tineH; const hy = ny + neckH;
+  return (
     <g>
-      <circle cx={x} cy={y} r="11" fill="white" stroke="#D90000" strokeWidth="1.4"/>
-      <text x={x} y={y+4} textAnchor="middle" fontSize="10" fill="#D90000" fontWeight="700">{letter}</text>
+      <rect x={x - w * 0.4} y={hy} width={w * 0.8} height={handleH} rx={w * 0.35} fill="#2A2A2A"/>
+      <rect x={x - w * 0.22} y={ny} width={w * 0.44} height={neckH + 2} fill="#2A2A2A"/>
+      {([-1.4, -0.45, 0.45, 1.4] as number[]).map((offset, i) => (
+        <rect key={i} x={x + offset * w * 0.32 - 0.9} y={ty} width={1.8} height={tineH + 2} rx={0.9} fill="#2A2A2A"/>
+      ))}
     </g>
   );
+}
+function TSDKnife({ x, y, h, w = 7 }: { x: number; y: number; h: number; w?: number }) {
+  const bladeH = h * 0.38;
+  return (
+    <g>
+      <rect x={x - w * 0.45} y={y + bladeH} width={w * 0.9} height={h * 0.62} rx={w * 0.38} fill="#2A2A2A"/>
+      <path d={`M${x - w * 0.3},${y + bladeH} L${x - w * 0.3},${y + 6} Q${x - w * 1.1},${y + bladeH * 0.5} ${x - w * 0.3},${y + bladeH} Z`} fill="#2A2A2A"/>
+      <rect x={x - w * 0.15} y={y} width={w * 0.3} height={bladeH} rx={w * 0.12} fill="#2A2A2A"/>
+    </g>
+  );
+}
+function TSDSpoon({ x, y, h, rx: rxx = 8, ry: ryy = 12 }: { x: number; y: number; h: number; rx?: number; ry?: number }) {
+  return (
+    <g>
+      <ellipse cx={x} cy={y + ryy} rx={rxx} ry={ryy} fill="#2A2A2A"/>
+      <rect x={x - 2.5} y={y + ryy * 2 - 2} width={5} height={h - ryy * 2 + 2} rx={2.5} fill="#2A2A2A"/>
+    </g>
+  );
+}
+function TSDLabel({ x, y, letter }: { x: number; y: number; letter: string }) {
+  return (
+    <g>
+      <circle cx={x} cy={y} r={11} fill="white" stroke="#D90000" strokeWidth={1.4}/>
+      <text x={x} y={y + 4} textAnchor="middle" fontSize={10} fill="#D90000" fontWeight={700}>{letter}</text>
+    </g>
+  );
+}
+
+function TableSettingDiagram() {
+  const lbl = (x: number, y: number, letter: string) => <TSDLabel x={x} y={y} letter={letter}/>;
   return (
     <div className="mb-8">
       <svg viewBox="0 0 680 520" width="100%" style={{ display: "block", maxWidth: 680 }} role="img" aria-label="formal dinner place setting">
@@ -362,29 +365,29 @@ function TableSettingDiagram() {
         {lbl(628, 118, "G")}
 
         {/* ── H: SALAD FORK — outermost left, shorter ── */}
-        <Fork x={190} y={168} h={176} w={8}/>
+        <TSDFork x={190} y={168} h={176} w={8}/>
         {lbl(190, 366, "H")}
 
         {/* ── I: DINNER FORK — inner left, taller ── */}
-        <Fork x={216} y={148} h={200} w={9}/>
+        <TSDFork x={216} y={148} h={200} w={9}/>
         {lbl(216, 370, "I")}
 
         {/* ── J: DESSERT FORK — above plate, horizontal, tines right ── */}
         <g transform="rotate(90 330 62)">
-          <Fork x={330} y={24} h={76} w={6}/>
+          <TSDFork x={330} y={24} h={76} w={6}/>
         </g>
         {lbl(248, 62, "J")}
 
         {/* ── K: KNIFE — inner right, blade faces left ── */}
-        <Knife x={448} y={148} h={200} w={9}/>
+        <TSDKnife x={448} y={148} h={200} w={9}/>
         {lbl(448, 370, "K")}
 
         {/* ── L: TEASPOON — middle right ── */}
-        <Spoon x={474} y={152} h={190} rx={7} ry={11}/>
+        <TSDSpoon x={474} y={152} h={190} rx={7} ry={11}/>
         {lbl(474, 364, "L")}
 
         {/* ── M: SOUP SPOON — outermost right ── */}
-        <Spoon x={500} y={148} h={192} rx={9} ry={14}/>
+        <TSDSpoon x={500} y={148} h={192} rx={9} ry={14}/>
         {lbl(500, 362, "M")}
 
         {/* ── LEGEND ── */}
