@@ -243,7 +243,7 @@ export default function LandingPage() {
             <p className="text-gray-500 text-sm mb-8">unlimited events + guests</p>
             <ul className="space-y-2 text-sm text-gray-600 mb-8">
               {["everything in free, plus:", "unlimited events", "unlimited guests", "smart timeline generator", "automated email sequences", "qr code check-in", "conditional rsvp logic", "custom event branding", "priority TKG consultation"].map(f => (
-                <li key={f} className={`flex items-center gap-2 ${f === "everything in free, plus:" ? "text-gray-400 text-xs font-bold uppercase tracking-widest" : ""}`}>
+                <li key={f} className={`flex items-center gap-2 ${f === "everything in free, plus:" ? "text-gray-400 text-xs font-bold lowercase tracking-widest" : ""}`}>
                   {f !== "everything in free, plus:" && <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />}
                   {f}
                 </li>
@@ -260,7 +260,7 @@ export default function LandingPage() {
             <p className="text-gray-400 text-sm mb-8">unlimited events + guests</p>
             <ul className="space-y-2 text-sm text-gray-300 mb-8">
               {["everything in premium, plus:", "event war room", "guest intelligence", "smart event blueprints", "post-event brain", "white-label rsvp pages", "dedicated support"].map(f => (
-                <li key={f} className={`flex items-center gap-2 ${f === "everything in premium, plus:" ? "text-gray-500 text-xs font-bold uppercase tracking-widest" : ""}`}>
+                <li key={f} className={`flex items-center gap-2 ${f === "everything in premium, plus:" ? "text-gray-500 text-xs font-bold lowercase tracking-widest" : ""}`}>
                   {f !== "everything in premium, plus:" && <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />}
                   {f}
                 </li>

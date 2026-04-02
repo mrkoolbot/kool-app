@@ -91,7 +91,7 @@ export default function PricingPage() {
             <ul className="space-y-3 mb-10">
               {PREMIUM_FEATURES.map((f) => (
                 f === "everything in free, plus:" ? (
-                  <li key={f} className="text-xs font-bold text-gray-400 uppercase tracking-widest pt-1 pb-0 list-none">{f}</li>
+                  <li key={f} className="text-xs font-bold text-gray-400 lowercase tracking-widest pt-1 pb-0 list-none">{f}</li>
                 ) : (
                   <li key={f} className={`flex items-start gap-3 text-sm ${f === ETIQUETTE_FREEBIE ? "text-kool-red font-semibold" : "text-gray-600"}`}>
                     <Check className={`w-4 h-4 mt-0.5 shrink-0 ${f === ETIQUETTE_FREEBIE ? "text-kool-red" : "text-kool-red"}`} />
@@ -114,7 +114,7 @@ export default function PricingPage() {
             <ul className="space-y-3 mb-10">
               {UNLIMITED_FEATURES.map((f) => (
                 f === "everything in premium, plus:" ? (
-                  <li key={f} className="text-xs font-bold text-gray-500 uppercase tracking-widest pt-1 pb-0 list-none">{f}</li>
+                  <li key={f} className="text-xs font-bold text-gray-500 lowercase tracking-widest pt-1 pb-0 list-none">{f}</li>
                 ) : (
                   <li key={f} className={`flex items-start gap-3 text-sm ${f === ETIQUETTE_FREEBIE ? "text-kool-red font-semibold" : "text-gray-300"}`}>
                     <Check className={`w-4 h-4 mt-0.5 shrink-0 ${f === ETIQUETTE_FREEBIE ? "text-kool-red" : "text-kool-red"}`} />

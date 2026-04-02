@@ -27,7 +27,7 @@ export default function ImpressumPage() {
         <div className="space-y-10 text-gray-600">
 
           <section>
-            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black uppercase mb-3">company</h2>
+            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black lowercase mb-3">company</h2>
             <p className="text-base leading-relaxed">
               The Koolture Group<br />
               Florida, USA
@@ -35,7 +35,7 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black uppercase mb-3">represented by</h2>
+            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black lowercase mb-3">represented by</h2>
             <p className="text-base leading-relaxed">
               Paula Mescolin<br />
               Owner &amp; Founder, The Koolture Group
@@ -43,7 +43,7 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black uppercase mb-3">contact</h2>
+            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black lowercase mb-3">contact</h2>
             <p className="text-base leading-relaxed">
               Email:{" "}
               <a href="mailto:hello@koolevents.app" className="text-kool-red hover:underline">
@@ -58,14 +58,14 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black uppercase mb-3">platform</h2>
+            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black lowercase mb-3">platform</h2>
             <p className="text-base leading-relaxed">
               KOOL Events is a product of The Koolture Group, an event planning platform designed to support event professionals with planning, coordination, and execution tools.
             </p>
           </section>
 
           <section>
-            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black uppercase mb-3">EU online dispute resolution</h2>
+            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black lowercase mb-3">EU online dispute resolution</h2>
             <p className="text-base leading-relaxed">
               The European Commission provides a platform for online dispute resolution (ODR):{" "}
               <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" className="text-kool-red hover:underline">
@@ -77,14 +77,14 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black uppercase mb-3">liability for content</h2>
+            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black lowercase mb-3">liability for content</h2>
             <p className="text-base leading-relaxed">
               The contents of this website have been created with the utmost care. However, we cannot guarantee the accuracy, completeness, or timeliness of the content. As a service provider, we are responsible for our own content on these pages in accordance with general law. We are not obligated to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.
             </p>
           </section>
 
           <section>
-            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black uppercase mb-3">copyright</h2>
+            <h2 className="text-sm font-bold tracking-[0.2em] text-kool-black lowercase mb-3">copyright</h2>
             <p className="text-base leading-relaxed">
               The content and works created by the site operators on these pages are subject to US copyright law. The reproduction, editing, distribution, and any kind of exploitation outside the limits of copyright require the written consent of the respective author or creator. Downloads and copies of this site are only permitted for private, non-commercial use.
             </p>

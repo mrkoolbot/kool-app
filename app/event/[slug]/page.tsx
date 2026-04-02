@@ -116,7 +116,7 @@ export default async function PublicEventPage({ params }: { params: Promise<{ sl
               <div className="flex items-start gap-3">
                 <Shirt className="w-4 h-4 mt-0.5 shrink-0" style={{ color: accent }} />
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "#666666" }}>dress code</div>
+                  <div className="text-xs font-semibold lowercase tracking-wider mb-0.5" style={{ color: "#666666" }}>dress code</div>
                   <div className="text-sm text-gray-900">{event.dress_code}</div>
                 </div>
               </div>
