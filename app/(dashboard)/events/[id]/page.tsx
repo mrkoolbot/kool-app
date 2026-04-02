@@ -163,15 +163,15 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
         </div>
 
         {/* Navigation tabs */}
-        <div className="bg-white border border-gray-100 rounded-sm p-2 grid grid-cols-4 gap-1 mb-6">
+        <div className="bg-white border border-gray-100 rounded-sm p-2 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1 mb-6">
           {tabs.map((tab) => (
             <Link
               key={tab.label}
               href={tab.href}
-              className="flex items-center gap-2 px-3 py-2.5 rounded-sm text-sm font-semibold text-gray-500 hover:text-kool-black hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-2.5 rounded-sm text-xs font-semibold text-gray-500 hover:text-kool-black hover:bg-gray-50 transition-colors"
             >
-              {tab.icon}
-              <span>{tab.label}</span>
+              <span className="shrink-0">{tab.icon}</span>
+              <span className="leading-tight">{tab.label}</span>
             </Link>
           ))}
         </div>
