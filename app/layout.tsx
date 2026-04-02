@@ -54,7 +54,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${galanoGrotesque.variable} font-galano`}>{children}</body>
+      <body className={`${galanoGrotesque.variable} font-galano`}>
+        {children}
+        <footer style={{ borderTop: "1px solid #EBEBEB", padding: "16px 24px", textAlign: "center", fontSize: "11px", color: "#999", letterSpacing: "0.04em" }}>
+          intellectual property of the koolture group (TKG) — all rights reserved
+        </footer>
+      </body>
     </html>
   );
 }
