@@ -78,6 +78,7 @@ export default function SignupPage() {
   }
 
   return (
+    <>
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
         <Link href="/" className="flex justify-center mb-10">
@@ -158,5 +159,6 @@ export default function SignupPage() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

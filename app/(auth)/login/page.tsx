@@ -28,6 +28,7 @@ export default function LoginPage() {
   }
 
   return (
+    <>
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
         <Link href="/" className="flex justify-center mb-10">
@@ -79,7 +80,7 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
-    <footer className="border-t border-gray-100 px-6 py-10">
+    <footer className="border-t border-gray-100 px-6 py-10" style={{marginTop:'auto'}}>
       <div className="flex flex-col md:flex-row items-start justify-between gap-4">
         <div className="flex flex-col items-start gap-1.5">
           <Link href="/" style={{ display: "inline-block", marginLeft: "-29px" }}><KoolLogo inverted size="sm" /></Link>
@@ -93,5 +94,6 @@ export default function LoginPage() {
         </div>
       </div>
     </footer>
+    </>
   );
 }
