@@ -49,7 +49,7 @@ const UNLIMITED_FEATURES = [
 export default function PricingPage() {
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
 
-  const proMonthly = 25;
+  const proMonthly = 29;
   const proAnnualPerMonth = 24;
   const proAnnualTotal = 290;
   const proAnnualSavings = 58;
