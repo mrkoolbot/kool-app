@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Link from "next/link";
+import { KoolLogo } from "@/components/kool-logo";
 import "./globals.css";
 
 const galanoGrotesque = localFont({
@@ -56,8 +58,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${galanoGrotesque.variable} font-galano`}>
         {children}
-        <footer style={{ borderTop: "1px solid #EBEBEB", padding: "16px 24px", textAlign: "center", fontSize: "11px", color: "#999", letterSpacing: "0.04em" }}>
-          intellectual property of the koolture group (TKG) — all rights reserved
+        <footer style={{ borderTop: "1px solid #EBEBEB", padding: "24px 24px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <Link href="/"><KoolLogo size="sm" /></Link>
+            <span style={{ fontSize: "11px", color: "#999", letterSpacing: "0.04em" }}>intellectual property of the koolture group (TKG) — all rights reserved</span>
+          </div>
         </footer>
       </body>
     </html>

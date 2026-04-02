@@ -328,13 +328,13 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-gray-100">
+      <footer className="py-10 px-6 border-t border-gray-100">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <Link href="/" className="text-xl font-black tracking-tight text-kool-black">
+          <div className="flex items-center gap-3">
+            <Link href="/">
               <KoolLogo inverted={true} size="sm" />
             </Link>
-            <p className="text-gray-400 text-xs mt-1">intellectual property of the koolture group (TKG). all rights reserved.</p>
+            <p className="text-gray-400 text-xs">intellectual property of the koolture group (TKG). all rights reserved.</p>
           </div>
           <div className="flex items-center gap-8 text-sm text-gray-500">
             <Link href="/pricing" className="hover:text-kool-black transition-colors">pricing</Link>
