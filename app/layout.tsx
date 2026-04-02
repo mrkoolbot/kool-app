@@ -61,7 +61,7 @@ export default function RootLayout({
         <footer style={{ borderTop: "1px solid #EBEBEB", padding: "40px 24px" }}>
           <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: "24px" }}>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "6px" }}>
-              <Link href="/" style={{ display: "inline-block" }}><KoolLogo size="sm" /></Link>
+              <Link href="/" style={{ display: "inline-block", marginLeft: "-29px" }}><KoolLogo size="sm" /></Link>
               <span style={{ fontSize: "11px", color: "#999", letterSpacing: "0.04em" }}>intellectual property of the koolture group (TKG) — all rights reserved</span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "32px", fontSize: "13px", color: "#888" }}>

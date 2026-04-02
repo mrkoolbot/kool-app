@@ -331,7 +331,7 @@ export default function LandingPage() {
       <footer className="py-10 px-6 border-t border-gray-100">
         <div className="flex flex-col md:flex-row items-start justify-between gap-4">
           <div className="flex flex-col items-start gap-1.5">
-            <Link href="/">
+            <Link href="/" style={{ display: "inline-block", marginLeft: "-29px" }}>
               <KoolLogo inverted={true} size="sm" />
             </Link>
             <p className="text-gray-400 text-xs">intellectual property of the koolture group (TKG). all rights reserved.</p>
