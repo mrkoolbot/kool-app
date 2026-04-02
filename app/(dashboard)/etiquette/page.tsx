@@ -561,7 +561,7 @@ function UtensilsDiagram() {
         <g transform="rotate(42 76 138)">
           <Knife cx={82} ty={82} h={100}/>
         </g>
-        <text x="76" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" fontFamily="var(--font-galano, sans-serif)">pause</text>
+        <text x="76" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" >pause</text>
 
         {/* 2. READY FOR SECOND PLATE — fork tilted right ~20deg, knife tilted left ~20deg, crossing at plate center */}
         <P cx={228} cy={138}/>
@@ -571,8 +571,8 @@ function UtensilsDiagram() {
         <g transform="rotate(-20 228 138)">
           <Knife cx={240} ty={82} h={108}/>
         </g>
-        <text x="228" y="218" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" fontFamily="var(--font-galano, sans-serif)">ready for</text>
-        <text x="228" y="232" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" fontFamily="var(--font-galano, sans-serif)">second plate</text>
+        <text x="228" y="218" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" >ready for</text>
+        <text x="228" y="232" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" >second plate</text>
 
         {/* 3. EXCELLENT — fork & knife horizontal */}
         <P cx={380} cy={138}/>
@@ -590,7 +590,7 @@ function UtensilsDiagram() {
           <Fork cx={522} ty={82} h={106}/>
           <Knife cx={542} ty={82} h={106}/>
         </g>
-        <text x="532" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" fontFamily="var(--font-galano, sans-serif)">finished</text>
+        <text x="532" y="222" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" >finished</text>
 
         {/* 5. DON'T LIKE — crossed */}
         <P cx={684} cy={138}/>
@@ -600,7 +600,7 @@ function UtensilsDiagram() {
         <g transform="rotate(45 684 138)">
           <Knife cx={694} ty={82} h={106}/>
         </g>
-        <text x="684" y="218" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" fontFamily="var(--font-galano, sans-serif)">don&apos;t like</text>
+        <text x="684" y="218" textAnchor="middle" fontSize="11" fontWeight="700" fontFamily="var(--font-galano, sans-serif)" fill="#0A0A0A" >don&apos;t like</text>
 
         {/* footer */}
         <line x1="28" y1="256" x2="732" y2="256" stroke="#EBEBEB" strokeWidth="1"/>
