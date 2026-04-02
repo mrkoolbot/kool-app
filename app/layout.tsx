@@ -28,11 +28,11 @@ const galanoGrotesque = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "kool — by the koolture group",
+    default: "kool — event planning app by the koolture group",
     template: "%s | kool",
   },
   description:
-    "the smartest way to plan your event. built by paula mescolin — brand strategist, six sigma certified event producer, and founder of the koolture group.",
+    "made by pros, for pros. plan kool events. live unforgettable moments.",
   icons: {
     icon: [
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
