@@ -3,17 +3,17 @@ import { KoolLogo } from "@/components/kool-logo";
 
 export function DashboardFooter() {
   return (
-    <footer style={{ borderTop: "1px solid #EBEBEB", padding: "40px 24px", marginTop: "auto" }}>
-      <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: "24px" }}>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "6px" }}>
-          <Link href="/" style={{ display: "inline-block", marginLeft: "-29px" }}><KoolLogo size="sm" /></Link>
-          <span style={{ fontSize: "11px", color: "#999", letterSpacing: "0.04em" }}>intellectual property of the koolture group (TKG) — all rights reserved</span>
+    <footer className="border-t border-gray-100 px-6 py-10 mt-auto">
+      <div className="flex flex-col md:flex-row items-start justify-between gap-6">
+        <div className="flex flex-col items-start gap-2">
+          <Link href="/"><KoolLogo size="sm" inverted={true} /></Link>
+          <p className="text-gray-400 text-xs">intellectual property of the koolture group (TKG). all rights reserved.</p>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "32px", fontSize: "13px", color: "#888" }}>
-          <Link href="/pricing" style={{ color: "#888", textDecoration: "none" }}>pricing</Link>
-          <Link href="/login" style={{ color: "#888", textDecoration: "none" }}>log in</Link>
-          <Link href="/signup" style={{ color: "#888", textDecoration: "none" }}>sign up</Link>
-          <Link href="https://thekoolturegroup.com" target="_blank" style={{ color: "#888", textDecoration: "none" }}>the koolture group</Link>
+        <div className="flex items-center gap-8 text-sm text-gray-500">
+          <Link href="/pricing" className="hover:text-black transition-colors">pricing</Link>
+          <Link href="/login" className="hover:text-black transition-colors">log in</Link>
+          <Link href="/signup" className="hover:text-black transition-colors">sign up</Link>
+          <Link href="https://thekoolturegroup.com" target="_blank" className="hover:text-black transition-colors">the koolture group</Link>
         </div>
       </div>
     </footer>
