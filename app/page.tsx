@@ -256,7 +256,7 @@ export default function LandingPage() {
           {/* Unlimited */}
           <div className="border border-gray-200 rounded-sm p-8 bg-[#0A0A0A] text-white">
             <div className="text-sm font-bold text-gray-400 mb-2">unlimited</div>
-            <div className="text-4xl font-black mb-1">$39<span className="text-xl font-normal text-gray-400">/mo</span></div>
+            <div className="text-4xl font-black mb-1">$79<span className="text-xl font-normal text-gray-400">/mo</span></div>
             <p className="text-gray-400 text-sm mb-8">unlimited events + guests</p>
             <ul className="space-y-2 text-sm text-gray-300 mb-8">
               {["everything in premium, plus:", "event war room", "guest intelligence", "smart event blueprints", "post-event brain", "white-label rsvp pages", "dedicated support"].map(f => (

@@ -1,9 +1,9 @@
-"use client";
-
 import Link from "next/link";
 import { DashboardFooter } from "@/components/dashboard-footer";
 import { ArrowLeft, Download } from "lucide-react";
 import { KoolLogo } from "@/components/kool-logo";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 
 // ─── chapter card illustrations ───────────────────────────────────────────────
 
@@ -612,7 +612,24 @@ function UtensilsDiagram() {
 
 
 
-export default function EtiquetteManualPage() {
+async function getEtiquetteGateStatus() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { redirect: true, plan: null };
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("plan")
+    .eq("id", user.id)
+    .single();
+  return { redirect: false, plan: profile?.plan ?? "starter" };
+}
+
+export default async function EtiquetteManualPage() {
+  const { redirect: shouldRedirect, plan } = await getEtiquetteGateStatus();
+  if (shouldRedirect) redirect("/login");
+
+  const isGated = !plan || plan === "starter" || plan === "free";
+
   const red = "#D90000";
   const ink = "#0A0A0A";
   const dim = "#5A5A5A";
@@ -620,8 +637,35 @@ export default function EtiquetteManualPage() {
   return (
     <div className="min-h-screen font-galano flex flex-col" style={{ backgroundColor: "#FFFFFF", color: ink }}>
 
+      {/* ── gated wall ── */}
+      {isGated && (
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-32 text-center">
+          <div className="max-w-md">
+            <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-6">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D90000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
+            <p className="text-kool-red text-xs font-bold tracking-[0.3em] mb-4">pro & unlimited only</p>
+            <h2 className="text-3xl font-black tracking-tight mb-4" style={{ color: ink }}>
+              the event etiquette manual is exclusive to pro and unlimited members.
+            </h2>
+            <p className="text-gray-500 text-sm mb-8 leading-relaxed">
+              upgrade your plan to unlock the full 25-chapter guide — written by paula mescolin.
+            </p>
+            <Link
+              href="/pricing"
+              className="inline-flex items-center justify-center gap-2 bg-kool-red text-white px-8 py-4 font-bold text-sm hover:bg-red-700 transition-colors"
+            >
+              upgrade your plan →
+            </Link>
+          </div>
+        </div>
+      )}
+
       {/* ── header ── */}
-      <header
+      {!isGated && <header
         className="sticky top-0 z-50 px-6 py-4 flex items-center justify-between"
         style={{ backgroundColor: "#FFFFFF", borderBottom: "1px solid #EBEBEB" }}
       >
@@ -640,7 +684,9 @@ export default function EtiquetteManualPage() {
           <Download className="w-3.5 h-3.5" />
           download pdf
         </a>
-      </header>
+      </header>}
+
+      {!isGated && <>
 
       {/* ── hero ── */}
       <div className="px-6 py-20 text-center" style={{ borderBottom: "1px solid #EBEBEB" }}>
@@ -1681,6 +1727,7 @@ export default function EtiquetteManualPage() {
       </footer>
 
       <DashboardFooter />
+      </>}
     </div>
   );
 }
