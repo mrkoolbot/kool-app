@@ -3,7 +3,7 @@ import { KoolLogo } from "@/components/kool-logo";
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export default function SignupPage() {
@@ -14,6 +14,9 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const [emailSent, setEmailSent] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const plan = searchParams.get("plan") || "starter";
+  const isPaid = plan === "pro" || plan === "unlimited";
   const supabase = createClient();
 
   async function handleSignup(e: React.FormEvent) {
@@ -29,33 +32,45 @@ export default function SignupPage() {
       },
     });
     if (error) {
-      setError(error.message);
+      // friendly duplicate email message
+      if (error.message.toLowerCase().includes("already registered") || error.message.toLowerCase().includes("already exists") || error.status === 422) {
+        setError("an account with this email already exists.");
+      } else {
+        setError(error.message);
+      }
       setLoading(false);
     } else if (data.session) {
-      // Email confirmation disabled — send welcome email then go to dashboard
-      try {
-        await fetch("/api/email/welcome", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        });
-      } catch {
-        // non-blocking — don't fail signup if welcome email fails
+      if (isPaid) {
+        // paid plan — redirect to Stripe checkout (welcome email sent by webhook after payment)
+        router.push(`/api/stripe/checkout?plan=${plan}&userId=${data.session.user.id}&email=${encodeURIComponent(email)}`);
+      } else {
+        // starter — send welcome email and go to dashboard
+        try {
+          await fetch("/api/email/welcome", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, plan: "starter" }),
+          });
+        } catch { /* non-blocking */ }
+        router.push("/dashboard");
       }
-      router.push("/dashboard");
     } else {
-      // Email confirmation required — still fire welcome email
-      try {
-        await fetch("/api/email/welcome", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        });
-      } catch {
-        // non-blocking
+      if (isPaid) {
+        // paid plan — show confirmation screen, Stripe redirect after email verify
+        setEmailSent(true);
+        setLoading(false);
+      } else {
+        // starter — send welcome email, show confirmation
+        try {
+          await fetch("/api/email/welcome", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, plan: "starter" }),
+          });
+        } catch { /* non-blocking */ }
+        setEmailSent(true);
+        setLoading(false);
       }
-      setEmailSent(true);
-      setLoading(false);
     }
   }
 
@@ -133,7 +148,7 @@ export default function SignupPage() {
             disabled={loading}
             className="w-full bg-kool-red text-white py-3.5 rounded-sm font-bold hover:bg-kool-crimson transition-colors disabled:opacity-50"
           >
-            {loading ? "creating account..." : "create free account"}
+            {loading ? "creating account..." : isPaid ? `create account & go to payment` : "create free account"}
           </button>
         </form>
         <p className="text-center text-xs text-gray-400 mt-4">

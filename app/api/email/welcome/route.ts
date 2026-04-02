@@ -60,7 +60,7 @@ export async function POST(request: Request) {
     body = `
       <p style="font-size:22px;font-weight:900;color:#0a0a0a;margin:0 0 12px;line-height:1.2;">welcome to koolevents.app</p>
       <p style="font-size:15px;color:#555;line-height:1.7;margin:0 0 16px;">you&rsquo;re in. your free account gives you everything you need to start planning your first event &mdash; smart checklists, guest management, budget tracking, vendor lists, and a beautiful public event page.</p>
-      <p style="font-size:15px;color:#555;line-height:1.7;margin:0 0 24px;">when you&rsquo;re ready to go further &mdash; unlimited events, email sequences, QR check-in, and the event etiquette manual &mdash; your upgrade is one click away.</p>
+      <p style="font-size:15px;color:#555;line-height:1.7;margin:0 0 24px;">when you&rsquo;re ready to go further &mdash; unlimited events, automated email sequences, QR check-in, custom event branding, and exclusive member content &mdash; your upgrade is one click away.</p>
       <a href="https://koolevents.app/dashboard" style="background:#D90000;color:#fff;padding:14px 36px;text-decoration:none;font-weight:700;display:inline-block;font-size:14px;letter-spacing:0.03em;">start planning &rarr;</a>
       <p style="margin-top:32px;font-size:13px;color:#aaa;line-height:1.6;">want more? <a href="https://koolevents.app/pricing" style="color:#D90000;text-decoration:none;">see what pro &amp; unlimited unlock &rarr;</a></p>`;
   }
