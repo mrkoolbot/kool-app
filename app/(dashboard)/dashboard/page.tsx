@@ -20,7 +20,7 @@ export default async function DashboardPage() {
   const firstName = profile?.full_name?.split(" ")[0] || "there";
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
       <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-xl font-black tracking-tight text-kool-black">
@@ -41,7 +41,7 @@ export default async function DashboardPage() {
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 py-10">
+      <main className="max-w-5xl mx-auto px-6 py-10 flex-1">
         {/* Paula welcome card */}
         <div className="mb-8">
           <PaulaVideoAvatar />

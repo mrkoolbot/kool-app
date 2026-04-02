@@ -55,7 +55,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center gap-4">
         <Link href="/dashboard" className="text-gray-400 hover:text-kool-black transition-colors">
           <ArrowLeft className="w-5 h-5" />
@@ -65,7 +65,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
         </Link>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 py-10">
+      <main className="max-w-5xl mx-auto px-6 py-10 flex-1">
         {/* Event header */}
         <div className="bg-white border border-gray-100 rounded-sm p-8 mb-6">
           <div className="flex items-start justify-between mb-4">

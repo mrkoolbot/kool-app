@@ -68,7 +68,7 @@ export default function VendorsPage({ params }: { params: Promise<{ id: string }
   const confirmedCount = vendors.filter((v) => v.status === "confirmed" || v.status === "booked").length;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center gap-4">
         <Link href={`/events/${eventId}`} className="text-gray-400 hover:text-kool-black">
           <ArrowLeft className="w-5 h-5" />

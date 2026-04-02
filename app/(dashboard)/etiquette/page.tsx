@@ -618,7 +618,7 @@ export default function EtiquetteManualPage() {
   const dim = "#5A5A5A";
 
   return (
-    <div className="min-h-screen font-galano" style={{ backgroundColor: "#FFFFFF", color: ink }}>
+    <div className="min-h-screen font-galano flex flex-col" style={{ backgroundColor: "#FFFFFF", color: ink }}>
 
       {/* ── header ── */}
       <header

@@ -204,7 +204,7 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
   }).length;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Toast notifications */}
       <div className="fixed top-4 right-4 z-50 flex flex-col gap-2">
         {toasts.map((toast) => (

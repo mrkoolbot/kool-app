@@ -311,7 +311,7 @@ export default function CateringPage({ params }: { params: Promise<{ id: string 
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center gap-4">
         <Link href={`/events/${eventId}`} className="text-gray-400 hover:text-kool-black transition-colors">
           <ArrowLeft className="w-5 h-5" />
@@ -321,7 +321,7 @@ export default function CateringPage({ params }: { params: Promise<{ id: string 
         <span className="text-sm font-medium text-gray-500">catering calculator</span>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 py-10">
+      <main className="max-w-5xl mx-auto px-6 py-10 flex-1">
         <div className="flex items-start justify-between mb-8">
           <div>
             <h1 className="text-2xl font-black tracking-tight">catering calculator</h1>
