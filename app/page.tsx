@@ -330,7 +330,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="py-10 px-6 border-t border-gray-100">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col items-start gap-1.5">
             <Link href="/">
               <KoolLogo inverted={true} size="sm" />
             </Link>

@@ -59,7 +59,7 @@ export default function RootLayout({
       <body className={`${galanoGrotesque.variable} font-galano`}>
         {children}
         <footer style={{ borderTop: "1px solid #EBEBEB", padding: "24px 24px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "6px" }}>
             <Link href="/"><KoolLogo size="sm" /></Link>
             <span style={{ fontSize: "11px", color: "#999", letterSpacing: "0.04em" }}>intellectual property of the koolture group (TKG) — all rights reserved</span>
           </div>
