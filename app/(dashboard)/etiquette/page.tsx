@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { DashboardFooter } from "@/components/dashboard-footer";
 import { ArrowLeft, Download } from "lucide-react";
 import { KoolLogo } from "@/components/kool-logo";
 
@@ -1679,6 +1680,7 @@ export default function EtiquetteManualPage() {
         </blockquote>
       </footer>
 
+      <DashboardFooter />
     </div>
   );
 }

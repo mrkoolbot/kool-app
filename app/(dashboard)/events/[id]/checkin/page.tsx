@@ -1,5 +1,6 @@
 "use client";
 import { KoolLogo } from "@/components/kool-logo";
+import { DashboardFooter } from "@/components/dashboard-footer";
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
@@ -310,6 +311,7 @@ export default function CheckinPage({ params }: { params: Promise<{ id: string }
           </div>
         </div>
       )}
+      <DashboardFooter />
     </div>
   );
 }

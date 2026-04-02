@@ -1,5 +1,6 @@
 "use client";
 import { KoolLogo } from "@/components/kool-logo";
+import { DashboardFooter } from "@/components/dashboard-footer";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -224,6 +225,7 @@ export default function TimelinePage({ params }: { params: Promise<{ id: string 
           </div>
         )}
       </main>
+      <DashboardFooter />
     </div>
   );
 }

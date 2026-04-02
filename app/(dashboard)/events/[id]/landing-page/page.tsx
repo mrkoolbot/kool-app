@@ -1,5 +1,6 @@
 "use client";
 import { KoolLogo } from "@/components/kool-logo";
+import { DashboardFooter } from "@/components/dashboard-footer";
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
@@ -384,6 +385,7 @@ export default function LandingPageEditor({ params }: { params: Promise<{ id: st
           </Link>
         </div>
       </main>
+      <DashboardFooter />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 import { KoolLogo } from "@/components/kool-logo";
+import { DashboardFooter } from "@/components/dashboard-footer";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
@@ -627,6 +628,7 @@ function PreviewFormInteractive({ questions }: { questions: RsvpQuestion[] }) {
         );
       })}
       {questions.length === 0 && <p className="text-gray-400 text-sm">no questions enabled.</p>}
+      <DashboardFooter />
     </div>
   );
 }

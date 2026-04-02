@@ -1,4 +1,5 @@
 import { KoolLogo } from "@/components/kool-logo";
+import { DashboardFooter } from "@/components/dashboard-footer";
 import { PaulaVideoAvatar } from "@/components/paula-video";
 import Link from "next/link";
 import { Plus, Calendar, Users, CheckSquare, ArrowRight } from "lucide-react";
@@ -155,6 +156,7 @@ export default async function DashboardPage() {
           </Link>
         </div>
       </main>
+      <DashboardFooter />
     </div>
   );
 }

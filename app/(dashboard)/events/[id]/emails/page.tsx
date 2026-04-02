@@ -1,5 +1,6 @@
 "use client";
 import { KoolLogo } from "@/components/kool-logo";
+import { DashboardFooter } from "@/components/dashboard-footer";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
@@ -781,6 +782,7 @@ function EditEmailModal({
           </button>
         </div>
       </div>
+      <DashboardFooter />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { KoolLogo } from "@/components/kool-logo";
+import { DashboardFooter } from "@/components/dashboard-footer";
 import { DeleteEventButton } from "@/components/delete-event-button";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
@@ -212,6 +213,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
           <DeleteEventButton eventId={id} />
         </div>
       </main>
+      <DashboardFooter />
     </div>
   );
 }
