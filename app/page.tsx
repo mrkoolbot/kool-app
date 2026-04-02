@@ -238,19 +238,20 @@ export default function LandingPage() {
           {/* Premium */}
           <div className="border-2 border-kool-red rounded-sm p-8 relative">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-kool-red text-white text-xs font-bold px-3 py-1">most popular</div>
-            <div className="text-sm font-bold text-kool-red mb-2">premium</div>
-            <div className="text-4xl font-black mb-1">$25<span className="text-xl font-normal text-gray-400">/mo</span></div>
-            <p className="text-gray-500 text-sm mb-8">unlimited events + guests</p>
+            <div className="text-sm font-bold text-kool-red mb-2">pro</div>
+            <div className="text-4xl font-black mb-1">$29<span className="text-xl font-normal text-gray-400">/mo</span></div>
+            <p className="text-gray-500 text-xs mb-1">or $290/year — 2 months free</p>
+            <p className="text-gray-400 text-sm mb-6">unlimited events + guests</p>
             <ul className="space-y-2 text-sm text-gray-600 mb-8">
-              {["everything in free, plus:", "unlimited events", "unlimited guests", "smart timeline generator", "automated email sequences", "qr code check-in", "conditional rsvp logic", "custom event branding", "priority TKG consultation"].map(f => (
+              {["everything in free, plus:", "unlimited events", "unlimited guests", "smart timeline generator", "automated email sequences", "qr code check-in", "conditional rsvp logic", "custom event branding", "event etiquette manual", "priority TKG consultation"].map(f => (
                 <li key={f} className={`flex items-center gap-2 ${f === "everything in free, plus:" ? "text-gray-400 text-xs font-bold lowercase tracking-widest" : ""}`}>
                   {f !== "everything in free, plus:" && <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />}
                   {f}
                 </li>
               ))}
             </ul>
-            <Link href="/signup?plan=premium" className="block text-center bg-kool-red text-white py-3 font-bold hover:bg-kool-crimson transition-colors text-sm">
-              start premium
+            <Link href="/signup?plan=pro" className="block text-center bg-kool-red text-white py-3 font-bold hover:bg-kool-crimson transition-colors text-sm">
+              go pro
             </Link>
           </div>
           {/* Unlimited */}
@@ -259,7 +260,7 @@ export default function LandingPage() {
             <div className="text-4xl font-black mb-1">$79<span className="text-xl font-normal text-gray-400">/mo</span></div>
             <p className="text-gray-400 text-sm mb-8">unlimited events + guests</p>
             <ul className="space-y-2 text-sm text-gray-300 mb-8">
-              {["everything in premium, plus:", "event war room", "guest intelligence", "smart event blueprints", "post-event brain", "white-label rsvp pages", "dedicated support"].map(f => (
+              {["everything in pro, plus:", "event war room", "guest intelligence", "smart event blueprints", "post-event brain", "white-label rsvp pages", "dedicated support"].map(f => (
                 <li key={f} className={`flex items-center gap-2 ${f === "everything in premium, plus:" ? "text-gray-500 text-xs font-bold lowercase tracking-widest" : ""}`}>
                   {f !== "everything in premium, plus:" && <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />}
                   {f}
