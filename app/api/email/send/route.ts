@@ -169,7 +169,7 @@ function buildEmailHtml({
   <div style="max-width:560px;margin:40px auto;background:#ffffff;border-radius:4px;overflow:hidden;">
     <!-- Header -->
     <div style="background:#0a0a0a;padding:28px 40px;text-align:center;">
-      <img src="https://koolevents.app/kool-logo-white.png" alt="kool events" width="140" style="display:inline-block;border:0;max-width:60%;" />
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAADICAQAAABsHH9pAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAACYktHRAAAqo0jMgAAAAd0SU1FB+oDHg4ZMDsqfIYAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjYtMDMtMzBUMTQ6MjU6NDgrMDA6MDDa91inAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI2LTAzLTMwVDE0OjI1OjQ4KzAwOjAwq6rgGwAAACh0RVh0ZGF0ZTp0aW1lc3RhbXAAMjAyNi0wMy0zMFQxNDoyNTo0OCswMDowMPy/wcQAAABkdEVYdHN2Zzpjb21tZW50ACBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDMwLjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDIuMS4xIEJ1aWxkIDEpICBBhqyPAAAAsUlEQVR42u3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB8GXHmAAGhi4cUAAAAAElFTkSuQmCC" alt="kool events" width="140" style="display:inline-block;border:0;max-width:60%;" />
     </div>
     ${heroImageUrl ? `
     <!-- Hero Image -->
