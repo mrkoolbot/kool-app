@@ -198,12 +198,12 @@ function buildEmailHtml({
       </div>
       ${sequenceId !== "post_event" ? `
       <div style="text-align:center;margin:32px 0;">
-        <a href="${rsvpUrl}" style="background:${accentColor};color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:4px;font-weight:700;font-size:14px;display:inline-block;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto;"><tr><td style="border-radius:4px;background:${accentColor};"><a href="${rsvpUrl}" target="_blank" style="background:${accentColor};border-radius:4px;color:#ffffff;display:inline-block;font-size:14px;font-weight:700;padding:14px 32px;text-decoration:none;-webkit-text-fill-color:#ffffff;mso-padding-alt:0;">
           ${["invitation", "rsvp_reminder", "save_the_date"].includes(sequenceId) ? "rsvp now →" : "view event details →"}
-        </a>
+        </a></td></tr></table>
         ${landingPageUrl ? `
         <p style="text-align:center;margin-top:12px;">
-          <a href="${landingPageUrl}" style="color:${accentColor};font-size:13px;text-decoration:none;">view event page →</a>
+          <a href="${landingPageUrl}" style="color:${accentColor} !important;font-size:13px;text-decoration:none;">view event page →</a>
         </p>` : ""}
       </div>` : ""}
     </div>
@@ -211,7 +211,7 @@ function buildEmailHtml({
     <div style="height:3px;background:${accentColor};"></div>
     <!-- Footer -->
     <div style="border-top:1px solid #eee;padding:20px 40px;text-align:center;">
-      <p style="color:#999;font-size:12px;margin:0;">powered by <a href="https://koolevents.app" style="color:${accentColor};text-decoration:none;font-weight:600;">the koolture group (TKG)</a> · all rights reserved</p>
+      <p style="color:#999;font-size:12px;margin:0;">powered by <a href="https://koolevents.app" style="color:${accentColor} !important;text-decoration:none;font-weight:600;">the koolture group (TKG)</a> · all rights reserved</p>
     </div>
   </div>
 </body>
