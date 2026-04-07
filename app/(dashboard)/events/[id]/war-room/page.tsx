@@ -8,6 +8,7 @@ import { TimelinePanel } from "@/components/war-room/timeline-panel";
 import { StaffPanel } from "@/components/war-room/staff-panel";
 import { VendorPanel } from "@/components/war-room/vendor-panel";
 import { IncidentLog, IncidentLogHandle } from "@/components/war-room/incident-log";
+import { DashboardFooter } from "@/components/dashboard-footer";
 
 interface Event {
   id: string;
@@ -205,6 +206,7 @@ export default function WarRoomPage({ params }: { params: Promise<{ id: string }
       <div className="text-center py-3">
         <span className="text-white/15 text-xs">kool war room</span>
       </div>
+      <DashboardFooter />
     </div>
   );
 }

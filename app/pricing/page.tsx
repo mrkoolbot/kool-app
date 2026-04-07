@@ -34,7 +34,7 @@ const PREMIUM_FEATURES = [
 ];
 
 const UNLIMITED_FEATURES = [
-  "everything in premium, plus:",
+  "everything in pro, plus:",
   "event war room (day-of coordination)",
   "advanced guest intelligence",
   "multi-event dashboard",
@@ -116,7 +116,7 @@ export default function PricingPage() {
                 ))}
               </ul>
               <Link href="/signup" className="block w-full text-center border border-kool-black py-3 text-sm font-bold hover:bg-kool-black hover:text-white transition-colors">
-                get started free
+                Get started free
               </Link>
             </div>
 
@@ -152,7 +152,7 @@ export default function PricingPage() {
                 ))}
               </ul>
               <Link href="/signup?plan=pro" className="block w-full text-center bg-kool-red text-white py-3 text-sm font-bold hover:bg-red-700 transition-colors">
-                start pro
+                Start pro
                 <ArrowRight className="inline w-4 h-4 ml-2" />
               </Link>
             </div>
@@ -175,7 +175,7 @@ export default function PricingPage() {
               {billing === "annual" && <div className="mb-6" />}
               <ul className="space-y-3 mb-10">
                 {UNLIMITED_FEATURES.map((f) => (
-                  f === "everything in premium, plus:" ? (
+                  f === "everything in pro, plus:" ? (
                     <li key={f} className="text-xs font-bold text-gray-500 lowercase tracking-widest pt-1 pb-0 list-none">{f}</li>
                   ) : (
                     <li key={f} className="flex items-start gap-3 text-sm text-gray-300">
@@ -186,7 +186,7 @@ export default function PricingPage() {
                 ))}
               </ul>
               <Link href="/signup?plan=unlimited" className="block w-full text-center border border-white text-white py-3 text-sm font-bold hover:bg-white hover:text-obsidian transition-colors">
-                go unlimited
+                Go unlimited
               </Link>
             </div>
           </div>
@@ -201,7 +201,7 @@ export default function PricingPage() {
               href="mailto:us@thekoolturegroup.com?subject=KOOL Enterprise Waitlist"
               className="inline-flex items-center gap-2 border border-gray-400 text-gray-500 px-6 py-2.5 text-sm font-bold hover:border-kool-black hover:text-kool-black transition-colors"
             >
-              join waitlist <ArrowRight className="w-4 h-4" />
+              Join waitlist <ArrowRight className="w-4 h-4" />
             </a>
           </div>
 

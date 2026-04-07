@@ -124,7 +124,7 @@ export default function GuestsPage({ params }: { params: Promise<{ id: string }>
   async function addGuest(e: React.FormEvent) {
     e.preventDefault();
     if (plan === "free" && guests.length >= 25) {
-      alert("free plan is limited to 25 guests. upgrade to premium for unlimited guests.");
+      alert("free plan is limited to 25 guests. upgrade to pro for unlimited guests.");
       return;
     }
     const { data } = await supabase.from("guests").insert({ ...form, event_id: eventId }).select().single();

@@ -148,7 +148,7 @@ function SignupForm() {
             disabled={loading}
             className="w-full bg-kool-red text-white py-3.5 rounded-sm font-bold hover:bg-kool-crimson transition-colors disabled:opacity-50"
           >
-            {loading ? "creating account..." : isPaid ? `create account & go to payment` : "create free account"}
+            {loading ? "Creating account..." : isPaid ? `Create account & go to payment` : "Create free account"}
           </button>
         </form>
         <p className="text-center text-xs text-gray-400 mt-4">

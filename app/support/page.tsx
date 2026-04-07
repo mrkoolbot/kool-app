@@ -14,8 +14,8 @@ const FAQ = [
     a: "yes. the free plan is free forever — no credit card, no trial period, no bait and switch. you get one active event, up to 25 guests, smart checklists, budget tracking, vendor list, RSVP page, and run of show. upgrade when you need more.",
   },
   {
-    q: "what does the premium plan include?",
-    a: "premium unlocks unlimited events and guests, AI-powered checklists, the full vendor management suite, budget manager with payment tracking, run of show generator, the full invite template library, collaborative playlist (Spotify), calendar sync (Google + Apple), guest email reminders, a mood board creator, advanced event insights, and priority TKG consultation booking.",
+    q: "what does the pro plan include?",
+    a: "pro unlocks unlimited events and guests, smart timelines, automated email sequences, QR check-in, conditional RSVP logic, custom event branding, and priority TKG consultation booking. unlimited plan adds the war room, guest intelligence, white-label RSVP pages, and more.",
   },
   {
     q: "can I use KOOL Events for a wedding?",
@@ -30,7 +30,7 @@ const FAQ = [
     a: "from your event dashboard, go to the Guests section and tap 'share RSVP link.' this generates a personalized link you can send via text, email, or social media. guests can confirm attendance and add their details without needing a KOOL account.",
   },
   {
-    q: "can I cancel my premium subscription?",
+    q: "can I cancel my pro or unlimited subscription?",
     a: "yes, anytime. go to your account settings → subscription → cancel. you keep access until the end of your billing period. no cancellation fees.",
   },
   {
@@ -118,7 +118,7 @@ export default function SupportPage() {
             <BookOpen className="w-6 h-6 text-kool-red mb-3" />
             <h3 className="font-bold text-kool-black mb-1">pricing & plans</h3>
             <p className="text-sm text-gray-500 mb-2">
-              compare free vs. premium features.
+              Compare free vs. pro features.
             </p>
             <p className="text-xs text-kool-red font-semibold group-hover:underline">
               view plans →

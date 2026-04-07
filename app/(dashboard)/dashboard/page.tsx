@@ -29,11 +29,11 @@ export default async function DashboardPage() {
         <div className="flex items-center gap-4">
           {profile?.plan === "free" && (
             <Link href="/pricing" className="text-xs font-semibold text-kool-red border border-kool-red px-3 py-1.5 rounded-sm hover:bg-kool-red hover:text-white transition-colors">
-              upgrade to premium
+              Upgrade to pro
             </Link>
           )}
           {profile?.plan === "premium" && (
-            <span className="text-xs font-bold bg-kool-red text-white px-3 py-1.5 rounded-sm">premium</span>
+            <span className="text-xs font-bold bg-kool-red text-white px-3 py-1.5 rounded-sm">pro</span>
           )}
           <div className="w-8 h-8 bg-kool-black rounded-full flex items-center justify-center text-white text-xs font-bold">
             {(profile?.full_name || user.email || "U")[0].toUpperCase()}
@@ -63,7 +63,7 @@ export default async function DashboardPage() {
             href="/events/new"
             className="bg-kool-red text-white px-6 py-3 rounded-sm font-bold hover:bg-kool-crimson transition-colors inline-flex items-center gap-2"
           >
-            <Plus className="w-4 h-4" /> new event
+            <Plus className="w-4 h-4" /> New event
           </Link>
         </div>
 
@@ -77,7 +77,7 @@ export default async function DashboardPage() {
               href="/events/new"
               className="inline-flex items-center gap-2 bg-kool-red text-white px-8 py-4 rounded-sm font-bold hover:bg-kool-crimson transition-colors"
             >
-              <Plus className="w-4 h-4" /> create your first event
+              <Plus className="w-4 h-4" /> Create your first event
             </Link>
           </div>
         ) : (
@@ -152,7 +152,7 @@ export default async function DashboardPage() {
             target="_blank"
             className="shrink-0 bg-kool-red text-white px-6 py-3 rounded-sm font-bold hover:bg-kool-crimson transition-colors inline-flex items-center gap-2"
           >
-            hire TKG <ArrowRight className="w-4 h-4" />
+            Hire TKG <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </main>

@@ -18,7 +18,7 @@ export default function LandingPage() {
     {
       icon: <Users className="w-6 h-6 text-kool-red" />,
       title: "guest management & rsvp",
-      desc: "track every guest, send rsvp links, manage dietary needs. up to 25 guests free, unlimited on premium.",
+      desc: "track every guest, send rsvp links, manage dietary needs. up to 25 guests free, unlimited on pro.",
     },
     {
       icon: <DollarSign className="w-6 h-6 text-kool-red" />,
@@ -60,7 +60,7 @@ export default function LandingPage() {
             href="/signup"
             className="bg-kool-red text-white text-sm px-5 py-2.5 rounded-sm font-semibold hover:bg-kool-crimson transition-colors"
           >
-            get started free
+            Get started free
           </Link>
         </div>
       </nav>
@@ -104,13 +104,13 @@ export default function LandingPage() {
             href="/signup"
             className="w-full sm:w-auto bg-kool-red text-white px-10 py-5 rounded-sm font-bold text-lg hover:bg-kool-crimson transition-colors inline-flex items-center justify-center gap-2"
           >
-            start planning free <ArrowRight className="w-5 h-5" />
+            Start planning free <ArrowRight className="w-5 h-5" />
           </Link>
           <Link
             href="/pricing"
             className="w-full sm:w-auto border border-gray-200 text-kool-black px-10 py-5 rounded-sm font-semibold text-lg hover:border-kool-black transition-colors inline-flex items-center justify-center"
           >
-            see all features
+            See all features
           </Link>
         </div>
         <p className="text-gray-400 text-sm mt-6">free forever for up to 25 guests · no credit card required</p>
@@ -232,7 +232,7 @@ export default function LandingPage() {
               ))}
             </ul>
             <Link href="/signup" className="block text-center border border-kool-black text-kool-black py-3 font-semibold hover:bg-kool-black hover:text-white transition-colors text-sm">
-              get started free
+              Get started free
             </Link>
           </div>
           {/* Premium */}
@@ -251,7 +251,7 @@ export default function LandingPage() {
               ))}
             </ul>
             <Link href="/signup?plan=pro" className="block text-center bg-kool-red text-white py-3 font-bold hover:bg-kool-crimson transition-colors text-sm">
-              go pro
+              Go pro
             </Link>
           </div>
           {/* Unlimited */}
@@ -268,7 +268,7 @@ export default function LandingPage() {
               ))}
             </ul>
             <Link href="/signup?plan=unlimited" className="block text-center border border-white text-white py-3 font-bold hover:bg-white hover:text-kool-black transition-colors text-sm">
-              go unlimited
+              Go unlimited
             </Link>
           </div>
         </div>
@@ -315,14 +315,14 @@ export default function LandingPage() {
               target="_blank"
               className="w-full sm:w-auto bg-kool-red text-white px-10 py-5 rounded-sm font-bold text-lg hover:bg-kool-crimson transition-colors inline-flex items-center justify-center gap-2"
             >
-              hire TKG <ArrowRight className="w-5 h-5" />
+              Hire TKG <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
               href="https://thekoolturegroup.com"
               target="_blank"
               className="w-full sm:w-auto border border-white/20 text-white px-10 py-5 rounded-sm font-semibold text-lg hover:border-white transition-colors inline-flex items-center justify-center"
             >
-              learn more about TKG
+              Learn more about TKG
             </Link>
           </div>
         </div>

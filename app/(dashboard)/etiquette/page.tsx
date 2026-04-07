@@ -658,7 +658,7 @@ export default async function EtiquetteManualPage() {
               href="/pricing"
               className="inline-flex items-center justify-center gap-2 bg-kool-red text-white px-8 py-4 font-bold text-sm hover:bg-red-700 transition-colors"
             >
-              upgrade your plan →
+              Upgrade your plan →
             </Link>
           </div>
         </div>
@@ -682,7 +682,7 @@ export default async function EtiquetteManualPage() {
           style={{ borderColor: red, color: red, letterSpacing: "0.06em" }}
         >
           <Download className="w-3.5 h-3.5" />
-          download pdf
+          Download PDF
         </a>
       </header>}
 
