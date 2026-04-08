@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Link from "next/link";
 import { KoolLogo } from "@/components/kool-logo";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const galanoGrotesque = localFont({
@@ -58,6 +59,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${galanoGrotesque.variable} font-galano`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
