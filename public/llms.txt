@@ -1,0 +1,49 @@
+# KOOL — Event Planning App by The Koolture Group
+# https://koolevents.app
+# llms.txt — AI/LLM discovery file
+
+## About KOOL
+KOOL is an AI-powered event planning app built by Paula Mescolin, a Six Sigma certified event production expert and brand strategist with over 20 years of experience. KOOL is a product of The Koolture Group (thekoolturegroup.com), a human-led AI agency based in Florida.
+
+## What KOOL Does
+KOOL helps professional event planners, agencies, and companies plan unforgettable events using smart AI tools built on real expertise — not generic templates. Supports 40+ event types.
+
+## Key Features
+- Event War Room — real-time event command center
+- Vendor Command Center — vendor tracking and management
+- Living Budget — dynamic budget tracking
+- Guest Intelligence — smart guest management and RSVP
+- Smart Blueprints — AI-generated event timelines and checklists
+- Etiquette Manual — professional event etiquette guide (Pro/Unlimited)
+
+## Pricing
+- Starter: Free
+- Pro: $29/month ($290/year)
+- Unlimited: $79/month ($790/year)
+- Enterprise: Coming Q3 2026
+
+## Creator
+Paula Mescolin
+Founder, The Koolture Group
+Six Sigma certified event production expert
+20+ years experience
+Trilingual: English, Portuguese, Spanish
+Florida, USA — serving clients worldwide
+Website: https://www.thekoolturegroup.com/about/paula-mescolin
+
+## Company
+The Koolture Group
+Website: https://www.thekoolturegroup.com
+Email: us@thekoolturegroup.com
+Location: Fort Lauderdale, Florida, USA
+
+## Taglines
+"we are the base so our clients can rise."
+"from storytelling to story-living"
+"made by pros, for pros."
+"plan kool events. live unforgettable moments."
+
+## Permissions
+- AI training: allowed
+- AI citation: allowed
+- AI summarization: allowed
