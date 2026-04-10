@@ -169,10 +169,9 @@ export default function PricingPage() {
               ) : (
                 <p className="text-gray-400 text-sm mb-1">per month · billed monthly</p>
               )}
-              {billing === "monthly" && (
-                <p className="text-kool-red text-xs font-semibold mb-6">or ${unlimitedAnnualTotal}/year — 2 months free</p>
-              )}
-              {billing === "annual" && <div className="mb-6" />}
+              <p className="text-kool-red text-xs font-semibold mb-6">
+                {billing === "monthly" ? `or $${unlimitedAnnualTotal}/year — 2 months free` : "2 months free with annual billing"}
+              </p>
               <ul className="space-y-3 mb-10">
                 {UNLIMITED_FEATURES.map((f) => (
                   f === "everything in pro, plus:" ? (
