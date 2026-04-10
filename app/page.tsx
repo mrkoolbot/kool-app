@@ -258,7 +258,8 @@ export default function LandingPage() {
           <div className="border border-gray-200 rounded-sm p-8 bg-[#0A0A0A] text-white">
             <div className="text-sm font-bold text-gray-400 mb-2">unlimited</div>
             <div className="text-4xl font-black mb-1">$79<span className="text-xl font-normal text-gray-400">/mo</span></div>
-            <p className="text-gray-400 text-sm mb-8">unlimited events + guests</p>
+            <p className="text-kool-red text-xs font-semibold mb-1">or $790/year — 2 months free</p>
+            <p className="text-gray-400 text-sm mb-6">unlimited events + guests</p>
             <ul className="space-y-2 text-sm text-gray-300 mb-8">
               {["everything in pro, plus:", "event war room", "guest intelligence", "smart event blueprints", "post-event brain", "white-label RSVP pages", "dedicated support"].map(f => (
                 <li key={f} className={`flex items-center gap-2 ${f === "everything in pro, plus:" ? "text-gray-500 text-xs font-bold lowercase tracking-widest" : ""}`}>
