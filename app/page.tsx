@@ -243,7 +243,7 @@ export default function LandingPage() {
             <p className="text-gray-500 text-xs mb-1">or $290/year — 2 months free</p>
             <p className="text-gray-400 text-sm mb-6">unlimited events + guests</p>
             <ul className="space-y-2 text-sm text-gray-600 mb-8">
-              {["everything in free, plus:", "unlimited events", "unlimited guests", "smart timeline generator", "automated email sequences", "qr code check-in", "conditional RSVP logic", "custom event branding", "event etiquette manual", "priority TKG consultation"].map(f => (
+              {["everything in free, plus:", "unlimited events", "unlimited guests", "smart timeline generator", "automated email sequences", "QR code check-in", "conditional RSVP logic", "custom event branding", "event etiquette manual", "priority TKG consultation"].map(f => (
                 <li key={f} className={`flex items-center gap-2 ${f === "everything in free, plus:" ? "text-gray-400 text-xs font-bold lowercase tracking-widest" : ""}`}>
                   {f !== "everything in free, plus:" && <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />}
                   {f}

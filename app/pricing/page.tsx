@@ -38,7 +38,7 @@ const UNLIMITED_FEATURES = [
   "event war room (day-of coordination)",
   "advanced guest intelligence",
   "multi-event dashboard",
-  "white-label rsvp pages",
+  "white-label RSVP pages",
   "post-event brain (after-action reports)",
   "vendor scorecard system",
   "smart event blueprints (ai templates)",
