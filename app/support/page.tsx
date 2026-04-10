@@ -15,7 +15,7 @@ const FAQ = [
   },
   {
     q: "what does the pro plan include?",
-    a: "pro unlocks unlimited events and guests, smart timelines, automated email sequences, QR check-in, conditional RSVP logic, custom event branding, and priority TKG consultation booking. unlimited plan adds the war room, guest intelligence, white-label RSVP pages, and more.",
+    a: "pro unlocks unlimited events and guests, smart timelines, automated email sequences, QR check-in, conditional RSVP logic, custom event branding, and event etiquette manual. unlimited plan adds the war room, guest intelligence, white-label RSVP pages, priority TKG consultation booking, and more.",
   },
   {
     q: "can I use KOOL Events for a wedding?",
