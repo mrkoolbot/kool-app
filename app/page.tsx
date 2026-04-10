@@ -175,7 +175,7 @@ export default function LandingPage() {
             },
             {
               number: "02",
-              title: "plan everything",
+              title: "plan with ease.",
               desc: "work through your smart checklist, manage vendors, track your budget, and build your day-of timeline — all in one place.",
             },
             {
