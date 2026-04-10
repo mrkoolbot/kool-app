@@ -17,8 +17,8 @@ export default function LandingPage() {
     },
     {
       icon: <Users className="w-6 h-6 text-kool-red" />,
-      title: "guest management & rsvp",
-      desc: "track every guest, send rsvp links, manage dietary needs. up to 25 guests free, unlimited on pro.",
+      title: "guest management & RSVP",
+      desc: "track every guest, send RSVP links, manage dietary needs. up to 25 guests free, unlimited on pro.",
     },
     {
       icon: <DollarSign className="w-6 h-6 text-kool-red" />,
@@ -181,7 +181,7 @@ export default function LandingPage() {
             {
               number: "03",
               title: "celebrate in style",
-              desc: "send beautiful rsvp links, coordinate your team with the run of show, and walk into your event knowing every detail is handled.",
+              desc: "send professional RSVP links, coordinate your team with the run of show, and walk into your event knowing every detail is handled.",
             },
           ].map((step) => (
             <div key={step.number} className="relative">
@@ -224,7 +224,7 @@ export default function LandingPage() {
             <div className="text-4xl font-black mb-1">$0</div>
             <p className="text-gray-500 text-sm mb-8">forever. no credit card.</p>
             <ul className="space-y-2 text-sm text-gray-600 mb-8">
-              {["1 active event", "up to 25 guests", "smart checklist (20+ categories)", "run of show / timeline", "budget tracker", "vendor management", "catering calculator", "public event landing page", "guest rsvp page"].map(f => (
+              {["1 active event", "up to 25 guests", "smart checklist (20+ categories)", "run of show / timeline", "budget tracker", "vendor management", "catering calculator", "public event landing page", "guest RSVP page"].map(f => (
                 <li key={f} className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-gray-200 flex-shrink-0" />
                   {f}
@@ -243,7 +243,7 @@ export default function LandingPage() {
             <p className="text-gray-500 text-xs mb-1">or $290/year — 2 months free</p>
             <p className="text-gray-400 text-sm mb-6">unlimited events + guests</p>
             <ul className="space-y-2 text-sm text-gray-600 mb-8">
-              {["everything in free, plus:", "unlimited events", "unlimited guests", "smart timeline generator", "automated email sequences", "qr code check-in", "conditional rsvp logic", "custom event branding", "event etiquette manual", "priority TKG consultation"].map(f => (
+              {["everything in free, plus:", "unlimited events", "unlimited guests", "smart timeline generator", "automated email sequences", "qr code check-in", "conditional RSVP logic", "custom event branding", "event etiquette manual", "priority TKG consultation"].map(f => (
                 <li key={f} className={`flex items-center gap-2 ${f === "everything in free, plus:" ? "text-gray-400 text-xs font-bold lowercase tracking-widest" : ""}`}>
                   {f !== "everything in free, plus:" && <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />}
                   {f}
@@ -260,7 +260,7 @@ export default function LandingPage() {
             <div className="text-4xl font-black mb-1">$79<span className="text-xl font-normal text-gray-400">/mo</span></div>
             <p className="text-gray-400 text-sm mb-8">unlimited events + guests</p>
             <ul className="space-y-2 text-sm text-gray-300 mb-8">
-              {["everything in pro, plus:", "event war room", "guest intelligence", "smart event blueprints", "post-event brain", "white-label rsvp pages", "dedicated support"].map(f => (
+              {["everything in pro, plus:", "event war room", "guest intelligence", "smart event blueprints", "post-event brain", "white-label RSVP pages", "dedicated support"].map(f => (
                 <li key={f} className={`flex items-center gap-2 ${f === "everything in pro, plus:" ? "text-gray-500 text-xs font-bold lowercase tracking-widest" : ""}`}>
                   {f !== "everything in pro, plus:" && <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />}
                   {f}

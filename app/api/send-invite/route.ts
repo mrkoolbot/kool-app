@@ -70,7 +70,7 @@ function buildEmailHtml(payload: InvitePayload): string {
       ${eventLocation ? `<div class="event-meta" style="margin-top: 6px;">${eventLocation}</div>` : ""}
     </div>
 
-    <a href="${rsvpUrl}" class="cta">rsvp now →</a>
+    <a href="${rsvpUrl}" class="cta">RSVP now →</a>
 
     <p class="footer-text">
       if the button doesn't work, copy and paste this link into your browser:<br />
