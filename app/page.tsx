@@ -243,7 +243,7 @@ export default function LandingPage() {
             <p className="text-gray-500 text-xs mb-1">or $290/year — 2 months free</p>
             <p className="text-gray-400 text-sm mb-6">unlimited events + guests</p>
             <ul className="space-y-2 text-sm text-gray-600 mb-8">
-              {["everything in free, plus:", "unlimited events", "unlimited guests", "smart timeline generator", "automated email sequences", "QR code check-in", "conditional RSVP logic", "custom event branding", "event etiquette manual", "priority TKG consultation"].map(f => (
+              {["everything in free, plus:", "unlimited events", "unlimited guests", "smart timeline generator", "automated email sequences", "QR code check-in", "conditional RSVP logic", "custom event branding", "event etiquette manual"].map(f => (
                 <li key={f} className={`flex items-center gap-2 ${f === "everything in free, plus:" ? "text-gray-400 text-xs font-bold lowercase tracking-widest" : ""}`}>
                   {f !== "everything in free, plus:" && <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />}
                   {f}
@@ -261,7 +261,7 @@ export default function LandingPage() {
             <p className="text-gray-400 text-sm mb-1">per month · billed monthly</p>
             <p className="text-kool-red text-xs font-semibold mb-6">or $790/year — 2 months free</p>
             <ul className="space-y-2 text-sm text-gray-300 mb-8">
-              {["everything in pro, plus:", "event war room (day-of coordination)", "advanced guest intelligence", "multi-event dashboard", "white-label RSVP pages", "post-event brain (after-action reports)", "vendor scorecard system", "smart event blueprints (AI templates)", "dedicated support", "event etiquette manual"].map(f => (
+              {["everything in pro, plus:", "event war room (day-of coordination)", "advanced guest intelligence", "multi-event dashboard", "white-label RSVP pages", "post-event brain (after-action reports)", "vendor scorecard system", "smart event blueprints (AI templates)", "dedicated support", "priority TKG consultation booking", "event etiquette manual"].map(f => (
                 <li key={f} className={`flex items-center gap-2 ${f === "everything in pro, plus:" ? "text-gray-500 text-xs font-bold lowercase tracking-widest" : ""}`}>
                   {f !== "everything in pro, plus:" && <span className="w-3 h-3 rounded-full bg-kool-red flex-shrink-0" />}
                   {f}

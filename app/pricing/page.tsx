@@ -29,7 +29,7 @@ const PREMIUM_FEATURES = [
   "custom event branding (colors + hero image)",
   "landing page auto-archive after 30 days",
   "catering + bar calculator (industry formula)",
-  "priority TKG consultation booking",
+
   "event etiquette manual",
 ];
 
@@ -43,6 +43,7 @@ const UNLIMITED_FEATURES = [
   "vendor scorecard system",
   "smart event blueprints (ai templates)",
   "dedicated support",
+  "priority TKG consultation booking",
   "event etiquette manual",
 ];
 
