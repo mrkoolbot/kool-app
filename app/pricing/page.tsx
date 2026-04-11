@@ -209,7 +209,7 @@ export default function PricingPage() {
           <div className="mt-12 bg-red-50 border border-kool-red/20 rounded-sm p-6 text-center">
             <p className="text-kool-red font-bold text-sm mb-1">exclusive to pro & unlimited</p>
             <p className="text-kool-black font-black text-xl mb-2">event etiquette manual</p>
-            <p className="text-gray-500 text-sm">a comprehensive guide to event planning etiquette — written by paula mescolin. included with every pro and unlimited plan.</p>
+            <p className="text-gray-500 text-sm">A comprehensive guide to event planning etiquette — written by Paula Mescolin. Included with every pro and unlimited plan.</p>
           </div>
         </div>
       </main>

@@ -8,32 +8,32 @@ export default function LandingPage() {
     {
       icon: <Calendar className="w-6 h-6 text-kool-red" />,
       title: "smart planning timelines",
-      desc: "auto-generated countdowns and task schedules built for your specific event type and date.",
+      desc: "Auto-generated countdowns and task schedules built for your specific event type and date.",
     },
     {
       icon: <CheckSquare className="w-6 h-6 text-kool-red" />,
       title: "expert checklists",
-      desc: "hundreds of tasks — organized by category, priority, and timeline. built from 20 years of real events.",
+      desc: "Hundreds of tasks — organized by category, priority, and timeline. Built from 20 years of real events.",
     },
     {
       icon: <Users className="w-6 h-6 text-kool-red" />,
       title: "guest management & RSVP",
-      desc: "track every guest, send RSVP links, manage dietary needs. up to 25 guests free, unlimited on pro.",
+      desc: "Track every guest, send RSVP links, manage dietary needs. Up to 25 guests free, unlimited on pro.",
     },
     {
       icon: <DollarSign className="w-6 h-6 text-kool-red" />,
       title: "budget tracker",
-      desc: "set your total budget, allocate by category, track estimated vs actual costs in real time.",
+      desc: "Set your total budget, allocate by category, track estimated vs actual costs in real time.",
     },
     {
       icon: <Clock className="w-6 h-6 text-kool-red" />,
       title: "vendor management",
-      desc: "track every vendor from first contact to payment. contracts, deposits, confirmations — all in one place.",
+      desc: "Track every vendor from first contact to payment. Contracts, deposits, confirmations — all in one place.",
     },
     {
       icon: <Star className="w-6 h-6 text-kool-red" />,
       title: "run of show builder",
-      desc: "build your day-of timeline minute by minute. assign tasks. coordinate like a pro.",
+      desc: "Build your day-of timeline minute by minute. Assign tasks. Coordinate like a pro.",
     },
   ];
 
@@ -96,8 +96,8 @@ export default function LandingPage() {
           </div>
         </div>
         <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
-          designed by a six sigma-certified brand strategist and internationally recognized event planning executive.
-          every checklist, timeline, and template is built from 20 years of real events.
+          Designed by a six sigma-certified brand strategist and internationally recognized event planning executive.
+          Every checklist, timeline, and template is built from 20 years of real events.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
@@ -113,7 +113,7 @@ export default function LandingPage() {
             See all features
           </Link>
         </div>
-        <p className="text-gray-400 text-sm mt-6">free forever for up to 25 guests · no credit card required</p>
+        <p className="text-gray-400 text-sm mt-6">Free forever for up to 25 guests · no credit card required</p>
 
         {/* App Store badges — coming soon */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
@@ -171,17 +171,17 @@ export default function LandingPage() {
             {
               number: "01",
               title: "create your event",
-              desc: "tell us the type, date, location, and guest count. kool instantly generates your personalized planning dashboard.",
+              desc: "Tell us the type, date, location, and guest count. KOOL instantly generates your personalized planning dashboard.",
             },
             {
               number: "02",
               title: "plan with ease.",
-              desc: "work through your smart checklist, manage vendors, track your budget, and build your day-of timeline — all in one place.",
+              desc: "Work through your smart checklist, manage vendors, track your budget, and build your day-of timeline — all in one place.",
             },
             {
               number: "03",
               title: "celebrate in style",
-              desc: "send professional RSVP links, coordinate your team with the run of show, and walk into your event knowing every detail is handled.",
+              desc: "Send professional RSVP links, coordinate your team with the run of show, and walk into your event knowing every detail is handled.",
             },
           ].map((step) => (
             <div key={step.number} className="relative">
@@ -303,11 +303,11 @@ export default function LandingPage() {
           </div>
 
           <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
-            kool was built by paula mescolin — brand strategist and founder of the koolture group.
+            KOOL was built by Paula Mescolin — brand strategist and founder of the koolture group.
             20 years of enterprise brand strategy and event planning for top tier clients.
           </p>
           <p className="text-white/60 text-lg mb-12">
-            for high-stakes events — corporate summits, executive galas, milestone celebrations
+            For high-stakes events — corporate summits, executive galas, milestone celebrations
             that build long-lasting memories and make an impact — <span className="text-white font-semibold">the koolture group team (TKG) can run the entire show.</span>
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
