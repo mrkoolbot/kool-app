@@ -1,5 +1,5 @@
 import { KoolLogo } from "@/components/kool-logo";
-
+import { RippleButton } from "@/components/ripple-button";
 import Link from "next/link";
 import { Calendar, CheckSquare, Users, DollarSign, Clock, Star, ArrowRight } from "lucide-react";
 
@@ -100,12 +100,12 @@ export default function LandingPage() {
           Every checklist, timeline, and template is built from 20 years of real events.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
+          <RippleButton
             href="/signup"
             className="w-full sm:w-auto bg-kool-red text-white px-10 py-5 rounded-sm font-bold text-lg hover:bg-kool-crimson transition-colors inline-flex items-center justify-center gap-2"
           >
             Start planning free <ArrowRight className="w-5 h-5" />
-          </Link>
+          </RippleButton>
           <Link
             href="/pricing"
             className="w-full sm:w-auto border border-gray-200 text-kool-black px-10 py-5 rounded-sm font-semibold text-lg hover:border-kool-black transition-colors inline-flex items-center justify-center"
