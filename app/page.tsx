@@ -46,9 +46,9 @@ export default function LandingPage() {
   return (
     <main id="main-content" className="min-h-screen bg-white text-kool-black">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-black tracking-tight text-kool-black">
-          <KoolLogo inverted={true} size="md" />
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 px-4 sm:px-6 py-3 flex items-center justify-between">
+        <Link href="/" className="flex-shrink-0">
+          <KoolLogo inverted={true} size="sm" />
         </Link>
         <div className="hidden md:flex items-center gap-8 text-sm text-gray-600">
           <Link href="/pricing" className="hover:text-kool-red transition-colors">pricing</Link>
