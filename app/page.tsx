@@ -96,7 +96,7 @@ export default function LandingPage() {
           </div>
         </div>
         <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
-          Designed by a six sigma-certified brand strategist and internationally recognized event planning executive.
+          Designed by a Six Sigma-certified brand strategist and internationally recognized event planning executive.
           Every checklist, timeline, and template is built from 20 years of real events.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -303,12 +303,12 @@ export default function LandingPage() {
           </div>
 
           <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
-            KOOL was built by Paula Mescolin — brand strategist and founder of the koolture group.
-            20 years of enterprise brand strategy and event planning for top tier clients.
+            KOOL was built by Paula Mescolin — brand strategist and founder of The Koolture Group.
+            20 years of enterprise brand strategy and event planning for top-tier clients.
           </p>
           <p className="text-white/60 text-lg mb-12">
             For high-stakes events — corporate summits, executive galas, milestone celebrations
-            that build long-lasting memories and make an impact — <span className="text-white font-semibold">the koolture group team (TKG) can run the entire show.</span>
+            that build long-lasting memories and make an impact — <span className="text-white font-semibold">The Koolture Group team (TKG) can run the entire show.</span>
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link

@@ -41,7 +41,7 @@ const UNLIMITED_FEATURES = [
   "white-label RSVP pages",
   "post-event brain (after-action reports)",
   "vendor scorecard system",
-  "smart event blueprints (ai templates)",
+  "smart event blueprints (AI templates)",
   "dedicated support",
   "priority TKG consultation booking",
   "event etiquette manual",
