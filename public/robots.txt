@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Block authenticated/private routes
+Disallow: /dashboard
+Disallow: /events/
+Disallow: /api/
+Disallow: /(auth)/
+Disallow: /(dashboard)/
+
+# Allow public pages
+Allow: /pricing
+Allow: /privacy
+Allow: /support
+Allow: /rsvp/
+
+Sitemap: https://koolevents.app/sitemap.xml
