@@ -217,4 +217,4 @@ export default function RootLayout({
     </html>
   );
 }
-// favicon-cache-bust: 1775983200
+// favicon-cache-bust: 1776182336
