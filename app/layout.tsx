@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   description:
     "made by pros, for pros. plan kool events. live unforgettable moments.",
   verification: {
-    google: "3ab2595fe4b3bbfd",
+    google: "7Uv1ZUrqJ2Lf4zboPbtbvr3ZxslAZkqtwRbrMDxi4so",
   },
   icons: {
     icon: [
