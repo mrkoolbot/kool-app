@@ -42,7 +42,27 @@ function SignupForm() {
     } else if (data.session) {
       if (isPaid) {
         // paid plan — redirect to Stripe checkout (welcome email sent by webhook after payment)
-        router.push(`/api/stripe/checkout?plan=${plan}&userId=${data.session.user.id}&email=${encodeURIComponent(email)}`);
+        try {
+          const response = await fetch("/api/stripe/create-checkout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              plan,
+              billing: "monthly",
+              userId: data.session.user.id,
+              email,
+            }),
+          });
+          const { url } = await response.json();
+          if (url) {
+            router.push(url);
+            return;
+          }
+        } catch (e) {
+          console.error("failed to create checkout session:", e);
+        }
+        setError("failed to redirect to payment. please try again.");
+        setLoading(false);
       } else {
         // starter — send welcome email and go to dashboard
         try {
